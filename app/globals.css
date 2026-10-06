@@ -1,47 +1,58 @@
 @import "tailwindcss";
 
 /*
-  Design system: institutional / editorial.
-  Paper, ink and one deep forest green; copper used only for small marks and links.
-  Hairline rules and typography carry the hierarchy: no shadows, glass or gradients.
-  TODO: align with the final institutional brand colours.
+  Design system: friendly study companion.
+  Warm white canvas, deep teal primary, amber for highlights, green for "got it".
+  Each subject has its own restrained hue (see content/learn/subjects.ts).
+  TODO: align with the final brand colours.
 */
 :root {
-  --background: #f6f1e6;
-  --paper: #fbf8f1;
-  --foreground: #1c1c1a;
-  --muted: #ebe4d3;
-  --muted-foreground: #54514a;
-  --border: #d6cdb8;
-  --rule: #1c1c1a;
-  --ring: #1f3d36;
-  --primary: #1f3d36;
-  --primary-foreground: #f6f1e6;
-  --accent: #8a4f26;
-  --destructive: #a1291c;
-  --success: #2f6b3a;
-  --radius: 2px;
+  --background: #fbfaf6;
+  --surface: #ffffff;
+  --foreground: #1d2528;
+  --muted: #f1efe8;
+  --muted-foreground: #576166;
+  --border: #e3dfd3;
+  --ring: #0b5d63;
+  --primary: #0b5d63;
+  --primary-dark: #083f44;
+  --primary-soft: #e0f0ef;
+  --primary-foreground: #ffffff;
+  --accent: #f0a92e;
+  --accent-soft: #fdf1d8;
+  --accent-text: #8a5a05;
+  --success: #226b45;
+  --success-soft: #e2f2e8;
+  --destructive: #b4382c;
+  --destructive-soft: #fbe6e3;
+  --radius: 0.75rem;
+  --shadow-sm: 0 1px 2px rgb(29 37 40 / 0.05), 0 2px 8px -2px rgb(29 37 40 / 0.07);
+  --shadow-md: 0 2px 4px rgb(29 37 40 / 0.05), 0 12px 28px -10px rgb(29 37 40 / 0.18);
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-paper: var(--paper);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-ring: var(--ring);
   --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-soft: var(--primary-soft);
   --color-primary-foreground: var(--primary-foreground);
   --color-accent: var(--accent);
-  --color-destructive: var(--destructive);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-text: var(--accent-text);
   --color-success: var(--success);
-  --font-sans: var(--font-source-sans), system-ui, sans-serif;
-  --font-display: var(--font-newsreader), Georgia, serif;
-}
-
-@view-transition {
-  navigation: auto;
+  --color-success-soft: var(--success-soft);
+  --color-destructive: var(--destructive);
+  --color-destructive-soft: var(--destructive-soft);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --font-sans: var(--font-figtree), system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-figtree), system-ui, sans-serif;
 }
 
 @layer base {
@@ -50,13 +61,13 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 5rem;
   }
   body {
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
-    font-size: 1.0625rem;
+    font-size: 1rem;
     line-height: 1.6;
     text-rendering: optimizeLegibility;
   }
@@ -64,7 +75,7 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: -0.02em;
     text-wrap: balance;
   }
@@ -72,8 +83,7 @@
     text-wrap: pretty;
   }
   ::selection {
-    background: var(--primary);
-    color: var(--primary-foreground);
+    background: var(--accent-soft);
   }
 }
 
@@ -81,31 +91,31 @@
   .container-page {
     margin-inline: auto;
     width: 100%;
-    max-width: 78rem;
-    padding-inline: 1.25rem;
+    max-width: 74rem;
+    padding-inline: 1rem;
   }
   @media (min-width: 640px) {
     .container-page {
-      padding-inline: 2.5rem;
+      padding-inline: 2rem;
     }
   }
-  /* Small-caps label used for section marks and metadata. */
+  /* Small section tag. */
   .label {
     font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--primary);
   }
   .on-dark .label {
-    color: #d9a77c;
+    color: #fbd38d;
   }
   .link-underline {
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 4px;
-    transition: text-decoration-color 0.2s ease;
     text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+    transition: text-decoration-color 0.2s ease;
   }
   .link-underline:hover {
     text-decoration-color: currentColor;
@@ -113,20 +123,49 @@
   .tnum {
     font-variant-numeric: tabular-nums lining-nums;
   }
+  /* Worked maths: unicode symbols set in a serif face so x², √ and ± read clearly. */
+  .math {
+    font-family: "Cambria Math", Cambria, "Times New Roman", Georgia, serif;
+    font-size: 1.15em;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .panel {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .pressable {
+    transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .pressable:hover {
+    border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+  }
+  .pressable:active {
+    transform: translateY(1px);
+  }
+  .scroll-none {
+    scrollbar-width: none;
+  }
+  .scroll-none::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-/* Photographs fade in once, quietly. */
-@keyframes photo-in {
+@keyframes step-in {
   from {
     opacity: 0;
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
+    transform: none;
   }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .photo-in {
-    animation: photo-in 0.7s ease-out both;
+  .step-in {
+    animation: step-in 0.28s ease-out both;
   }
 }
 
@@ -134,7 +173,7 @@
   html {
     scroll-behavior: auto;
   }
-  @view-transition {
-    navigation: none;
+  .pressable:active {
+    transform: none;
   }
 }

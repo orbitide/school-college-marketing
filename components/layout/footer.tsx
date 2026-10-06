@@ -1,51 +1,51 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/layout/wordmark";
-import { nav, site } from "@/content/site";
+import { institutionNav, site } from "@/content/site";
 
-const legal = [
+const learn = [
+  { href: "/ask", label: "Ask a question" },
+  { href: "/questions", label: "Search questions" },
+  { href: "/subjects", label: "Subjects" },
+  { href: "/practice", label: "Practice" },
+  { href: "/dashboard", label: "My learning" },
+] as const;
+
+const company = [
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms of Service" },
 ] as const;
 
+function Column({ title, items }: { title: string; items: readonly { href: string; label: string }[] }) {
+  return (
+    <nav aria-label={title}>
+      <h2 className="text-sm font-semibold">{title}</h2>
+      <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+        {items.map((i) => (
+          <li key={i.href}>
+            <Link href={i.href} className="hover:text-foreground hover:underline">{i.label}</Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
 export function Footer() {
   return (
-    <footer className="on-dark bg-[#16231f] text-primary-foreground/80">
-      <div className="container-page grid gap-12 py-16 lg:grid-cols-12">
-        <div className="lg:col-span-5">
-          <Wordmark inverse />
-          <p className="mt-5 max-w-sm font-display text-xl italic leading-snug text-primary-foreground">{site.tagline}</p>
+    <footer className="mb-16 border-t bg-muted/50 md:mb-0">
+      <div className="container-page grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="lg:col-span-2">
+          <Wordmark />
+          <p className="mt-3 max-w-xs text-sm text-muted-foreground">{site.tagline}</p>
         </div>
-        <nav aria-label="Footer" className="lg:col-span-3 lg:col-start-7">
-          <h2 className="label">Explore</h2>
-          <ul className="mt-4 space-y-2.5">
-            {[...nav, { href: "/demo", label: "Book a demonstration" }].map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="link-underline">{item.label}</Link>
-              </li>
-            ))}
-            <li>
-              <a href={`${site.appUrl}/login`} className="link-underline">Parent and student portal</a>
-            </li>
-          </ul>
-        </nav>
-        <div className="lg:col-span-3">
-          <h2 className="label">Contact</h2>
-          <ul className="mt-4 space-y-2.5">
-            <li><a href={`mailto:${site.email}`} className="link-underline">{site.email}</a></li>
-            <li>{site.phone}</li>
-            <li>{site.address}</li>
-          </ul>
-        </div>
+        <Column title="Learn" items={learn} />
+        <Column title="For institutions" items={institutionNav} />
+        <Column title="Company" items={company} />
       </div>
-      <div className="border-t border-primary-foreground/15">
-        <div className="container-page flex flex-col gap-2 py-6 text-sm text-primary-foreground/60 sm:flex-row sm:justify-between">
-          <p>&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
-          <ul className="flex gap-6">
-            {legal.map((item) => (
-              <li key={item.href}><Link href={item.href} className="link-underline">{item.label}</Link></li>
-            ))}
-          </ul>
-        </div>
+      <div className="border-t">
+        <p className="container-page py-5 text-sm text-muted-foreground">&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
       </div>
     </footer>
   );

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { FinalCta } from "@/components/home/final-cta";
-import { PageHero } from "@/components/editorial/page-hero";
-import { PhotoSlot } from "@/components/editorial/photo-slot";
+import { FinalCta } from "@/components/marketing/final-cta";
+import { PageHero } from "@/components/marketing/page-hero";
+import { PhotoSlot } from "@/components/marketing/photo-slot";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -37,7 +37,7 @@ export default function AboutPage() {
           <ol className="border-t-2 border-foreground lg:col-span-5">
             {values.map((v, i) => (
               <li key={v.title} className="grid grid-cols-[3rem_1fr] border-b py-6">
-                <span className="tnum font-display text-lg text-accent">{String(i + 1).padStart(2, "0")}</span>
+                <span className="tnum font-display text-lg text-primary">{String(i + 1).padStart(2, "0")}</span>
                 <div>
                   <h2 className="text-2xl">{v.title}</h2>
                   <p className="mt-1.5 text-muted-foreground">{v.text}</p>

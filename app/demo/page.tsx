@@ -22,7 +22,7 @@ export default function DemoPage() {
         <ul className="mt-8 space-y-3 border-t-2 border-foreground pt-6">
           {points.map((p) => (
             <li key={p} className="flex gap-2">
-              <Check className="mt-1 size-4 shrink-0 text-accent" aria-hidden />
+              <Check className="mt-1 size-4 shrink-0 text-primary" aria-hidden />
               {p}
             </li>
           ))}
