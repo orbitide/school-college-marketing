@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# School Management System: Marketing Site
 
-## Getting Started
+Marketing website for a school/college ERP for Bangladesh. The product itself lives at `app.[DOMAIN]`; this repo is the marketing site only.
 
-First, run the development server:
+**Stack:** Next.js (App Router), TypeScript (strict), Tailwind CSS v4, shadcn/ui-style components, lucide-react, zod. English only. Pages are static; client JS is limited to the mobile nav and demo form.
+
+## Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # then fill in values
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Other scripts: `npm run lint`, `npm run build`, `npm start`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical URL for metadata, sitemap, robots, JSON-LD |
+| `NEXT_PUBLIC_APP_URL` | Yes | Product app URL; "Start free trial" links to `/signup` here |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | No | Digits only, e.g. `8801XXXXXXXXX`. Button is hidden when empty |
+| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | No | Enables Plausible analytics. Script is not loaded when empty |
+| `LEAD_API_URL` | Yes (prod) | Backend endpoint; demo requests are POSTed here as JSON (server-side only) |
 
-## Learn More
+### Lead payload
 
-To learn more about Next.js, take a look at the following resources:
+`POST LEAD_API_URL` with `{ name, institution, studentCount, phone, email?, source: "marketing-site-demo" }`. Any non-2xx response shows the user a retry message. A hidden honeypot field silently drops bot submissions.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+app/            routes (/, /features, /pricing, /demo, /about, /contact, /privacy, /terms), sitemap, robots, OG image
+components/     layout/, home/, shared/, demo/, ui/ (shadcn-style Button)
+content/        typed content: site, features, pricing, faqs, testimonials
+lib/            lead schema (zod), notify stub, JSON-LD builders, utils
+public/screens/ placeholder screenshots (replace TODO-* files)
+```
 
-## Deploy on Vercel
+## Editing content
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Copy lives in `/content/*.ts`; no CMS. Search the repo for `TODO:` to find everything needing real input: brand name and domain, contact details, prices, testimonials and stats, legal text, screenshots.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notifications
+
+`lib/notify.ts` exports `notifyNewLead`, currently a logging stub. Add email, WhatsApp or Slack delivery there.
+
+## Adding shadcn components
+
+`components.json` is configured. Run `npx shadcn@latest add <component>`; components land in `components/ui`.
+
+## Deploy
+
+Any Next.js host (e.g. Vercel). Set the env vars above and run `npm run build`.
