@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Newsreader, Source_Sans_3 } from "next/font/google";
+import { Bricolage_Grotesque, Figtree } from "next/font/google";
 import { site } from "@/content/site";
 import { Footer } from "@/components/layout/footer";
+import { BottomNav } from "@/components/layout/main-nav";
 import { Header } from "@/components/layout/header";
 import { Analytics } from "@/components/shared/analytics";
 import { JsonLd } from "@/components/shared/json-ld";
@@ -9,17 +10,12 @@ import { organizationLd, softwareApplicationLd } from "@/lib/structured-data";
 import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 import "./globals.css";
 
-const sourceSans = Source_Sans_3({ variable: "--font-source-sans", subsets: ["latin"], display: "swap" });
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const figtree = Figtree({ variable: "--font-figtree", subsets: ["latin"], display: "swap" });
+const bricolage = Bricolage_Grotesque({ variable: "--font-bricolage", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: `${site.name} | School & College ERP for Bangladesh`, template: `%s | ${site.name}` },
+  title: { default: `${site.name} | Ask, solve and practise`, template: `%s | ${site.name}` },
   description: site.description,
   alternates: { canonical: "/" },
   openGraph: { type: "website", siteName: site.name, locale: "en_BD" },
@@ -28,8 +24,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${sourceSans.variable} ${newsreader.variable} antialiased`}>
-      <body className="flex min-h-dvh flex-col"><a
+    <html lang="en" className={`${figtree.variable} ${bricolage.variable} antialiased`}>
+      <body className="flex min-h-dvh flex-col">
+        <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
         >
@@ -40,6 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <Footer />
+        <BottomNav />
         <WhatsAppButton />
         <Analytics />
         <JsonLd data={organizationLd} />

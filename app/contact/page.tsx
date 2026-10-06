@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { PageHero } from "@/components/editorial/page-hero";
+import { PageHero } from "@/components/marketing/page-hero";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {

@@ -1,6 +1,6 @@
-# School Management System: Marketing Site
+# School Management System: Site
 
-Marketing website for a school/college ERP for Bangladesh. The product itself lives at `app.[DOMAIN]`; this repo is the marketing site only.
+A student study companion (ask, solve, practise, track progress) plus the marketing pages for the school/college ERP behind it. The student screens are a **front-end prototype with sample data**: nothing is sent to a backend, and new questions are matched to a small bank of worked examples. The ERP app itself lives at `app.[DOMAIN]`.
 
 **Stack:** Next.js (App Router), TypeScript (strict), Tailwind CSS v4, shadcn/ui-style components, lucide-react, zod. English only. Pages are static; client JS is limited to the mobile nav and demo form.
 
@@ -31,9 +31,9 @@ Other scripts: `npm run lint`, `npm run build`, `npm start`.
 ## Structure
 
 ```
-app/            routes (/, /features, /pricing, /demo, /about, /contact, /privacy, /terms), sitemap, robots, OG image
-components/     layout/, home/, shared/, demo/, ui/ (shadcn-style Button)
-content/        typed content: site, features, pricing, faqs, testimonials
+app/            routes: student (/, /ask, /questions, /subjects, /solve/[id], /practice, /dashboard), institutions (/institutions, /features, /pricing, /demo, /about, /contact, /privacy, /terms), sitemap, robots, OG image
+components/     app/ (student UI), marketing/ (institution pages), layout/, demo/, shared/, ui/
+content/        typed content: site, features, pricing, faqs, testimonials; learn/ (subjects, worked questions, practice sets, sample student)
 lib/            lead schema (zod), notify stub, JSON-LD builders, utils
 public/screens/ placeholder screenshots (replace TODO-* files)
 ```

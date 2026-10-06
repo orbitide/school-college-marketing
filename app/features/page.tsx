@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { FinalCta } from "@/components/home/final-cta";
-import { ModuleIndex } from "@/components/editorial/module-index";
-import { PageHero } from "@/components/editorial/page-hero";
+import { FinalCta } from "@/components/marketing/final-cta";
+import { ModuleIndex } from "@/components/marketing/module-index";
+import { PageHero } from "@/components/marketing/page-hero";
 
 export const metadata: Metadata = {
   title: "Features",

@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { FaqList } from "@/components/editorial/faq-list";
-import { PageHero } from "@/components/editorial/page-hero";
-import { Section } from "@/components/editorial/section";
-import { FinalCta } from "@/components/home/final-cta";
+import { FaqList } from "@/components/marketing/faq-list";
+import { PageHero } from "@/components/marketing/page-hero";
+import { Section } from "@/components/marketing/section";
+import { FinalCta } from "@/components/marketing/final-cta";
 import { plans } from "@/content/pricing";
 import { cn } from "@/lib/utils";
 
@@ -44,7 +44,7 @@ export default function PricingPage() {
                 <ul className="mb-8 mt-6 space-y-2.5 text-[0.9375rem]">
                   {plan.features.map((f) => (
                     <li key={f} className="flex gap-2.5">
-                      <Check className="mt-1 size-4 shrink-0 text-accent" aria-hidden />
+                      <Check className="mt-1 size-4 shrink-0 text-primary" aria-hidden />
                       {f}
                     </li>
                   ))}
