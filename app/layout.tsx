@@ -3,6 +3,7 @@ import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { site } from "@/content/site";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { Analytics } from "@/components/shared/analytics";
 import { JsonLd } from "@/components/shared/json-ld";
 import { organizationLd, softwareApplicationLd } from "@/lib/structured-data";
 import { WhatsAppButton } from "@/components/layout/whatsapp-button";
@@ -27,12 +28,19 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} ${jakarta.variable} antialiased`}>
-      <body className="flex min-h-dvh flex-col"><Header />
+      <body className="flex min-h-dvh flex-col"><a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+        >
+          Skip to content
+        </a>
+        <Header />
         <main id="main" className="flex-1">
           {children}
         </main>
         <Footer />
         <WhatsAppButton />
+        <Analytics />
         <JsonLd data={organizationLd} />
         <JsonLd data={softwareApplicationLd} />
       </body>
