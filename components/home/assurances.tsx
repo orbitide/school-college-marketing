@@ -1,23 +1,17 @@
-import { Section } from "@/components/shared/section";
+import { Section } from "@/components/editorial/section";
 import { assurances } from "@/content/home";
 
 export function Assurances() {
   return (
-    <Section
-      tone="dark"
-      eyebrow="Platform"
-      title="Reliable foundations for a trusted institution"
-      intro="Secure, simple and supported, so your staff can focus on teaching."
-    >
-      <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {assurances.map(({ icon: Icon, title, text }) => (
-          <li key={title} className="glass reveal rounded-2xl p-7 transition-colors hover:bg-white/12">
-            <Icon className="size-7 text-accent" aria-hidden />
-            <h3 className="mt-5 text-lg font-semibold">{title}</h3>
-            <p className="mt-2 text-sm text-white/70">{text}</p>
-          </li>
+    <Section tone="dark" layout="split" label="Foundations" title="Dependable and private" intro="So your staff can concentrate on teaching.">
+      <dl className="grid gap-x-12 border-t border-primary-foreground/40 sm:grid-cols-2">
+        {assurances.map((a) => (
+          <div key={a.title} className="border-b border-primary-foreground/20 py-6">
+            <dt className="font-display text-2xl">{a.title}</dt>
+            <dd className="mt-2 text-primary-foreground/75">{a.text}</dd>
+          </div>
         ))}
-      </ul>
+      </dl>
     </Section>
   );
 }

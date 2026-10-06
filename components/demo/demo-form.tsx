@@ -9,7 +9,7 @@ import { submitDemoRequest, type DemoState } from "@/app/demo/actions";
 const initial: DemoState = { status: "idle" };
 
 const inputClass =
-  "mt-1 block h-11 w-full rounded-xl border bg-white px-4 text-base shadow-sm outline-none focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/30 aria-[invalid=true]:border-destructive";
+  "mt-1 block h-11 w-full rounded-[3px] border border-foreground/40 bg-paper px-3.5 text-base outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30 aria-[invalid=true]:border-destructive";
 
 function Field({
   id, label, error, optional, children,
@@ -36,16 +36,16 @@ export function DemoForm() {
 
   if (state.status === "success") {
     return (
-      <div role="status" className="card p-10 text-center">
-        <CheckCircle2 className="mx-auto size-10 text-success" aria-hidden />
-        <h2 className="mt-4 text-2xl font-semibold">Thank you! Request received.</h2>
+      <div role="status" className="border-t-2 border-foreground bg-paper p-10">
+        <CheckCircle2 className="size-8 text-success" aria-hidden />
+        <h2 className="mt-4 text-3xl">Thank you. Your request has been received.</h2>
         <p className="mt-2 text-muted-foreground">Our team will contact you shortly to schedule your demo.</p>
       </div>
     );
   }
 
   return (
-    <form action={action} noValidate className="card space-y-5 p-6 sm:p-9">
+    <form action={action} noValidate className="space-y-5 border-t-2 border-foreground bg-paper p-6 sm:p-9">
       <Field id="name" label="Your name" error={e.name}>
         <input id="name" name="name" autoComplete="name" required className={inputClass} {...aria("name")} />
       </Field>
@@ -78,10 +78,10 @@ export function DemoForm() {
           {state.message}
         </p>
       )}
-      <Button type="submit" size="lg" variant="accent" className="w-full" disabled={pending}>
-        {pending ? "Sending..." : "Book my demo"}
+      <Button type="submit" size="lg" className="w-full" disabled={pending}>
+        {pending ? "Sending..." : "Request my demonstration"}
       </Button>
-      <p className="text-center text-xs text-muted-foreground">We only use your details to arrange your demo.</p>
+      <p className="text-xs text-muted-foreground">We only use your details to arrange your demo.</p>
     </form>
   );
 }

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { FaqList } from "@/components/shared/faq-list";
-import { PageHero } from "@/components/shared/page-hero";
-import { Section } from "@/components/shared/section";
+import { FaqList } from "@/components/editorial/faq-list";
+import { PageHero } from "@/components/editorial/page-hero";
+import { Section } from "@/components/editorial/section";
 import { FinalCta } from "@/components/home/final-cta";
 import { plans } from "@/content/pricing";
 import { cn } from "@/lib/utils";
@@ -19,46 +19,47 @@ export default function PricingPage() {
   return (
     <>
       <PageHero
-        eyebrow="Pricing"
+        label="Pricing"
         title="Pricing that fits your institution"
-        intro="Pick the plan for your student count. Every plan includes onboarding support."
+        intro="Choose the plan for your student count. Every plan includes onboarding support."
       />
-      <section aria-label="Plans" className="py-16 sm:py-24">
-        <div className="container-page grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {plans.map((plan) => (
-            <article
-              key={plan.name}
-              className={cn("card flex flex-col p-7", plan.highlighted && "border-accent bg-gradient-to-b from-white to-[#fbf3e0] shadow-lift lg:-translate-y-2")}
-            >
-              {plan.highlighted && <p className="eyebrow mb-2">Most popular</p>}
-              <h2 className="text-xl font-semibold">{plan.name}</h2>
-              <p className="mt-1 text-sm text-muted-foreground">{plan.students}</p>
-              <p className="mt-4 font-display text-3xl font-semibold">
-                {plan.price === null ? "Contact us" : <>৳ {plan.price}</>}
-              </p>
-              <p className="text-sm text-muted-foreground">{plan.note}</p>
-              <ul className="mb-7 mt-5 space-y-2 text-sm">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex gap-2">
-                    <Check className="mt-0.5 size-4 shrink-0 text-gold-text" aria-hidden />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Button asChild className="mt-auto" variant={plan.highlighted ? "accent" : "outline"}>
-                <Link href={plan.price === null ? "/contact" : "/demo"}>
-                  {plan.price === null ? "Contact us" : "Book a demo"}
-                </Link>
-              </Button>
-            </article>
-          ))}
-        </div>
-        <p className="container-page mt-6 text-center text-sm text-muted-foreground">
+      <section aria-label="Plans" className="py-14 sm:py-20">
+        <div className="container-page">
+          <div className="grid border-t-2 border-foreground sm:grid-cols-2 lg:grid-cols-4">
+            {plans.map((plan) => (
+              <article
+                key={plan.name}
+                className={cn(
+                  "flex flex-col border-b py-8 sm:px-6 sm:first:pl-0 lg:border-r lg:last:border-r-0 lg:last:pr-0",
+                  plan.highlighted && "bg-paper sm:px-6",
+                )}
+              >
+                <p className="label h-4">{plan.highlighted ? "Most chosen" : ""}</p>
+                <h2 className="mt-2 text-3xl">{plan.name}</h2>
+                <p className="mt-1 text-sm text-muted-foreground">{plan.students}</p>
+                <p className="mt-6 font-display text-4xl">
+                  {plan.price === null ? "Contact us" : <>&#2547; {plan.price}</>}
+                </p>
+                <p className="text-sm text-muted-foreground">{plan.note}</p>
+                <ul className="mb-8 mt-6 space-y-2.5 text-[0.9375rem]">
+                  {plan.features.map((f) => (
+                    <li key={f} className="flex gap-2.5">
+                      <Check className="mt-1 size-4 shrink-0 text-accent" aria-hidden />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <Button asChild className="mt-auto" variant={plan.highlighted ? "default" : "outline"}>
+                  <Link href={plan.price === null ? "/contact" : "/demo"}>{plan.price === null ? "Contact us" : "Book a demonstration"}</Link>
+                </Button>
+              </article>
+            ))}
+          </div>
           {/* TODO: confirm currency, billing period and any one-time setup fee. */}
-          Prices in BDT. Setup and training details are shared in your demo.
-        </p>
+          <p className="mt-6 text-sm text-muted-foreground">Prices in BDT. Setup and training details are shared in your demonstration.</p>
+        </div>
       </section>
-      <Section tone="muted" eyebrow="FAQ" title="Pricing questions">
+      <Section layout="split" label="Questions" title="Common questions">
         <FaqList />
       </Section>
       <FinalCta />

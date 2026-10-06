@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { FeatureCard } from "@/components/shared/feature-card";
-import { PageHero } from "@/components/shared/page-hero";
 import { FinalCta } from "@/components/home/final-cta";
-import { features } from "@/content/features";
+import { ModuleIndex } from "@/components/editorial/module-index";
+import { PageHero } from "@/components/editorial/page-hero";
 
 export const metadata: Metadata = {
   title: "Features",
@@ -14,15 +13,13 @@ export default function FeaturesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Features"
+        label="Features"
         title="Everything your institution needs, in one system"
         intro="Modules that work together, so your team enters data once and everyone stays informed."
       />
-      <section aria-label="Modules" className="py-16 sm:py-24">
-        <div className="container-page grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((f) => (
-            <FeatureCard key={f.slug} feature={f} detailed />
-          ))}
+      <section aria-label="Modules" className="py-14 sm:py-20">
+        <div className="container-page">
+          <ModuleIndex detailed />
         </div>
       </section>
       <FinalCta />

@@ -1,18 +1,17 @@
-import { Section } from "@/components/shared/section";
+import { Section } from "@/components/editorial/section";
 import { steps } from "@/content/home";
 
 export function HowItWorks() {
   return (
-    <Section eyebrow="Getting started" title="Up and running in three steps">
-      <ol className="relative mx-auto grid max-w-5xl gap-10 md:grid-cols-3 md:gap-8">
-        <span aria-hidden className="absolute left-0 right-0 top-6 hidden h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent md:block" />
+    <Section layout="split" label="Getting started" title="Up and running in three steps" className="bg-paper">
+      <ol className="border-t-2 border-foreground">
         {steps.map((s, i) => (
-          <li key={s.title} className="reveal relative text-center">
-            <span className="relative mx-auto flex size-12 items-center justify-center rounded-full bg-primary font-display text-lg font-semibold text-accent shadow-soft ring-8 ring-background">
-              {i + 1}
-            </span>
-            <h3 className="mt-5 text-xl font-semibold">{s.title}</h3>
-            <p className="mx-auto mt-2 max-w-xs text-muted-foreground">{s.text}</p>
+          <li key={s.title} className="grid grid-cols-[3.5rem_1fr] gap-4 border-b py-6 sm:grid-cols-[5rem_1fr]">
+            <span className="tnum font-display text-5xl leading-none text-accent">{i + 1}</span>
+            <div>
+              <h3 className="text-2xl">{s.title}</h3>
+              <p className="mt-1.5 text-muted-foreground">{s.text}</p>
+            </div>
           </li>
         ))}
       </ol>

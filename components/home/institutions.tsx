@@ -1,23 +1,22 @@
-import { Section } from "@/components/shared/section";
+import { Section } from "@/components/editorial/section";
 import { institutionTypes } from "@/content/home";
 
 export function Institutions() {
   return (
     <Section
-      tone="muted"
-      eyebrow="Built for every level"
-      title="One platform, from first grade to college"
-      intro="Whatever your size or stage, the system adapts to how your institution already works."
+      layout="split"
+      label="Who it is for"
+      title="From first grade to college"
+      intro="The same system adapts to the size and stage of your institution."
     >
-      <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {institutionTypes.map(({ icon: Icon, name, text }) => (
-          <li key={name} className="card card-hover reveal p-7">
-            <Icon className="size-7 text-gold-text" aria-hidden />
-            <h3 className="mt-5 text-lg font-semibold">{name}</h3>
-            <p className="mt-2 text-sm text-muted-foreground">{text}</p>
-          </li>
+      <dl className="border-t-2 border-foreground">
+        {institutionTypes.map((t) => (
+          <div key={t.name} className="grid gap-1 border-b py-5 sm:grid-cols-[15rem_1fr] sm:gap-8 sm:py-6">
+            <dt className="font-display text-2xl">{t.name}</dt>
+            <dd className="text-muted-foreground">{t.covers}</dd>
+          </div>
         ))}
-      </ul>
+      </dl>
     </Section>
   );
 }

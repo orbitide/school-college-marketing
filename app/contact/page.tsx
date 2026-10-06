@@ -1,45 +1,40 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PageHero } from "@/components/shared/page-hero";
+import { PageHero } from "@/components/editorial/page-hero";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Talk to the ${site.name} team by phone, email or WhatsApp.`,
+  description: `Talk to the ${site.name} team by telephone, email or WhatsApp.`,
   alternates: { canonical: "/contact" },
 };
 
 const items = [
-  { icon: Phone, label: "Phone", value: site.phone, href: `tel:${site.phone.replace(/\s/g, "")}` },
-  { icon: Mail, label: "Email", value: site.email, href: `mailto:${site.email}` },
-  { icon: MapPin, label: "Address", value: site.address },
+  { label: "Telephone", value: site.phone, href: `tel:${site.phone.replace(/\s/g, "")}` },
+  { label: "Email", value: site.email, href: `mailto:${site.email}` },
+  { label: "Address", value: site.address },
 ] as const;
 
 export default function ContactPage() {
   return (
     <>
-      <PageHero eyebrow="Contact" title="Contact us" intro="Questions about the system, pricing or multi-branch plans? We are happy to help." />
-      <div className="container-page max-w-2xl py-16 sm:py-24">
-        <ul className="space-y-4">
-          {items.map(({ icon: Icon, label, value, ...rest }) => (
-            <li key={label} className="card card-hover flex items-center gap-4 p-5">
-              <span className="flex size-11 items-center justify-center rounded-full bg-secondary text-primary"><Icon className="size-5" aria-hidden /></span>
-              <div>
-                <p className="text-sm text-muted-foreground">{label}</p>
-                {"href" in rest ? (
-                  <a href={rest.href} className="font-semibold hover:underline">{value}</a>
-                ) : (
-                  <p className="font-semibold">{value}</p>
-                )}
-              </div>
-            </li>
+      <PageHero label="Contact" title="Contact us" intro="Questions about the system, pricing or multi-branch plans? We are happy to help." />
+      <div className="container-page grid gap-12 py-14 sm:py-20 lg:grid-cols-12">
+        <dl className="border-t-2 border-foreground lg:col-span-7">
+          {items.map((item) => (
+            <div key={item.label} className="grid gap-1 border-b py-6 sm:grid-cols-[10rem_1fr]">
+              <dt className="label self-center">{item.label}</dt>
+              <dd className="font-display text-2xl">
+                {"href" in item ? <a href={item.href} className="link-underline">{item.value}</a> : item.value}
+              </dd>
+            </div>
           ))}
-        </ul>
-        <div className="mt-8 text-center">
-          <Button asChild size="lg" variant="accent">
-            <Link href="/demo">Book a demo</Link>
+        </dl>
+        <div className="lg:col-span-4 lg:col-start-9">
+          <p className="text-lg text-muted-foreground">The quickest way to see the system is a short demonstration with your own classes and fee structure.</p>
+          <Button asChild size="lg" className="mt-6">
+            <Link href="/demo">Book a demonstration</Link>
           </Button>
         </div>
       </div>

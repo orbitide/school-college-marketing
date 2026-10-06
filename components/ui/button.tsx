@@ -5,16 +5,15 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "group inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-semibold transition-all duration-200 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-[3px] text-[0.9375rem] font-semibold transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow-soft hover:bg-ink-soft hover:shadow-lift",
-        accent: "bg-accent text-accent-foreground shadow-soft hover:brightness-110 hover:shadow-lift",
-        outline: "border border-primary/25 bg-white/60 text-primary hover:border-primary hover:bg-white",
-        glass: "glass text-white hover:bg-white/15",
+        default: "bg-primary text-primary-foreground hover:bg-[#2a5247]",
+        outline: "border border-primary text-primary hover:bg-primary hover:text-primary-foreground",
+        inverse: "bg-background text-primary hover:bg-white",
+        "outline-inverse": "border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10",
         ghost: "text-foreground hover:bg-muted",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/70",
       },
       size: {
         default: "h-10 px-5",

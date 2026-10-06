@@ -1,56 +1,47 @@
 @import "tailwindcss";
 
 /*
-  Design system: "premium academic".
-  Ivory canvas, deep navy ink, restrained gold accent. Serif display + clean sans body.
-  TODO: align with final brand colours/logo.
+  Design system: institutional / editorial.
+  Paper, ink and one deep forest green; copper used only for small marks and links.
+  Hairline rules and typography carry the hierarchy: no shadows, glass or gradients.
+  TODO: align with the final institutional brand colours.
 */
 :root {
-  --background: #fbf9f4;
-  --foreground: #0c1b33;
-  --ink: #0a1a33;
-  --ink-soft: #12294d;
-  --muted: #f3efe4;
-  --muted-foreground: #4a5568;
-  --border: #e6e0d0;
-  --ring: #2f5aa8;
-  --primary: #14305e;
-  --primary-foreground: #ffffff;
-  --secondary: #e8eef8;
-  --secondary-foreground: #14305e;
-  --accent: #c8962e;
-  --accent-foreground: #0a1a33;
-  --gold-text: #8a6414;
-  --success: #15803d;
-  --destructive: #b42318;
-  --radius: 1rem;
-  --shadow-soft: 0 1px 2px rgb(10 26 51 / 0.04), 0 8px 24px -8px rgb(10 26 51 / 0.10);
-  --shadow-lift: 0 2px 4px rgb(10 26 51 / 0.05), 0 20px 40px -12px rgb(10 26 51 / 0.22);
+  --background: #f6f1e6;
+  --paper: #fbf8f1;
+  --foreground: #1c1c1a;
+  --muted: #ebe4d3;
+  --muted-foreground: #54514a;
+  --border: #d6cdb8;
+  --rule: #1c1c1a;
+  --ring: #1f3d36;
+  --primary: #1f3d36;
+  --primary-foreground: #f6f1e6;
+  --accent: #8a4f26;
+  --destructive: #a1291c;
+  --success: #2f6b3a;
+  --radius: 2px;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-paper: var(--paper);
   --color-foreground: var(--foreground);
-  --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-ring: var(--ring);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
   --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-gold-text: var(--gold-text);
-  --color-success: var(--success);
   --color-destructive: var(--destructive);
-  --radius-lg: var(--radius);
-  --shadow-soft: var(--shadow-soft);
-  --shadow-lift: var(--shadow-lift);
-  --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-display: var(--font-fraunces), Georgia, serif;
+  --color-success: var(--success);
+  --font-sans: var(--font-source-sans), system-ui, sans-serif;
+  --font-display: var(--font-newsreader), Georgia, serif;
+}
+
+@view-transition {
+  navigation: auto;
 }
 
 @layer base {
@@ -59,23 +50,30 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 5.5rem;
   }
   body {
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
     text-rendering: optimizeLegibility;
   }
   h1,
   h2,
   h3 {
     font-family: var(--font-display);
-    letter-spacing: -0.015em;
+    font-weight: 500;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
   p {
     text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
   }
 }
 
@@ -83,96 +81,60 @@
   .container-page {
     margin-inline: auto;
     width: 100%;
-    max-width: 76rem;
+    max-width: 78rem;
     padding-inline: 1.25rem;
   }
   @media (min-width: 640px) {
     .container-page {
-      padding-inline: 2rem;
+      padding-inline: 2.5rem;
     }
   }
-  .eyebrow {
+  /* Small-caps label used for section marks and metadata. */
+  .label {
     font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--gold-text);
+    color: var(--accent);
   }
-  .on-dark .eyebrow {
-    color: #e6bd62;
+  .on-dark .label {
+    color: #d9a77c;
   }
-  .card {
-    border-radius: 1.25rem;
-    border: 1px solid var(--border);
-    background: #fff;
-    box-shadow: var(--shadow-soft);
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  .link-underline {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.2s ease;
+    text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
   }
-  .card-hover:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lift);
-    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  .link-underline:hover {
+    text-decoration-color: currentColor;
   }
-  .glass {
-    background: rgb(255 255 255 / 0.08);
-    border: 1px solid rgb(255 255 255 / 0.16);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-  }
-  .bg-hero {
-    background:
-      radial-gradient(60rem 30rem at 85% -10%, rgb(200 150 46 / 0.22), transparent 60%),
-      radial-gradient(50rem 30rem at -10% 110%, rgb(47 90 168 / 0.45), transparent 60%),
-      linear-gradient(160deg, #0a1a33 0%, #12294d 100%);
-  }
-  .bg-grid {
-    background-image:
-      linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
-    background-size: 44px 44px;
-    mask-image: radial-gradient(ellipse at 70% 30%, #000 20%, transparent 75%);
+  .tnum {
+    font-variant-numeric: tabular-nums lining-nums;
   }
 }
 
-/* Scroll reveal: CSS-only (no client JS); content is always visible where unsupported. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .reveal {
-      animation: reveal-up linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 35%;
-    }
-  }
-}
-@keyframes reveal-up {
+/* Photographs fade in once, quietly. */
+@keyframes photo-in {
   from {
     opacity: 0;
-    transform: translateY(24px);
   }
   to {
     opacity: 1;
-    transform: none;
   }
 }
-
-@keyframes float-y {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-.float-slow {
-  animation: float-y 7s ease-in-out infinite;
+@media (prefers-reduced-motion: no-preference) {
+  .photo-in {
+    animation: photo-in 0.7s ease-out both;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .float-slow {
-    animation: none;
-  }
-  .card,
-  .card-hover:hover {
-    transition: none;
-    transform: none;
+  @view-transition {
+    navigation: none;
   }
 }

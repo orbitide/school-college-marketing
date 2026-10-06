@@ -1,5 +1,3 @@
-import { BookOpenCheck, Building2, GraduationCap, Landmark, Lock, Network, Smartphone, LifeBuoy, type LucideIcon } from "lucide-react";
-
 // TODO: confirm each claim below with the product team before launch.
 export const heroStats = [
   { value: "8", label: "core modules" },
@@ -14,19 +12,19 @@ export const pains = [
   { pain: "Parents keep calling", fix: "A parent portal and instant alerts answer questions before they are asked." },
 ] as const;
 
-export const institutionTypes: readonly { icon: LucideIcon; name: string; text: string }[] = [
-  { icon: BookOpenCheck, name: "Kindergarten & primary", text: "Simple daily attendance, fee tracking and parent updates for younger classes." },
-  { icon: GraduationCap, name: "Secondary schools", text: "Class and section management, exams, marksheets and result publishing." },
-  { icon: Landmark, name: "Colleges", text: "Admissions, group and subject handling, and board-ready result records." },
-  { icon: Building2, name: "Multi-branch groups", text: "One view across every campus, with a plan tailored to your group." },
-];
+export const institutionTypes = [
+  { name: "Kindergarten and primary", covers: "Daily attendance, fee tracking and short parent updates for younger classes." },
+  { name: "Secondary schools", covers: "Classes and sections, examinations, marksheets and result publishing." },
+  { name: "Colleges", covers: "Admissions, group and subject handling, and board-ready result records." },
+  { name: "Multi-branch groups", covers: "One view across every campus, on a plan tailored to your group." },
+] as const;
 
-export const assurances: readonly { icon: LucideIcon; title: string; text: string }[] = [
-  { icon: Smartphone, title: "Works on any phone", text: "Teachers and parents use a normal mobile browser. Nothing to install." },
-  { icon: Lock, title: "Role-based access", text: "Admins, teachers, accountants and parents each see only what they should." },
-  { icon: Network, title: "Multi-branch ready", text: "Run several campuses from one account with shared reporting." },
-  { icon: LifeBuoy, title: "Support you can reach", text: "Onboarding, staff training and help by phone and WhatsApp." },
-];
+export const assurances = [
+  { title: "Works on any phone", text: "Teachers and parents use a normal mobile browser. Nothing to install." },
+  { title: "Role-based access", text: "Admins, teachers, accountants and parents each see only what they should." },
+  { title: "Multi-branch ready", text: "Run several campuses from one account with shared reporting." },
+  { title: "Support you can reach", text: "Onboarding, staff training and help by phone and WhatsApp." },
+] as const;
 
 export const steps = [
   { title: "Book a demo", text: "We walk through the system using your institution's real needs." },
