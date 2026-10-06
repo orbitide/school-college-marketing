@@ -1,19 +1,16 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { site } from "@/content/site";
 
 export function CtaButtons({ inverse = false }: { inverse?: boolean }) {
   return (
-    <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
+    <div className="flex flex-col gap-3 sm:flex-row">
       <Button asChild size="lg" variant={inverse ? "inverse" : "default"}>
-        <Link href="/demo">
-          Book a demonstration <ArrowRight />
-        </Link>
+        <Link href="/demo">Book a demo <ArrowRight /></Link>
       </Button>
-      <a href={`${site.appUrl}/signup`} className="link-underline text-base font-semibold">
-        Start a free trial
-      </a>
+      <Button asChild size="lg" variant={inverse ? "outline-inverse" : "outline"}>
+        <Link href="/app/dashboard">Try the demo app</Link>
+      </Button>
     </div>
   );
 }

@@ -4,12 +4,12 @@ import { useActionState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { studentRanges } from "@/lib/lead";
-import { submitDemoRequest, type DemoState } from "@/app/demo/actions";
+import { submitDemoRequest, type DemoState } from "@/app/(site)/demo/actions";
 
 const initial: DemoState = { status: "idle" };
 
 const inputClass =
-  "mt-1 block h-11 w-full rounded-[3px] border border-foreground/40 bg-paper px-3.5 text-base outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30 aria-[invalid=true]:border-destructive";
+  "mt-1 block h-11 w-full rounded-md border border-border-strong bg-surface px-3 text-base outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30 aria-[invalid=true]:border-danger";
 
 function Field({
   id, label, error, optional, children,
@@ -21,7 +21,7 @@ function Field({
       </label>
       {children}
       {error && (
-        <p id={`${id}-error`} className="mt-1 text-sm text-destructive">
+        <p id={`${id}-error`} className="mt-1 text-sm text-danger">
           {error[0]}
         </p>
       )}
@@ -36,7 +36,7 @@ export function DemoForm() {
 
   if (state.status === "success") {
     return (
-      <div role="status" className="border-t-2 border-foreground bg-paper p-10">
+      <div role="status" className="panel p-10">
         <CheckCircle2 className="size-8 text-success" aria-hidden />
         <h2 className="mt-4 text-3xl">Thank you. Your request has been received.</h2>
         <p className="mt-2 text-muted-foreground">Our team will contact you shortly to schedule your demo.</p>
@@ -45,7 +45,7 @@ export function DemoForm() {
   }
 
   return (
-    <form action={action} noValidate className="space-y-5 border-t-2 border-foreground bg-paper p-6 sm:p-9">
+    <form action={action} noValidate className="space-y-5 panel p-6 sm:p-9">
       <Field id="name" label="Your name" error={e.name}>
         <input id="name" name="name" autoComplete="name" required className={inputClass} {...aria("name")} />
       </Field>
@@ -74,12 +74,12 @@ export function DemoForm() {
       </div>
 
       {state.message && (
-        <p role="alert" className="text-sm text-destructive">
+        <p role="alert" className="text-sm text-danger">
           {state.message}
         </p>
       )}
       <Button type="submit" size="lg" className="w-full" disabled={pending}>
-        {pending ? "Sending..." : "Request my demonstration"}
+        {pending ? "Sending..." : "Request my demo"}
       </Button>
       <p className="text-xs text-muted-foreground">We only use your details to arrange your demo.</p>
     </form>

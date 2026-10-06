@@ -1,8 +1,8 @@
 # School Management System: Site
 
-A student study companion (ask, solve, practise, track progress) plus the marketing pages for the school/college ERP behind it. The student screens are a **front-end prototype with sample data**: nothing is sent to a backend, and new questions are matched to a small bank of worked examples. The ERP app itself lives at `app.[DOMAIN]`.
+The public website for an education operations SaaS (admissions, attendance, fees, exams, notices, parent communication) plus a **front-end prototype of the product** at `/app`. The prototype uses sample data only: nothing is sent to a backend, and role switching is a browser-side demo. The real application lives at `app.[DOMAIN]`.
 
-**Stack:** Next.js (App Router), TypeScript (strict), Tailwind CSS v4, shadcn/ui-style components, lucide-react, zod. English only. Pages are static; client JS is limited to the mobile nav and demo form.
+**Stack:** Next.js (App Router), TypeScript (strict), Tailwind CSS v4, shadcn/ui-style components, lucide-react, zod. English only. Pages are static; client JS powers the interactive prototype (tables, drawers, role switcher) and the demo form.
 
 ## Setup
 
@@ -31,16 +31,24 @@ Other scripts: `npm run lint`, `npm run build`, `npm start`.
 ## Structure
 
 ```
-app/            routes: student (/, /ask, /questions, /subjects, /solve/[id], /practice, /dashboard), institutions (/institutions, /features, /pricing, /demo, /about, /contact, /privacy, /terms), sitemap, robots, OG image
-components/     app/ (student UI), marketing/ (institution pages), layout/, demo/, shared/, ui/
-content/        typed content: site, features, pricing, faqs, testimonials; learn/ (subjects, worked questions, practice sets, sample student)
-lib/            lead schema (zod), notify stub, JSON-LD builders, utils
-public/screens/ placeholder screenshots (replace TODO-* files)
+app/(site)/     public website: /, /features, /pricing, /demo, /about, /contact, /privacy, /terms
+app/(product)/  prototype application under /app: dashboard (admin, teacher, student, parent views),
+                students, staff, admissions, fees, attendance, notices, timetable; other modules are "coming soon" pages
+components/     product/ (shell, data table, drawers, attention list), marketing/, layout/, demo/, shared/, ui/
+content/        site, modules, pricing, faqs, testimonials; product/ (generated sample institution data, navigation)
+lib/            role switcher, toasts, lead schema (zod), notify stub, JSON-LD builders
 ```
+
+## Prototype notes
+
+- Sample institution data is generated deterministically in `content/product/data.ts`; dashboard figures are derived from it.
+- Tables support search, filters, sort, pagination, bulk selection, column visibility and CSV export.
+- Actions such as "Send reminder" show a confirmation and a toast only. Wire them to the real API.
+- `/app` is excluded from robots.txt and marked noindex.
 
 ## Editing content
 
-Copy lives in `/content/*.ts`; no CMS. Search the repo for `TODO:` to find everything needing real input: brand name and domain, contact details, prices, testimonials and stats, legal text, screenshots.
+Website copy lives in `/content/*.ts`; no CMS. Search the repo for `TODO:` to find everything needing real input: brand name and domain, contact details, prices, testimonials and stats, legal text, screenshots.
 
 ## Notifications
 
