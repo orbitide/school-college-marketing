@@ -1,10 +1,26 @@
-import { site } from "@/content/site";
+import { FaqList } from "@/components/shared/faq-list";
+import { Section } from "@/components/shared/section";
+import { FeatureGrid } from "@/components/home/feature-grid";
+import { FinalCta } from "@/components/home/final-cta";
+import { Hero } from "@/components/home/hero";
+import { HowItWorks } from "@/components/home/how-it-works";
+import { PricingTeaser } from "@/components/home/pricing-teaser";
+import { ProblemSolution } from "@/components/home/problem-solution";
+import { SocialProof } from "@/components/home/social-proof";
 
 export default function Home() {
   return (
-    <div className="container-page py-24">
-      <h1 className="text-4xl font-bold">{site.name}</h1>
-      <p className="mt-4 text-muted-foreground">{site.tagline}</p>
-    </div>
+    <>
+      <Hero />
+      <ProblemSolution />
+      <FeatureGrid />
+      <HowItWorks />
+      <SocialProof />
+      <PricingTeaser />
+      <Section muted id="faq" title="Frequently asked questions">
+        <FaqList />
+      </Section>
+      <FinalCta />
+    </>
   );
 }
