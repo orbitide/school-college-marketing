@@ -3,6 +3,8 @@ import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { site } from "@/content/site";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { JsonLd } from "@/components/shared/json-ld";
+import { organizationLd, softwareApplicationLd } from "@/lib/structured-data";
 import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 import "./globals.css";
 
@@ -17,6 +19,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: `${site.name} | School & College ERP for Bangladesh`, template: `%s | ${site.name}` },
   description: site.description,
+  alternates: { canonical: "/" },
+  openGraph: { type: "website", siteName: site.name, locale: "en_BD" },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -28,6 +33,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <WhatsAppButton />
+        <JsonLd data={organizationLd} />
+        <JsonLd data={softwareApplicationLd} />
       </body>
     </html>
   );
