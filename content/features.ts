@@ -7,6 +7,7 @@ export type Feature = {
   slug: string;
   name: string;
   icon: LucideIcon;
+  audience: string;
   benefit: string;
   bullets: readonly string[];
 };
@@ -14,6 +15,7 @@ export type Feature = {
 export const features: readonly Feature[] = [
   {
     slug: "admissions",
+    audience: "Admin",
     name: "Admissions",
     icon: UserPlus,
     benefit: "Turn enquiries into enrolled students without paper forms.",
@@ -21,6 +23,7 @@ export const features: readonly Feature[] = [
   },
   {
     slug: "attendance",
+    audience: "Teachers",
     name: "Attendance",
     icon: CalendarCheck,
     benefit: "Take attendance in seconds and let parents know instantly.",
@@ -28,6 +31,7 @@ export const features: readonly Feature[] = [
   },
   {
     slug: "fees",
+    audience: "Accounts",
     name: "Fees & Accounts",
     icon: Wallet,
     benefit: "Collect fees on time and always know who has paid.",
@@ -35,6 +39,7 @@ export const features: readonly Feature[] = [
   },
   {
     slug: "exams",
+    audience: "Teachers",
     name: "Exams & Results",
     icon: ClipboardList,
     benefit: "Publish accurate results in hours, not weeks.",
@@ -42,6 +47,7 @@ export const features: readonly Feature[] = [
   },
   {
     slug: "parent-portal",
+    audience: "Parents",
     name: "Parent Portal",
     icon: Users,
     benefit: "Keep parents informed and cut down on phone calls to the office.",
@@ -49,6 +55,7 @@ export const features: readonly Feature[] = [
   },
   {
     slug: "notices",
+    audience: "Everyone",
     name: "Notices & Communication",
     icon: BellRing,
     benefit: "Reach every parent and teacher with one message.",
@@ -56,6 +63,7 @@ export const features: readonly Feature[] = [
   },
   {
     slug: "students-staff",
+    audience: "Admin",
     name: "Students & Staff",
     icon: FileBarChart,
     benefit: "One reliable record for every student and teacher.",
@@ -63,6 +71,7 @@ export const features: readonly Feature[] = [
   },
   {
     slug: "dashboard",
+    audience: "Leadership",
     name: "Management Dashboard",
     icon: LayoutDashboard,
     benefit: "See how your institution is doing at a glance.",

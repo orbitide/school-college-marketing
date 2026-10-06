@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Newsreader, Source_Sans_3 } from "next/font/google";
 import { site } from "@/content/site";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
@@ -9,10 +9,11 @@ import { organizationLd, softwareApplicationLd } from "@/lib/structured-data";
 import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 import "./globals.css";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+const sourceSans = Source_Sans_3({ variable: "--font-source-sans", subsets: ["latin"], display: "swap" });
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -27,10 +28,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${jakarta.variable} antialiased`}>
+    <html lang="en" className={`${sourceSans.variable} ${newsreader.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col"><a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
         >
           Skip to content
         </a>

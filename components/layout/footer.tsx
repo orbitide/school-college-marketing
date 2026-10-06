@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GraduationCap } from "lucide-react";
+import { Wordmark } from "@/components/layout/wordmark";
 import { nav, site } from "@/content/site";
 
 const legal = [
@@ -9,52 +9,40 @@ const legal = [
 
 export function Footer() {
   return (
-    <footer className="border-t bg-muted/50">
-      <div className="container-page grid gap-8 py-12 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="lg:col-span-2">
-          <Link href="/" className="flex items-center gap-2 font-display text-lg font-bold">
-            <GraduationCap className="size-6 text-primary" aria-hidden />
-            {site.name}
-          </Link>
-          <p className="mt-3 max-w-sm text-sm text-muted-foreground">{site.tagline}</p>
+    <footer className="on-dark bg-[#16231f] text-primary-foreground/80">
+      <div className="container-page grid gap-12 py-16 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <Wordmark inverse />
+          <p className="mt-5 max-w-sm font-display text-xl italic leading-snug text-primary-foreground">{site.tagline}</p>
         </div>
-        <nav aria-label="Footer">
-          <h2 className="text-sm font-semibold">Product</h2>
-          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            {[...nav, { href: "/demo", label: "Book a demo" }].map((item) => (
+        <nav aria-label="Footer" className="lg:col-span-3 lg:col-start-7">
+          <h2 className="label">Explore</h2>
+          <ul className="mt-4 space-y-2.5">
+            {[...nav, { href: "/demo", label: "Book a demonstration" }].map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="hover:text-foreground">
-                  {item.label}
-                </Link>
+                <Link href={item.href} className="link-underline">{item.label}</Link>
               </li>
             ))}
+            <li>
+              <a href={`${site.appUrl}/login`} className="link-underline">Parent and student portal</a>
+            </li>
           </ul>
         </nav>
-        <div>
-          <h2 className="text-sm font-semibold">Contact</h2>
-          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            <li>
-              <a href={`mailto:${site.email}`} className="hover:text-foreground">
-                {site.email}
-              </a>
-            </li>
+        <div className="lg:col-span-3">
+          <h2 className="label">Contact</h2>
+          <ul className="mt-4 space-y-2.5">
+            <li><a href={`mailto:${site.email}`} className="link-underline">{site.email}</a></li>
             <li>{site.phone}</li>
             <li>{site.address}</li>
           </ul>
         </div>
       </div>
-      <div className="border-t">
-        <div className="container-page flex flex-col gap-2 py-6 text-sm text-muted-foreground sm:flex-row sm:justify-between">
-          <p>
-            &copy; {new Date().getFullYear()} {site.name}. All rights reserved.
-          </p>
-          <ul className="flex gap-4">
+      <div className="border-t border-primary-foreground/15">
+        <div className="container-page flex flex-col gap-2 py-6 text-sm text-primary-foreground/60 sm:flex-row sm:justify-between">
+          <p>&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+          <ul className="flex gap-6">
             {legal.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="hover:text-foreground">
-                  {item.label}
-                </Link>
-              </li>
+              <li key={item.href}><Link href={item.href} className="link-underline">{item.label}</Link></li>
             ))}
           </ul>
         </div>

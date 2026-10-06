@@ -1,25 +1,31 @@
 @import "tailwindcss";
 
-/* Theme tokens (shadcn-compatible). TODO: align with final brand colours. */
+/*
+  Design system: institutional / editorial.
+  Paper, ink and one deep forest green; copper used only for small marks and links.
+  Hairline rules and typography carry the hierarchy: no shadows, glass or gradients.
+  TODO: align with the final institutional brand colours.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --muted: #f1f5f9;
-  --muted-foreground: #475569;
-  --border: #e2e8f0;
-  --ring: #0f766e;
-  --primary: #0f766e;
-  --primary-foreground: #ffffff;
-  --secondary: #ccfbf1;
-  --secondary-foreground: #134e4a;
-  --accent: #f59e0b;
-  --accent-foreground: #1c1917;
-  --destructive: #dc2626;
-  --radius: 0.75rem;
+  --background: #f6f1e6;
+  --paper: #fbf8f1;
+  --foreground: #1c1c1a;
+  --muted: #ebe4d3;
+  --muted-foreground: #54514a;
+  --border: #d6cdb8;
+  --rule: #1c1c1a;
+  --ring: #1f3d36;
+  --primary: #1f3d36;
+  --primary-foreground: #f6f1e6;
+  --accent: #8a4f26;
+  --destructive: #a1291c;
+  --success: #2f6b3a;
+  --radius: 2px;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-paper: var(--paper);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
@@ -27,14 +33,15 @@
   --color-ring: var(--ring);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
   --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
-  --radius-lg: var(--radius);
-  --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-display: var(--font-jakarta), var(--font-inter), system-ui, sans-serif;
+  --color-success: var(--success);
+  --font-sans: var(--font-source-sans), system-ui, sans-serif;
+  --font-display: var(--font-newsreader), Georgia, serif;
+}
+
+@view-transition {
+  navigation: auto;
 }
 
 @layer base {
@@ -43,22 +50,30 @@
   }
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
   }
   body {
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
   }
   h1,
   h2,
   h3 {
     font-family: var(--font-display);
+    font-weight: 500;
     letter-spacing: -0.02em;
+    text-wrap: balance;
   }
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
   }
 }
 
@@ -66,12 +81,60 @@
   .container-page {
     margin-inline: auto;
     width: 100%;
-    max-width: 72rem;
-    padding-inline: 1rem;
+    max-width: 78rem;
+    padding-inline: 1.25rem;
   }
   @media (min-width: 640px) {
     .container-page {
-      padding-inline: 1.5rem;
+      padding-inline: 2.5rem;
     }
+  }
+  /* Small-caps label used for section marks and metadata. */
+  .label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .on-dark .label {
+    color: #d9a77c;
+  }
+  .link-underline {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.2s ease;
+    text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  }
+  .link-underline:hover {
+    text-decoration-color: currentColor;
+  }
+  .tnum {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+}
+
+/* Photographs fade in once, quietly. */
+@keyframes photo-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .photo-in {
+    animation: photo-in 0.7s ease-out both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  @view-transition {
+    navigation: none;
   }
 }

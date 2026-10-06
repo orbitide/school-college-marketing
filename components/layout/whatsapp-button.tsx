@@ -4,7 +4,7 @@ const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "");
 
 export function WhatsAppButton() {
   if (!number) return null;
-  const text = encodeURIComponent("Hi, I'd like to know more about your school management system.");
+  const text = encodeURIComponent("Hello, I would like to know more about your school management system.");
 
   return (
     <a
@@ -12,9 +12,9 @@ export function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
-      className="fixed bottom-4 right-4 z-50 inline-flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg outline-none transition-transform hover:scale-105 focus-visible:ring-[3px] focus-visible:ring-[#25D366]/50"
+      className="fixed bottom-4 right-4 z-50 inline-flex size-12 items-center justify-center rounded-full bg-[#1f7a4a] text-white outline-none transition-colors hover:bg-[#186a3f] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
-      <MessageCircle className="size-7" aria-hidden />
+      <MessageCircle className="size-6" aria-hidden />
     </a>
   );
 }

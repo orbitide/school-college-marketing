@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { FaqList } from "@/components/shared/faq-list";
-import { Section } from "@/components/shared/section";
+import { FaqList } from "@/components/editorial/faq-list";
+import { PageHero } from "@/components/editorial/page-hero";
+import { Section } from "@/components/editorial/section";
 import { FinalCta } from "@/components/home/final-cta";
 import { plans } from "@/content/pricing";
 import { cn } from "@/lib/utils";
@@ -17,50 +18,48 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <>
-      <section className="bg-gradient-to-b from-secondary/60 to-background pb-8 pt-12 sm:pt-16">
-        <div className="container-page max-w-3xl text-center">
-          <h1 className="text-4xl font-bold sm:text-5xl">Pricing that fits your institution</h1>
-          <p className="mt-5 text-lg text-muted-foreground">
-            Pick the plan for your student count. Every plan includes onboarding support.
-          </p>
-        </div>
-      </section>
-      <section aria-label="Plans" className="py-12">
-        <div className="container-page grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {plans.map((plan) => (
-            <article
-              key={plan.name}
-              className={cn("flex flex-col rounded-xl border bg-background p-6", plan.highlighted && "border-primary ring-2 ring-primary")}
-            >
-              {plan.highlighted && <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-primary">Most popular</p>}
-              <h2 className="text-xl font-semibold">{plan.name}</h2>
-              <p className="mt-1 text-sm text-muted-foreground">{plan.students}</p>
-              <p className="mt-4 font-display text-3xl font-bold">
-                {plan.price === null ? "Contact us" : <>৳ {plan.price}</>}
-              </p>
-              <p className="text-sm text-muted-foreground">{plan.note}</p>
-              <ul className="mt-5 space-y-2 text-sm">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex gap-2">
-                    <Check className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Button asChild className="mt-auto" variant={plan.highlighted ? "default" : "outline"}>
-                <Link href={plan.price === null ? "/contact" : "/demo"} className="mt-6">
-                  {plan.price === null ? "Contact us" : "Book a demo"}
-                </Link>
-              </Button>
-            </article>
-          ))}
-        </div>
-        <p className="container-page mt-6 text-center text-sm text-muted-foreground">
+      <PageHero
+        label="Pricing"
+        title="Pricing that fits your institution"
+        intro="Choose the plan for your student count. Every plan includes onboarding support."
+      />
+      <section aria-label="Plans" className="py-14 sm:py-20">
+        <div className="container-page">
+          <div className="grid border-t-2 border-foreground sm:grid-cols-2 lg:grid-cols-4">
+            {plans.map((plan) => (
+              <article
+                key={plan.name}
+                className={cn(
+                  "flex flex-col border-b py-8 sm:px-6 sm:first:pl-0 lg:border-r lg:last:border-r-0 lg:last:pr-0",
+                  plan.highlighted && "bg-paper sm:px-6",
+                )}
+              >
+                <p className="label h-4">{plan.highlighted ? "Most chosen" : ""}</p>
+                <h2 className="mt-2 text-3xl">{plan.name}</h2>
+                <p className="mt-1 text-sm text-muted-foreground">{plan.students}</p>
+                <p className="mt-6 font-display text-4xl">
+                  {plan.price === null ? "Contact us" : <>&#2547; {plan.price}</>}
+                </p>
+                <p className="text-sm text-muted-foreground">{plan.note}</p>
+                <ul className="mb-8 mt-6 space-y-2.5 text-[0.9375rem]">
+                  {plan.features.map((f) => (
+                    <li key={f} className="flex gap-2.5">
+                      <Check className="mt-1 size-4 shrink-0 text-accent" aria-hidden />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <Button asChild className="mt-auto" variant={plan.highlighted ? "default" : "outline"}>
+                  <Link href={plan.price === null ? "/contact" : "/demo"}>{plan.price === null ? "Contact us" : "Book a demonstration"}</Link>
+                </Button>
+              </article>
+            ))}
+          </div>
           {/* TODO: confirm currency, billing period and any one-time setup fee. */}
-          Prices in BDT. Setup and training details are shared in your demo.
-        </p>
+          <p className="mt-6 text-sm text-muted-foreground">Prices in BDT. Setup and training details are shared in your demonstration.</p>
+        </div>
       </section>
-      <Section muted title="Pricing questions">
+      <Section layout="split" label="Questions" title="Common questions">
         <FaqList />
       </Section>
       <FinalCta />
