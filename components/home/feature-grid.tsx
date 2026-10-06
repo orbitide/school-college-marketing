@@ -1,21 +1,27 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Section } from "@/components/shared/section";
 import { FeatureCard } from "@/components/shared/feature-card";
 import { Button } from "@/components/ui/button";
-import { features, homeFeatureSlugs } from "@/content/features";
+import { features } from "@/content/features";
 
 export function FeatureGrid() {
-  const items = features.filter((f) => (homeFeatureSlugs as readonly string[]).includes(f.slug));
   return (
-    <Section muted title="Everything your institution runs on" intro="Six core modules that work together from day one.">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((f) => (
+    <Section
+      eyebrow="Modules"
+      title="Everything your institution runs on"
+      intro="Eight modules that work together from day one, so your team enters data once."
+    >
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {features.map((f) => (
           <FeatureCard key={f.slug} feature={f} />
         ))}
       </div>
-      <div className="mt-10 text-center">
+      <div className="mt-12 text-center">
         <Button asChild variant="outline" size="lg">
-          <Link href="/features">Explore all features</Link>
+          <Link href="/features">
+            Explore all features <ArrowRight className="transition-transform group-hover:translate-x-1" />
+          </Link>
         </Button>
       </div>
     </Section>

@@ -20,12 +20,12 @@ const items = [
 export default function ContactPage() {
   return (
     <>
-      <PageHero title="Contact us" intro="Questions about the system, pricing or multi-branch plans? We are happy to help." />
-      <div className="container-page max-w-2xl py-12">
+      <PageHero eyebrow="Contact" title="Contact us" intro="Questions about the system, pricing or multi-branch plans? We are happy to help." />
+      <div className="container-page max-w-2xl py-16 sm:py-24">
         <ul className="space-y-4">
           {items.map(({ icon: Icon, label, value, ...rest }) => (
-            <li key={label} className="flex items-center gap-4 rounded-xl border p-5">
-              <Icon className="size-6 text-primary" aria-hidden />
+            <li key={label} className="card card-hover flex items-center gap-4 p-5">
+              <span className="flex size-11 items-center justify-center rounded-full bg-secondary text-primary"><Icon className="size-5" aria-hidden /></span>
               <div>
                 <p className="text-sm text-muted-foreground">{label}</p>
                 {"href" in rest ? (
@@ -38,7 +38,7 @@ export default function ContactPage() {
           ))}
         </ul>
         <div className="mt-8 text-center">
-          <Button asChild size="lg">
+          <Button asChild size="lg" variant="accent">
             <Link href="/demo">Book a demo</Link>
           </Button>
         </div>

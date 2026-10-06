@@ -1,20 +1,24 @@
+import { ArrowRight } from "lucide-react";
 import { Section } from "@/components/shared/section";
-
-// TODO: validate pains with customer interviews.
-const pains = [
-  { pain: "Fees go uncollected", fix: "Automatic dues, reminders and receipts so nothing slips through." },
-  { pain: "Results take weeks", fix: "Enter marks once and publish accurate results and report cards fast." },
-  { pain: "Parents are always calling", fix: "A parent portal and instant alerts answer questions before they are asked." },
-] as const;
+import { pains } from "@/content/home";
 
 export function ProblemSolution() {
   return (
-    <Section title="Stop chasing paper, registers and phone calls" intro="The daily work of running an institution should not depend on spreadsheets and notebooks.">
+    <Section
+      id="about"
+      eyebrow="Why institutions switch"
+      title="Less chasing paper, registers and phone calls"
+      intro="The daily work of running an institution should not depend on spreadsheets and notebooks."
+    >
       <ul className="grid gap-6 md:grid-cols-3">
-        {pains.map((p) => (
-          <li key={p.pain} className="rounded-xl border p-6">
-            <h3 className="text-lg font-semibold text-destructive">{p.pain}</h3>
-            <p className="mt-3 text-muted-foreground">{p.fix}</p>
+        {pains.map((p, i) => (
+          <li key={p.pain} className="card reveal p-8">
+            <span className="font-display text-5xl font-semibold text-accent/60">0{i + 1}</span>
+            <h3 className="mt-4 text-xl font-semibold">{p.pain}</h3>
+            <p className="mt-3 flex items-start gap-2 text-muted-foreground">
+              <ArrowRight className="mt-1 size-4 shrink-0 text-gold-text" aria-hidden />
+              {p.fix}
+            </p>
           </li>
         ))}
       </ul>

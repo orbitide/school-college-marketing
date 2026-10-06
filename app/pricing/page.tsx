@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FaqList } from "@/components/shared/faq-list";
+import { PageHero } from "@/components/shared/page-hero";
 import { Section } from "@/components/shared/section";
 import { FinalCta } from "@/components/home/final-cta";
 import { plans } from "@/content/pricing";
@@ -17,38 +18,35 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <>
-      <section className="bg-gradient-to-b from-secondary/60 to-background pb-8 pt-12 sm:pt-16">
-        <div className="container-page max-w-3xl text-center">
-          <h1 className="text-4xl font-bold sm:text-5xl">Pricing that fits your institution</h1>
-          <p className="mt-5 text-lg text-muted-foreground">
-            Pick the plan for your student count. Every plan includes onboarding support.
-          </p>
-        </div>
-      </section>
-      <section aria-label="Plans" className="py-12">
+      <PageHero
+        eyebrow="Pricing"
+        title="Pricing that fits your institution"
+        intro="Pick the plan for your student count. Every plan includes onboarding support."
+      />
+      <section aria-label="Plans" className="py-16 sm:py-24">
         <div className="container-page grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {plans.map((plan) => (
             <article
               key={plan.name}
-              className={cn("flex flex-col rounded-xl border bg-background p-6", plan.highlighted && "border-primary ring-2 ring-primary")}
+              className={cn("card flex flex-col p-7", plan.highlighted && "border-accent bg-gradient-to-b from-white to-[#fbf3e0] shadow-lift lg:-translate-y-2")}
             >
-              {plan.highlighted && <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-primary">Most popular</p>}
+              {plan.highlighted && <p className="eyebrow mb-2">Most popular</p>}
               <h2 className="text-xl font-semibold">{plan.name}</h2>
               <p className="mt-1 text-sm text-muted-foreground">{plan.students}</p>
-              <p className="mt-4 font-display text-3xl font-bold">
+              <p className="mt-4 font-display text-3xl font-semibold">
                 {plan.price === null ? "Contact us" : <>৳ {plan.price}</>}
               </p>
               <p className="text-sm text-muted-foreground">{plan.note}</p>
-              <ul className="mt-5 space-y-2 text-sm">
+              <ul className="mb-7 mt-5 space-y-2 text-sm">
                 {plan.features.map((f) => (
                   <li key={f} className="flex gap-2">
-                    <Check className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
+                    <Check className="mt-0.5 size-4 shrink-0 text-gold-text" aria-hidden />
                     {f}
                   </li>
                 ))}
               </ul>
-              <Button asChild className="mt-auto" variant={plan.highlighted ? "default" : "outline"}>
-                <Link href={plan.price === null ? "/contact" : "/demo"} className="mt-6">
+              <Button asChild className="mt-auto" variant={plan.highlighted ? "accent" : "outline"}>
+                <Link href={plan.price === null ? "/contact" : "/demo"}>
                   {plan.price === null ? "Contact us" : "Book a demo"}
                 </Link>
               </Button>
@@ -60,7 +58,7 @@ export default function PricingPage() {
           Prices in BDT. Setup and training details are shared in your demo.
         </p>
       </section>
-      <Section muted title="Pricing questions">
+      <Section tone="muted" eyebrow="FAQ" title="Pricing questions">
         <FaqList />
       </Section>
       <FinalCta />

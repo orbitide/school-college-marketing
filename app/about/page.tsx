@@ -20,14 +20,15 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
+        eyebrow="About us"
         title="Software that gives educators their time back"
         intro={`${site.name} helps school and college leaders spend less time on administration and more on students.`}
       />
-      <section className="py-12">
+      <section className="py-16 sm:py-24">
         <div className="container-page grid gap-6 md:grid-cols-3">
           {values.map((v) => (
-            <div key={v.title} className="rounded-xl border p-6">
-              <h2 className="text-lg font-semibold">{v.title}</h2>
+            <div key={v.title} className="card card-hover p-8">
+              <h2 className="text-xl font-semibold">{v.title}</h2>
               <p className="mt-2 text-muted-foreground">{v.text}</p>
             </div>
           ))}
