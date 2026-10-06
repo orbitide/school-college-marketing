@@ -2,7 +2,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { FaqList } from "@/components/marketing/faq-list";
 import { FinalCta } from "@/components/marketing/final-cta";
-import { AdmissionsPreview, AttendancePreview, DashboardPreview, FeesPreview, NoticesPreview } from "@/components/marketing/previews";
+import { LiveActivityPreview, LiveDashboardPreview } from "@/components/marketing/live-preview";
+import { AdmissionsPreview, AttendancePreview, FeesPreview, NoticesPreview } from "@/components/marketing/previews";
 import { Section } from "@/components/marketing/section";
 import { JsonLd } from "@/components/shared/json-ld";
 import { Button } from "@/components/ui/button";
@@ -22,11 +23,11 @@ const problems = [
 
 const workflows = [
   {
-    label: "Needs attention",
-    title: "Start the day knowing what needs a decision",
-    text: "The dashboard does not just show numbers. It lists the problems, how big they are and the next action, so nothing waits in someone's inbox.",
-    points: [`${o.pendingApprovals} applications awaiting approval, one click away`, `${o.overdueCount} overdue payments totalling ${taka(o.overdueAmount)}`, "Registers not yet submitted, with a reminder button"],
-    visual: <DashboardPreview />,
+    label: "Live view",
+    title: "See what is happening as it happens",
+    text: "Payments, registers and applications appear the moment they happen. Act on a problem and the numbers on the dashboard change with it.",
+    points: ["Payments received, registers submitted and applications arriving in one feed", `${o.overdueCount} overdue payments totalling ${taka(o.overdueAmount)} today, fewer by the afternoon`, "Pause the feed whenever you need to read"],
+    visual: <LiveActivityPreview />,
   },
   {
     label: "Fees",
@@ -82,7 +83,7 @@ export default function Home() {
               <Button asChild size="lg" variant="outline"><Link href="/app/dashboard">Try the demo app</Link></Button>
             </div>
           </div>
-          <div className="mt-12 sm:mt-14"><DashboardPreview /></div>
+          <div className="mt-12 sm:mt-14"><LiveDashboardPreview /></div>
         </div>
       </section>
 

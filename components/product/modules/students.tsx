@@ -8,7 +8,8 @@ import { DataTable, type Column, type FilterDef } from "@/components/product/dat
 import { Modal } from "@/components/product/modal";
 import { Avatar, Badge, type Tone } from "@/components/product/ui";
 import { useInitial } from "@/components/product/use-initial";
-import { students, taka, type Student } from "@/content/product/data";
+import { taka, type Student } from "@/content/product/data";
+import { studentsLive, useLive } from "@/lib/live";
 import { toast } from "@/lib/toast";
 
 const feeTone: Record<string, Tone> = { Paid: "success", Due: "warning", Overdue: "danger" };
@@ -37,11 +38,12 @@ const filters: FilterDef<Student>[] = [
 export function StudentsTable() {
   const init = useInitial(["class", "section", "fees", "attendance"]);
   const [open, setOpen] = useState<Student | null>(null);
+  const rows = studentsLive(useLive());
 
   return (
     <>
       <DataTable
-        rows={students}
+        rows={rows}
         columns={columns}
         getId={(s) => s.id}
         search={(s) => `${s.name} ${s.id} ${s.guardian}`}

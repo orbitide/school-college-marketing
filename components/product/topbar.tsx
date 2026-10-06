@@ -8,19 +8,22 @@ import { Avatar } from "@/components/product/ui";
 import { Modal } from "@/components/product/modal";
 import { Sidebar } from "@/components/product/sidebar";
 import { institution } from "@/content/product/data";
+import { actions, overviewLive, useLive, useRelativeTime } from "@/lib/live";
 import { roles, useRole } from "@/lib/role";
-
-const alerts = [
-  { text: "7 applications are waiting for approval", href: "/app/admissions?stage=Pending+approval", when: "Today" },
-  { text: "4 sections have not submitted attendance", href: "/app/attendance", when: "Today" },
-  { text: "Timetable conflict in Room 204", href: "/app/timetable", when: "Yesterday" },
-];
 
 export function Topbar() {
   const { role, setRole } = useRole();
   const [menu, setMenu] = useState(false);
   const [q, setQ] = useState("");
   const router = useRouter();
+  const live = useLive();
+  const rel = useRelativeTime();
+  const o = overviewLive(live);
+  const alerts = [
+    o.pendingApprovals > 0 && { text: `${o.pendingApprovals} applications are waiting for approval`, href: "/app/admissions?stage=Pending+approval" },
+    o.notSubmitted.length > 0 && { text: `${o.notSubmitted.length} sections have not submitted attendance`, href: "/app/attendance?register=Not+submitted" },
+    o.conflicts > 0 && { text: `${o.conflicts} timetable conflicts need resolving`, href: "/app/timetable" },
+  ].filter(Boolean) as { text: string; href: string }[];
 
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b bg-surface px-3 sm:px-5">
@@ -50,9 +53,9 @@ export function Topbar() {
         </label>
 
         <details className="relative">
-          <summary aria-label="Notifications" className="relative flex cursor-pointer list-none rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground [&::-webkit-details-marker]:hidden">
+          <summary aria-label={live.unread ? `Notifications, ${live.unread} new` : "Notifications"} onClick={() => actions.markRead()} className="relative flex cursor-pointer list-none rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground [&::-webkit-details-marker]:hidden">
             <Bell className="size-5" aria-hidden />
-            <span className="absolute right-1.5 top-1.5 size-2 rounded-full bg-danger ring-2 ring-surface" />
+            {live.unread > 0 && <span className="tnum absolute -right-0.5 -top-0.5 flex min-w-4 items-center justify-center rounded-full bg-danger px-1 text-[0.625rem] font-bold leading-4 text-white ring-2 ring-surface">{Math.min(live.unread, 9)}{live.unread > 9 ? "+" : ""}</span>}
           </summary>
           <div className="panel absolute right-0 top-full z-50 mt-2 w-[min(22rem,calc(100vw-1.5rem))] p-1.5 shadow-md">
             <p className="px-3 py-2 text-sm font-semibold">Needs your attention</p>
@@ -61,9 +64,15 @@ export function Topbar() {
                 <li key={a.text}>
                   <Link href={a.href} className="block rounded-md px-3 py-2 hover:bg-muted">
                     <span className="block text-sm">{a.text}</span>
-                    <span className="text-xs text-muted-foreground">{a.when}</span>
+                    
                   </Link>
                 </li>
+              ))}
+            </ul>
+            <p className="px-3 pb-1 pt-3 text-sm font-semibold">Recent activity</p>
+            <ul>
+              {live.activity.slice(0, 4).map((a) => (
+                <li key={a.id} className="px-3 py-2"><span className="block text-sm leading-snug">{a.text}</span><span className="text-xs text-muted-foreground">{rel(a)}</span></li>
               ))}
             </ul>
           </div>

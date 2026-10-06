@@ -6,7 +6,8 @@ import { DataTable, type Column, type FilterDef } from "@/components/product/dat
 import { Modal } from "@/components/product/modal";
 import { Badge } from "@/components/product/ui";
 import { useInitial } from "@/components/product/use-initial";
-import { attendanceBySection, students, type SectionAttendance } from "@/content/product/data";
+import { students, type SectionAttendance } from "@/content/product/data";
+import { actions, sectionsLive, useLive } from "@/lib/live";
 import { toast } from "@/lib/toast";
 
 const pct = (s: SectionAttendance) => (s.submitted ? Math.round((s.present / s.total) * 100) : -1);
@@ -24,18 +25,21 @@ const filters: FilterDef<SectionAttendance>[] = [{ key: "register", label: "Regi
 
 export function AttendanceTable() {
   const init = useInitial(["register"]);
-  const [open, setOpen] = useState<SectionAttendance | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const rows = sectionsLive(useLive());
+  const open = rows.find((r) => r.section === selectedId) ?? null;
+  const setOpen = (r: SectionAttendance | null) => setSelectedId(r?.section ?? null);
   const absent = open ? students.filter((s) => `${s.cls}${s.section}` === open.section && s.absentToday) : [];
 
   return (
     <>
       <DataTable
-        rows={attendanceBySection} columns={columns} getId={(s) => s.section} search={(s) => `${s.section} ${s.teacher}`} searchPlaceholder="Search by section or teacher"
+        rows={rows} columns={columns} getId={(s) => s.section} search={(s) => `${s.section} ${s.teacher}`} searchPlaceholder="Search by section or teacher"
         noun="sections" exportName="attendance-today" filters={filters} initialFilters={init.filters} initialQuery={init.q} onRowOpen={setOpen}
-        bulkActions={[{ label: "Send reminder", confirm: (n) => `Remind the class teachers of ${n} sections to submit attendance?`, done: (n) => `Reminders sent to ${n} class teachers (demo)` }]}
+        bulkActions={[{ label: "Send reminder", confirm: (n) => `Remind the class teachers of ${n} sections to submit attendance?`, done: (n) => `Reminders sent to ${n} class teachers (demo)`, run: actions.remindSections }]}
       />
       <Modal open={!!open} onClose={() => setOpen(null)} variant="drawer" title={open ? `Section ${open.section}` : ""} description={open?.teacher}
-        footer={open && !open.submitted && <Button onClick={() => { toast(`Reminder sent to ${open.teacher} (demo)`); setOpen(null); }}>Send reminder</Button>}>
+        footer={open && !open.submitted && <Button onClick={() => { actions.remindSections([open.section]); toast(`Reminder sent to ${open.teacher} (demo)`); setOpen(null); }}>Send reminder</Button>}>
         {open && (open.submitted ? (
           <>
             <p className="text-sm text-muted-foreground">{open.present} of {open.total} present today.</p>

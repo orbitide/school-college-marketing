@@ -43,7 +43,7 @@ lib/            role switcher, toasts, lead schema (zod), notify stub, JSON-LD b
 
 - Sample institution data is generated deterministically in `content/product/data.ts`; dashboard figures are derived from it.
 - Tables support search, filters, sort, pagination, bulk selection, column visibility and CSV export.
-- Actions such as "Send reminder" show a confirmation and a toast only. Wire them to the real API.
+- The prototype is "live": `lib/live.ts` simulates payments, submitted registers and new applications arriving every few seconds, and actions (send reminder, record payment, approve, resolve conflict) change the same state the dashboard and tables read. Use the Pause control to stop the feed. Replace with real-time data (websocket or polling) when the API exists.
 - `/app` is excluded from robots.txt and marked noindex.
 
 ## Editing content

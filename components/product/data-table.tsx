@@ -26,7 +26,7 @@ export type FilterDef<T> = {
   test: (row: T, value: string) => boolean;
 };
 
-export type BulkAction = { label: string; confirm: (n: number) => string; done: (n: number) => string };
+export type BulkAction = { label: string; confirm: (n: number) => string; done: (n: number) => string; run?: (ids: string[]) => void };
 
 type Props<T> = {
   rows: T[];
@@ -232,11 +232,11 @@ export function DataTable<T>({ rows, columns, getId, search, searchPlaceholder, 
         footer={
           <>
             <Button variant="outline" onClick={() => setPending(null)}>Cancel</Button>
-            <Button onClick={() => { if (pending) toast(pending.done(selected.size)); setPending(null); setSelected(new Set()); }}>Confirm</Button>
+            <Button onClick={() => { if (pending) { pending.run?.([...selected]); toast(pending.done(selected.size)); } setPending(null); setSelected(new Set()); }}>Confirm</Button>
           </>
         }
       >
-        <p className="text-sm text-muted-foreground">This is a prototype: no message is actually sent.</p>
+        <p className="text-sm text-muted-foreground">This is a prototype: nothing leaves your browser, but the dashboard will update.</p>
       </Modal>
     </div>
   );

@@ -7,7 +7,8 @@ import { DataTable, type Column, type FilterDef } from "@/components/product/dat
 import { Modal } from "@/components/product/modal";
 import { Badge, type Tone } from "@/components/product/ui";
 import { useInitial } from "@/components/product/use-initial";
-import { applications, docsComplete, requiredDocs, stages, type Application, type Stage } from "@/content/product/data";
+import { docsComplete, requiredDocs, stages, type Application, type Stage } from "@/content/product/data";
+import { actions, applicationsLive, useLive } from "@/lib/live";
 import { toast } from "@/lib/toast";
 
 const stageTone: Record<Stage, Tone> = { Applied: "info", "Under review": "info", "Documents pending": "warning", Interview: "neutral", "Pending approval": "warning", Approved: "success", Rejected: "danger" };
@@ -30,18 +31,21 @@ const filters: FilterDef<Application>[] = [
 
 export function AdmissionsTable() {
   const init = useInitial(["stage", "docs", "class"]);
-  const [open, setOpen] = useState<Application | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const rows = applicationsLive(useLive());
+  const open = rows.find((r) => r.id === selectedId) ?? null;
+  const setOpen = (r: Application | null) => setSelectedId(r?.id ?? null);
 
   const act = (msg: string) => { toast(msg); setOpen(null); };
 
   return (
     <>
       <DataTable
-        rows={applications} columns={columns} getId={(a) => a.id} search={(a) => `${a.applicant} ${a.id} ${a.guardian}`} searchPlaceholder="Search by applicant, ID or guardian"
+        rows={rows} columns={columns} getId={(a) => a.id} search={(a) => `${a.applicant} ${a.id} ${a.guardian}`} searchPlaceholder="Search by applicant, ID or guardian"
         noun="applications" exportName="applications" filters={filters} initialFilters={init.filters} initialQuery={init.q} onRowOpen={setOpen}
         bulkActions={[
-          { label: "Request documents", confirm: (n) => `Ask the guardians of ${n} applicants to send their missing documents?`, done: (n) => `Document requests sent for ${n} applicants (demo)` },
-          { label: "Approve", confirm: (n) => `Approve ${n} applications? Families will be notified.`, done: (n) => `${n} applications approved (demo)` },
+          { label: "Request documents", confirm: (n) => `Ask the guardians of ${n} applicants to send their missing documents?`, done: (n) => `Document requests sent for ${n} applicants (demo)`, run: actions.requestDocs },
+          { label: "Approve", confirm: (n) => `Approve ${n} applications? Families will be notified.`, done: (n) => `${n} applications approved`, run: (ids) => ids.forEach((id) => actions.setStage(id, "Approved")) },
         ]}
       />
       <Modal
@@ -52,11 +56,11 @@ export function AdmissionsTable() {
         description={open ? `${open.id} · Applying for Class ${open.appliedClass}` : ""}
         footer={open && (
           <>
-            {!docsComplete(open) && <Button variant="outline" onClick={() => act(`Document request sent to ${open.guardian} (demo)`)}>Request missing documents</Button>}
+            {!docsComplete(open) && <Button variant="outline" onClick={() => { actions.requestDocs([open.id]); act(`Document request sent to ${open.guardian} (demo)`); }}>Request missing documents</Button>}
             {open.stage === "Pending approval" && (
               <>
-                <Button variant="outline" onClick={() => act(`${open.applicant} declined (demo)`)}>Decline</Button>
-                <Button onClick={() => act(`${open.applicant} approved. The family has been notified (demo)`)}>Approve</Button>
+                <Button variant="outline" onClick={() => { actions.setStage(open.id, "Rejected"); act(`${open.applicant} declined`); }}>Decline</Button>
+                <Button onClick={() => { actions.setStage(open.id, "Approved"); act(`${open.applicant} approved. The family has been notified (demo)`); }}>Approve</Button>
               </>
             )}
           </>

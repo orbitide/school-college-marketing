@@ -14,6 +14,7 @@ export type AttentionItem = {
   action: string;
   href?: string;
   /** For actions that happen in place rather than navigating. */
+  run?: () => void;
   done?: string;
 };
 
@@ -37,7 +38,7 @@ export function AttentionList({ items, className }: { items: AttentionItem[]; cl
             {i.href ? (
               <Button asChild variant="outline" size="sm"><Link href={i.href}>{i.action} <ArrowRight /></Link></Button>
             ) : (
-              <Button variant="outline" size="sm" onClick={() => toast(i.done ?? "Done")}>{i.action}</Button>
+              <Button variant="outline" size="sm" onClick={() => { i.run?.(); toast(i.done ?? "Done"); }}>{i.action}</Button>
             )}
           </li>
         );

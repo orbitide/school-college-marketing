@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/product/modal";
 import { Badge, Panel } from "@/components/product/ui";
 import { periods, timetable9A, timetableConflicts, weekDays } from "@/content/product/data";
+import { actions, useLive } from "@/lib/live";
 import { toast } from "@/lib/toast";
 import { cn } from "@/lib/utils";
 
 export function TimetableView() {
-  const [resolved, setResolved] = useState<string[]>([]);
+  const resolved = useLive().resolved;
   const [open, setOpen] = useState<(typeof timetableConflicts)[number] | null>(null);
   const [choice, setChoice] = useState(0);
   const left = timetableConflicts.filter((c) => !resolved.includes(c.id));
@@ -64,7 +65,7 @@ export function TimetableView() {
         onClose={() => setOpen(null)}
         title={open?.title ?? ""}
         description={open?.detail}
-        footer={<><Button variant="outline" onClick={() => setOpen(null)}>Cancel</Button><Button onClick={() => { if (open) { setResolved((r) => [...r, open.id]); toast("Conflict resolved. Affected teachers have been notified (demo)"); } setOpen(null); }}>Apply fix</Button></>}
+        footer={<><Button variant="outline" onClick={() => setOpen(null)}>Cancel</Button><Button onClick={() => { if (open) { actions.resolveConflict(open.id); toast("Conflict resolved. Affected teachers have been notified (demo)"); } setOpen(null); }}>Apply fix</Button></>}
       >
         <fieldset>
           <legend className="text-sm font-medium">Choose a fix</legend>

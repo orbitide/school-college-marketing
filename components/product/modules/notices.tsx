@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { DataTable, type Column, type FilterDef } from "@/components/product/data-table";
 import { Modal } from "@/components/product/modal";
 import { Badge, type Tone } from "@/components/product/ui";
-import { notices as seed, type Notice } from "@/content/product/data";
+import type { Notice } from "@/content/product/data";
+import { actions, allNotices, useLive } from "@/lib/live";
 import { toast } from "@/lib/toast";
 
 const tone: Record<Notice["status"], Tone> = { Published: "success", Scheduled: "warning", Draft: "neutral" };
@@ -21,14 +22,15 @@ const filters: FilterDef<Notice>[] = [{ key: "status", label: "Status", options:
 const field = "mt-1 block w-full rounded-md border border-border-strong bg-surface px-3 py-2 text-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/25";
 
 export function NoticesView() {
-  const [rows, setRows] = useState<Notice[]>(seed.slice());
+  const live = useLive();
+  const rows = allNotices(live);
   const [composing, setComposing] = useState(false);
   const [title, setTitle] = useState("");
   const [audience, setAudience] = useState("All students and parents");
 
   const publish = (status: "Published" | "Draft") => {
     if (!title.trim()) return;
-    setRows((r) => [{ id: `N-${102 + r.length - seed.length}`, title: title.trim(), audience, status, date: "Today", reach: status === "Draft" ? "Draft" : "Sending" }, ...r]);
+    actions.addNotice({ id: `N-${102 + live.notices.length}`, title: title.trim(), audience, status, date: "Today", reach: status === "Draft" ? "Draft" : "Sending" });
     toast(status === "Draft" ? "Draft saved" : `Notice published to ${audience.toLowerCase()} (demo)`);
     setTitle("");
     setComposing(false);

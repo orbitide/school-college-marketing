@@ -5,18 +5,18 @@ import { Badge, StatStrip } from "@/components/product/ui";
 import { applications, attendanceBySection, docsComplete, feeRecords, institution, notices, overview as o, requiredDocs, taka } from "@/content/product/data";
 
 /** Window frame for real product UI. Content is the same sample data the demo app uses. */
-export function ProductFrame({ title, href, children, className }: { title: string; href?: string; children: React.ReactNode; className?: string }) {
+export function ProductFrame({ title, href, live, children, className }: { title: string; href?: string; live?: React.ReactNode; children: React.ReactNode; className?: string }) {
   return (
     <figure className={className}>
       <div className="overflow-hidden rounded-xl border border-border-strong bg-background shadow-md">
         <div className="flex items-center gap-2 border-b bg-surface px-4 py-2.5">
           <span aria-hidden className="flex gap-1.5"><i className="size-2.5 rounded-full bg-border-strong" /><i className="size-2.5 rounded-full bg-border-strong" /><i className="size-2.5 rounded-full bg-border-strong" /></span>
           <span className="ml-2 truncate text-xs font-medium text-muted-foreground">{title}</span>
-          {href && <Link href={href} className="ml-auto shrink-0 text-xs font-semibold text-primary hover:underline">Open in the demo app</Link>}
+          <span className="ml-auto flex shrink-0 items-center gap-3">{live}{href && <Link href={href} className="hidden text-xs font-semibold text-primary hover:underline sm:inline">Open in the demo app</Link>}</span>
         </div>
         <div className="p-3 sm:p-4">{children}</div>
       </div>
-      <figcaption className="mt-2 text-xs text-muted-foreground">Sample data from a fictional institution.</figcaption>
+      <figcaption className="mt-2 text-xs text-muted-foreground">Sample data from a fictional institution. Updates are simulated.</figcaption>
     </figure>
   );
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Sparkline } from "@/components/product/charts";
 import { cn } from "@/lib/utils";
 
 export type Tone = "success" | "warning" | "danger" | "info" | "neutral";
@@ -35,14 +36,17 @@ export function PageHeader({ title, description, actions }: { title: string; des
 }
 
 /** Row of key figures separated by rules, each one leading somewhere. */
-export function StatStrip({ items }: { items: { label: string; value: string; note?: string; href?: string; tone?: Tone }[] }) {
+export function StatStrip({ items }: { items: { label: string; value: React.ReactNode; note?: React.ReactNode; href?: string; spark?: number[] }[] }) {
   return (
     <dl className="panel grid grid-cols-2 divide-x divide-y overflow-hidden lg:grid-cols-4 lg:divide-y-0">
       {items.map((s) => (
         <div key={s.label} className={cn("relative p-4", s.href && "hover:bg-muted/50")}>
           <dt className="text-sm text-muted-foreground">{s.label}</dt>
-          <dd className="tnum mt-1 text-2xl font-semibold">{s.value}</dd>
-          {s.note && <dd className="mt-0.5 text-xs text-muted-foreground">{s.note}</dd>}
+          <dd className="mt-1 flex items-end justify-between gap-2">
+            <span className="tnum text-2xl font-semibold leading-none">{s.value}</span>
+            {s.spark && <Sparkline data={s.spark} />}
+          </dd>
+          {s.note && <dd className="mt-1.5 text-xs text-muted-foreground">{s.note}</dd>}
           {s.href && (
             <dd className="absolute inset-0">
               <Link href={s.href} aria-label={`Open ${s.label.toLowerCase()}`} className="block size-full outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring" />

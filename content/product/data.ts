@@ -256,3 +256,14 @@ export const overview = (() => {
 })();
 
 export const taka = (n: number) => `৳${n.toLocaleString("en-US")}`;
+
+/* Trend series for charts (13 previous school days, deterministic) */
+export const trendLabels = ["24 Sep", "25 Sep", "28 Sep", "29 Sep", "30 Sep", "01 Oct", "04 Oct", "05 Oct", "06 Oct", "07 Oct", "08 Oct", "09 Oct", "10 Oct"];
+export const attendanceTrend = trendLabels.map((_, i) => Math.round((92 + Math.sin(i * 1.3) * 2.2 - (i === 6 ? 3 : 0) + hash(i * 41) * 1.6) * 10) / 10);
+
+/* Collected vs outstanding by month; October is computed live from the fee records. */
+export const feeMonthsBase = [
+  { label: "Jul", collected: 412000, outstanding: 21000 },
+  { label: "Aug", collected: 398000, outstanding: 34000 },
+  { label: "Sep", collected: 385000, outstanding: 52000 },
+];
