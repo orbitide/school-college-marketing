@@ -1,8 +1,8 @@
 # School Management System: Site
 
-The public website for an education operations SaaS (admissions, attendance, fees, exams, notices, parent communication) plus a **front-end prototype of the product** at `/app`. The prototype uses sample data only: nothing is sent to a backend, and role switching is a browser-side demo. The real application lives at `app.[DOMAIN]`.
+The public website for an education operations SaaS (admissions, attendance, fees, exams, notices, parent communication) marketing pages only: no product demo or app screens.
 
-**Stack:** Next.js (App Router), TypeScript (strict), Tailwind CSS v4, shadcn/ui-style components, lucide-react, zod. English only. Pages are static; client JS powers the interactive prototype (tables, drawers, role switcher) and the demo form.
+**Stack:** Next.js (App Router), TypeScript (strict), Tailwind CSS v4, shadcn/ui-style components, lucide-react, zod. English only. Pages are static; client JS is limited to the contact form.
 
 ## Setup
 
@@ -19,32 +19,24 @@ Other scripts: `npm run lint`, `npm run build`, `npm start`.
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Yes | Canonical URL for metadata, sitemap, robots, JSON-LD |
-| `NEXT_PUBLIC_APP_URL` | Yes | Product app URL; "Start free trial" links to `/signup` here |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | No | Digits only, e.g. `8801XXXXXXXXX`. Button is hidden when empty |
 | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | No | Enables Plausible analytics. Script is not loaded when empty |
-| `LEAD_API_URL` | Yes (prod) | Backend endpoint; demo requests are POSTed here as JSON (server-side only) |
+| `LEAD_API_URL` | Yes (prod) | Backend endpoint; contact requests are POSTed here as JSON (server-side only) |
 
 ### Lead payload
 
-`POST LEAD_API_URL` with `{ name, institution, studentCount, phone, email?, source: "marketing-site-demo" }`. Any non-2xx response shows the user a retry message. A hidden honeypot field silently drops bot submissions.
+`POST LEAD_API_URL` with `{ name, institution, studentCount, phone, email?, source: "marketing-site-contact" }`. Any non-2xx response shows the user a retry message. A hidden honeypot field silently drops bot submissions.
 
 ## Structure
 
 ```
-app/(site)/     public website: /, /features, /pricing, /demo, /about, /contact, /privacy, /terms
-app/(product)/  prototype application under /app: dashboard (admin, teacher, student, parent views),
-                students, staff, admissions, fees, attendance, notices, timetable; other modules are "coming soon" pages
-components/     product/ (shell, data table, drawers, attention list), marketing/, layout/, demo/, shared/, ui/
-content/        site, modules, pricing, faqs, testimonials; product/ (generated sample institution data, navigation)
-lib/            role switcher, toasts, lead schema (zod), notify stub, JSON-LD builders
+app/(site)/     /, /features, /solutions, /benefits, /security, /pricing, /faq, /about, /contact, /privacy, /terms
+components/     marketing/, layout/, contact/, shared/, ui/
+content/        site, marketing (features, problems, security, FAQs), pricing
+lib/            lead schema (zod), notify stub, JSON-LD builders
 ```
 
-## Prototype notes
-
-- Sample institution data is generated deterministically in `content/product/data.ts`; dashboard figures are derived from it.
-- Tables support search, filters, sort, pagination, bulk selection, column visibility and CSV export.
-- The prototype is "live": `lib/live.ts` simulates payments, submitted registers and new applications arriving every few seconds, and actions (send reminder, record payment, approve, resolve conflict) change the same state the dashboard and tables read. Use the Pause control to stop the feed. Replace with real-time data (websocket or polling) when the API exists.
-- `/app` is excluded from robots.txt and marked noindex.
+`/demo` redirects to `/contact`; `/app/*` redirects to `/`.
 
 ## Editing content
 
