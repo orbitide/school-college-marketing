@@ -3,9 +3,8 @@ export const site = {
   name: "SchoolSuite", // TODO: final product name
   tagline: "One platform to run your institution better.",
   description:
-    "Admissions, attendance, fees, exams, notices and parent communication in one system. It shows what needs attention and helps you resolve it.",
+    "School and college management software for admissions, attendance, fees, exams and parent communication, with role-based access and your data under your control.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com", // TODO: [DOMAIN]
-  appUrl: process.env.NEXT_PUBLIC_APP_URL ?? "https://app.example.com",
   email: "hello@example.com", // TODO
   phone: "+880 1XXX-XXXXXX", // TODO
   address: "Dhaka, Bangladesh", // TODO
@@ -13,8 +12,10 @@ export const site = {
 
 // Public site navigation.
 export const nav = [
-  { href: "/features", label: "Product" },
+  { href: "/features", label: "Features" },
+  { href: "/solutions", label: "Solutions" },
+  { href: "/benefits", label: "Benefits" },
+  { href: "/security", label: "Security" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/faq", label: "FAQ" },
 ] as const;

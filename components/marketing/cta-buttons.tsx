@@ -6,10 +6,10 @@ export function CtaButtons({ inverse = false }: { inverse?: boolean }) {
   return (
     <div className="flex flex-col gap-3 sm:flex-row">
       <Button asChild size="lg" variant={inverse ? "inverse" : "default"}>
-        <Link href="/demo">Book a demo <ArrowRight /></Link>
+        <Link href="/contact">Book a call <ArrowRight /></Link>
       </Button>
       <Button asChild size="lg" variant={inverse ? "outline-inverse" : "outline"}>
-        <Link href="/app/dashboard">Try the demo app</Link>
+        <Link href="/features">Explore features</Link>
       </Button>
     </div>
   );
