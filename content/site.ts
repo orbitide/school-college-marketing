@@ -13,7 +13,7 @@ export const site = {
 
 // Public site navigation.
 export const nav = [
-  { href: "/features", label: "Product" },
+  { href: "/features", label: "Features" },
   { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },

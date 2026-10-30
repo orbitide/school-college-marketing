@@ -225,3 +225,19 @@ dialog.modal {
     animation: row-in 1.4s ease-out;
   }
 }
+
+@keyframes menu-in {
+  from {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .menu-in {
+    animation: menu-in 0.14s ease-out;
+  }
+}
