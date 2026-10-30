@@ -1,10 +1,22 @@
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { FeaturesMenu } from "@/components/layout/features-menu";
+import { NavMenu } from "@/components/layout/nav-menu";
+import { FeaturesPanel, ResourcesPanel, SolutionsPanel } from "@/components/layout/nav-panels";
 import { Wordmark } from "@/components/layout/wordmark";
 import { moduleGroups, slug } from "@/content/modules";
+import { resources } from "@/content/resources";
 import { nav } from "@/content/site";
+import { solutions } from "@/content/solutions";
+
+const panels = { features: <FeaturesPanel />, solutions: <SolutionsPanel />, resources: <ResourcesPanel /> } as const;
+
+/** Sub-links shown under each dropdown item in the phone menu. */
+const mobileSub: Record<string, { href: string; label: string }[]> = {
+  features: moduleGroups.map((g) => ({ href: `/features#${slug(g.title)}`, label: g.title })),
+  solutions: solutions.map((x) => ({ href: `/solutions/${x.slug}`, label: x.name })),
+  resources: resources.map((x) => ({ href: `/resources/${x.slug}`, label: x.name })),
+};
 
 export function Header() {
   return (
@@ -14,8 +26,8 @@ export function Header() {
         <nav aria-label="Main" className="hidden h-full md:block">
           <ul className="flex h-full items-center gap-1">
             {nav.map((item) =>
-              item.href === "/features" ? (
-                <FeaturesMenu key={item.href} />
+              "menu" in item ? (
+                <NavMenu key={item.href} label={item.label}>{panels[item.menu]}</NavMenu>
               ) : (
                 <li key={item.href}>
                   <Link href={item.href} className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground">{item.label}</Link>
@@ -37,11 +49,11 @@ export function Header() {
                 {[...nav, { href: "/app/dashboard", label: "Try the demo app" }].map((item) => (
                   <li key={item.href} className="border-b last:border-b-0">
                     <Link href={item.href} className="block py-3.5 text-base font-medium">{item.label}</Link>
-                    {item.href === "/features" && (
+                    {"menu" in item && (
                       <ul className="mb-3 grid grid-cols-2 gap-x-4 gap-y-1 pl-3">
-                        {moduleGroups.map((g) => (
-                          <li key={g.title}>
-                            <Link href={`/features#${slug(g.title)}`} className="block py-1.5 text-sm text-muted-foreground">{g.title}</Link>
+                        {mobileSub[item.menu].map((sub) => (
+                          <li key={sub.href}>
+                            <Link href={sub.href} className="block py-1.5 text-sm text-muted-foreground">{sub.label}</Link>
                           </li>
                         ))}
                       </ul>

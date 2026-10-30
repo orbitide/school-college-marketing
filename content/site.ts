@@ -11,10 +11,11 @@ export const site = {
   address: "Dhaka, Bangladesh", // TODO
 } as const;
 
-// Public site navigation.
+// Public site navigation. Items with a menu open a dropdown (see components/layout/nav-panels.tsx).
 export const nav = [
-  { href: "/features", label: "Features" },
+  { href: "/features", label: "Features", menu: "features" },
+  { href: "/solutions", label: "Solutions", menu: "solutions" },
+  { href: "/resources", label: "Resources", menu: "resources" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ] as const;
