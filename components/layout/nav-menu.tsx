@@ -1,16 +1,15 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import Link from "next/link";
-import { ArrowRight, ChevronDown } from "lucide-react";
-import { moduleGroups, slug } from "@/content/modules";
+import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * "Features" dropdown with a submenu of modules grouped like the application.
- * Opens on hover or click; Escape closes it and returns focus; focus leaving it closes it.
+ * Header dropdown. The panel content is passed in as children (rendered on the server).
+ * Opens on hover (mouse only) or click; click, Enter/Space and tap toggle; Escape closes and restores focus;
+ * focus leaving, an outside click or choosing a link closes it.
  */
-export function FeaturesMenu() {
+export function NavMenu({ label, children }: { label: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLLIElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -60,41 +59,13 @@ export function FeaturesMenu() {
           open ? "bg-muted text-foreground" : "text-muted-foreground",
         )}
       >
-        Features
+        {label}
         <ChevronDown className={cn("size-4 transition-transform", open && "rotate-180")} aria-hidden />
       </button>
 
       {open && (
-        <div id={id} className="menu-in absolute inset-x-0 top-full z-50">
-          <div className="rounded-b-xl border border-t-0 bg-surface p-6 shadow-md">
-            <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
-              {moduleGroups.map((g) => (
-                <div key={g.title}>
-                  <Link href={`/features#${slug(g.title)}`} onClick={() => setOpen(false)} className="text-sm font-semibold hover:text-primary hover:underline">
-                    {g.title}
-                  </Link>
-                  <p className="mt-0.5 text-xs text-muted-foreground">{g.intro}</p>
-                  <ul className="mt-2 space-y-0.5">
-                    {g.modules.map((m) => (
-                      <li key={m.name}>
-                        <Link href={`/features#${slug(m.name)}`} onClick={() => setOpen(false)} className="-mx-2 block rounded-md px-2 py-1 text-sm text-muted-foreground hover:bg-primary-soft hover:text-primary">
-                          {m.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t pt-4 text-sm">
-              <Link href="/features" onClick={() => setOpen(false)} className="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline">
-                See all features <ArrowRight className="size-4" aria-hidden />
-              </Link>
-              <Link href="/app/dashboard" onClick={() => setOpen(false)} className="font-medium text-muted-foreground hover:text-foreground hover:underline">
-                Try the demo app
-              </Link>
-            </div>
-          </div>
+        <div id={id} className="menu-in absolute inset-x-0 top-full z-50" onClick={(e) => (e.target as HTMLElement).closest("a") && setOpen(false)}>
+          <div className="rounded-b-xl border border-t-0 bg-surface p-6 shadow-md">{children}</div>
         </div>
       )}
     </li>

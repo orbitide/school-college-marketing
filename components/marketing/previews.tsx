@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { Check, X } from "lucide-react";
 import { AttentionList, type AttentionItem } from "@/components/product/attention";
-import { Badge, StatStrip } from "@/components/product/ui";
-import { applications, attendanceBySection, docsComplete, feeRecords, institution, notices, overview as o, requiredDocs, taka } from "@/content/product/data";
+import { StackedBars, TrendChart } from "@/components/product/charts";
+import { Avatar, Badge, StatStrip } from "@/components/product/ui";
+import { applications, attendanceBySection, attendanceTrend, docsComplete, feeMonthsBase, feeRecords, institution, notices, overview as o, requiredDocs, staff, taka, trendLabels } from "@/content/product/data";
 
 /** Window frame for real product UI. Content is the same sample data the demo app uses. */
 export function ProductFrame({ title, href, live, children, className }: { title: string; href?: string; live?: React.ReactNode; children: React.ReactNode; className?: string }) {
@@ -113,6 +114,79 @@ export function NoticesPreview() {
           <li key={n.id} className="flex items-center justify-between gap-3 px-3 py-2.5">
             <span className="min-w-0"><span className="block truncate font-medium">{n.title}</span><span className="text-xs text-muted-foreground">{n.audience} · {n.reach}</span></span>
             <Badge tone={n.status === "Published" ? "success" : n.status === "Scheduled" ? "warning" : "neutral"}>{n.status}</Badge>
+          </li>
+        ))}
+      </ul>
+    </ProductFrame>
+  );
+}
+
+/* ---- previews for the Resources pages (sample data) ---- */
+const branches = [
+  { name: "Greenfield, Dhanmondi", students: 1240, attendance: 93.1, owed: 14 },
+  { name: "Greenfield, Uttara", students: 980, attendance: 91.4, owed: 22 },
+  { name: "Greenfield, Chattogram", students: 760, attendance: 94.2, owed: 9 },
+] as const;
+
+export function BranchesPreview() {
+  return (
+    <ProductFrame title="Enterprise · Branch comparison">
+      <table className="panel w-full text-sm">
+        <thead><tr className="border-b bg-muted/60 text-left text-xs uppercase tracking-wide text-muted-foreground"><th className="px-3 py-2 font-semibold">Branch</th><th className="px-3 py-2 text-right font-semibold">Students</th><th className="px-3 py-2 text-right font-semibold">Attendance</th><th className="hidden px-3 py-2 text-right font-semibold sm:table-cell">Fees owed</th></tr></thead>
+        <tbody>
+          {branches.map((b) => (
+            <tr key={b.name} className="border-b last:border-b-0">
+              <th scope="row" className="px-3 py-2.5 text-left font-medium">{b.name}</th>
+              <td className="tnum px-3 py-2.5 text-right">{b.students.toLocaleString("en-US")}</td>
+              <td className="px-3 py-2.5 text-right"><Badge tone={b.attendance >= 92 ? "success" : "warning"}>{b.attendance}%</Badge></td>
+              <td className="tnum hidden px-3 py-2.5 text-right text-muted-foreground sm:table-cell">{b.owed}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </ProductFrame>
+  );
+}
+
+export function StaffPreview() {
+  const rows = staff.slice(0, 7);
+  const tone = { Present: "success", Late: "warning", "On leave": "info", Absent: "danger" } as const;
+  return (
+    <ProductFrame title="Teachers and staff" href="/app/staff">
+      <ul className="panel divide-y text-sm">
+        {rows.map((m) => (
+          <li key={m.id} className="flex items-center gap-3 px-3 py-2.5">
+            <Avatar name={m.name} />
+            <span className="min-w-0 flex-1"><span className="block truncate font-medium">{m.name}</span><span className="text-xs text-muted-foreground">{m.role}</span></span>
+            <Badge tone={tone[m.today]}>{m.today}</Badge>
+          </li>
+        ))}
+      </ul>
+    </ProductFrame>
+  );
+}
+
+export function AnalyticsPreview() {
+  return (
+    <ProductFrame title="Analytics" href="/app/dashboard">
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div className="panel p-4"><p className="mb-3 text-sm font-semibold">Attendance, last 14 school days</p><TrendChart data={[...attendanceTrend, 92.5]} labels={[...trendLabels, "Today"]} target={92} label="Attendance rate" /></div>
+        <div className="panel p-4"><p className="mb-3 text-sm font-semibold">Fee collection by month</p><StackedBars data={[...feeMonthsBase, { label: "Oct", collected: 324000, outstanding: 196000 }]} format={taka} /></div>
+      </div>
+    </ProductFrame>
+  );
+}
+
+export function ReportsPreview() {
+  const rows = [["Student report", "Profiles, guardians and documents"], ["Attendance report", "By section, class or student"], ["Financial report", "Collection, dues and receipts"], ["Academic report", "Marks, grades and results"], ["Custom report", "Any field, saved and scheduled"]];
+  return (
+    <ProductFrame title="Reports">
+      <ul className="panel divide-y text-sm">
+        {rows.map(([n, d]) => (
+          <li key={n} className="flex items-center gap-3 px-3 py-2.5">
+            <span className="min-w-0 flex-1"><span className="block font-medium">{n}</span><span className="text-xs text-muted-foreground">{d}</span></span>
+            <span className="rounded-md border px-2.5 py-1 text-xs font-semibold">Run</span>
+            <span className="hidden rounded-md border px-2.5 py-1 text-xs font-semibold sm:inline">Schedule</span>
           </li>
         ))}
       </ul>
