@@ -1,20 +1,20 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { moduleGroups } from "@/content/modules";
+import { moduleGroups, slug } from "@/content/modules";
 
 /** Modules grouped the same way as the application navigation. */
 export function ModuleIndex() {
   return (
     <div className="divide-y border-y">
       {moduleGroups.map((g) => (
-        <section key={g.title} aria-labelledby={`g-${g.title}`} className="grid gap-4 py-8 lg:grid-cols-[16rem_1fr] lg:gap-10">
+        <section key={g.title} id={slug(g.title)} aria-labelledby={`g-${g.title}`} className="grid scroll-mt-24 gap-4 py-8 lg:grid-cols-[16rem_1fr] lg:gap-10">
           <div>
             <h2 id={`g-${g.title}`} className="text-xl">{g.title}</h2>
             <p className="mt-1 text-sm text-muted-foreground">{g.intro}</p>
           </div>
           <ul className="divide-y rounded-lg border bg-surface">
             {g.modules.map((m) => (
-              <li key={m.name} className="flex flex-wrap items-center gap-x-6 gap-y-1 px-4 py-3.5">
+              <li key={m.name} id={slug(m.name)} className="flex scroll-mt-24 flex-wrap items-center gap-x-6 gap-y-1 px-4 py-3.5 target:bg-primary-soft">
                 <div className="min-w-0 flex-1 basis-64">
                   <p className="font-semibold">{m.name}</p>
                   <p className="text-sm text-muted-foreground">{m.summary}</p>

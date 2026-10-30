@@ -1,4 +1,7 @@
 // Product map shown on the website. Keep in step with the application navigation (content/product/nav.ts).
+/** Anchor id used by the Features page and its dropdown menu. */
+export const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
 export type Module = { name: string; summary: string; demo?: string };
 export type ModuleGroup = { title: string; intro: string; modules: Module[] };
 
