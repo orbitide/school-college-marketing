@@ -5,6 +5,7 @@ import { LiveActivityPreview, LiveDashboardPreview } from "@/components/marketin
 import { PageHero } from "@/components/marketing/page-hero";
 import { AdmissionsPreview, AnalyticsPreview, AttendancePreview, BranchesPreview, FeesPreview, NoticesPreview, ReportsPreview, StaffPreview } from "@/components/marketing/previews";
 import { Button } from "@/components/ui/button";
+import { site } from "@/content/site";
 
 const visuals = {
   dashboard: <LiveDashboardPreview />,
@@ -30,7 +31,7 @@ export type LandingProps = {
 };
 
 /** Shared layout for the Solutions and Resources pages. */
-export function Landing({ label, title, intro, points, visual, cta = { href: "/pricing", label: "View pricing" }, related }: LandingProps) {
+export function Landing({ label, title, intro, points, visual, cta = { href: `${site.appUrl}/signup`, label: "Start free trial" }, related }: LandingProps) {
   return (
     <>
       <PageHero label={label} title={title} intro={intro} />

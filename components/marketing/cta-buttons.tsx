@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { site } from "@/content/site";
 
 export function CtaButtons({ inverse = false }: { inverse?: boolean }) {
   return (
@@ -9,7 +10,7 @@ export function CtaButtons({ inverse = false }: { inverse?: boolean }) {
         <Link href="/demo">Book a demo <ArrowRight /></Link>
       </Button>
       <Button asChild size="lg" variant={inverse ? "outline-inverse" : "outline"}>
-        <Link href="/pricing">View pricing</Link>
+        <a href={`${site.appUrl}/signup`}>Start free trial</a>
       </Button>
     </div>
   );

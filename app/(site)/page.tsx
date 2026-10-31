@@ -8,6 +8,7 @@ import { Section } from "@/components/marketing/section";
 import { JsonLd } from "@/components/shared/json-ld";
 import { Button } from "@/components/ui/button";
 import { moduleGroups } from "@/content/modules";
+import { site } from "@/content/site";
 import { overview as o, taka } from "@/content/product/data";
 import { faqPageLd } from "@/lib/structured-data";
 import { cn } from "@/lib/utils";
@@ -80,7 +81,7 @@ export default function Home() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg"><Link href="/demo">Book a demo <ArrowRight /></Link></Button>
-              <Button asChild size="lg" variant="outline"><Link href="/pricing">View pricing</Link></Button>
+              <Button asChild size="lg" variant="outline"><a href={`${site.appUrl}/signup`}>Start free trial</a></Button>
             </div>
           </div>
           <div className="mt-12 sm:mt-14"><LiveDashboardPreview /></div>
