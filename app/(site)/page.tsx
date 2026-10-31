@@ -80,7 +80,7 @@ export default function Home() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg"><Link href="/demo">Book a demo <ArrowRight /></Link></Button>
-              <Button asChild size="lg" variant="outline"><Link href="/app/dashboard">Try the demo app</Link></Button>
+              <Button asChild size="lg" variant="outline"><Link href="/pricing">View pricing</Link></Button>
             </div>
           </div>
           <div className="mt-12 sm:mt-14"><LiveDashboardPreview /></div>
@@ -127,9 +127,6 @@ export default function Home() {
             </div>
           ))}
         </dl>
-        <p className="mt-4 text-sm text-muted-foreground">
-          Switch roles in the <Link href="/app/dashboard" className="font-semibold text-primary hover:underline">demo app</Link> to see each view.
-        </p>
       </Section>
 
       <Section tone="muted" label="Everything in one system" title="Built around how institutions actually work">

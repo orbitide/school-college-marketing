@@ -24,7 +24,6 @@ export default async function ResourcePage({ params }: Props) {
       intro={r.intro}
       points={r.points}
       visual={r.visual}
-      cta={{ href: "/app/dashboard", label: "Try the demo app" }}
       related={[...r.related, { label: "All resources", href: "/resources" }]}
     />
   );

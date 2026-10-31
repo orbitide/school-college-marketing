@@ -24,7 +24,6 @@ export default async function SolutionPage({ params }: Props) {
       intro={s.intro}
       points={s.does}
       visual={s.visual}
-      cta={{ href: `/app/dashboard?role=${s.demoRole}`, label: `See the ${s.name.toLowerCase().replace(/s$/, "")} view` }}
       related={[{ label: "All solutions", href: "/solutions" }]}
     />
   );

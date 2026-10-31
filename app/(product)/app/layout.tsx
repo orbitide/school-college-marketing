@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
-import { RoleFromUrl } from "@/components/product/role-from-url";
 import { Sidebar } from "@/components/product/sidebar";
 import { Toaster } from "@/components/product/toaster";
 import { Topbar } from "@/components/product/topbar";
@@ -22,9 +20,6 @@ export default function ProductLayout({ children }: { children: React.ReactNode 
           <div className="mx-auto max-w-[80rem]">{children}</div>
         </main>
       </div>
-      <Suspense fallback={null}>
-        <RoleFromUrl />
-      </Suspense>
       <Toaster />
     </div>
   );

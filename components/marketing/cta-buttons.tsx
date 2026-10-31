@@ -9,7 +9,7 @@ export function CtaButtons({ inverse = false }: { inverse?: boolean }) {
         <Link href="/demo">Book a demo <ArrowRight /></Link>
       </Button>
       <Button asChild size="lg" variant={inverse ? "outline-inverse" : "outline"}>
-        <Link href="/app/dashboard">Try the demo app</Link>
+        <Link href="/pricing">View pricing</Link>
       </Button>
     </div>
   );

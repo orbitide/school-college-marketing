@@ -25,12 +25,12 @@ export type LandingProps = {
   intro: string;
   points: string[];
   visual: keyof typeof visuals;
-  cta: { href: string; label: string };
+  cta?: { href: string; label: string };
   related?: { label: string; href: string }[];
 };
 
 /** Shared layout for the Solutions and Resources pages. */
-export function Landing({ label, title, intro, points, visual, cta, related }: LandingProps) {
+export function Landing({ label, title, intro, points, visual, cta = { href: "/pricing", label: "View pricing" }, related }: LandingProps) {
   return (
     <>
       <PageHero label={label} title={title} intro={intro} />

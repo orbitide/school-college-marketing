@@ -28,7 +28,7 @@ export const resources: Resource[] = [
     headline: "Know who is in today, and who is covering",
     intro: "Keep staff records, daily attendance and leave in one place, and arrange cover before a class is left unattended.",
     points: ["Staff records with roles, departments and class teacher assignments", "Daily presence, late and leave status", "Cover arranged in one click for absent teachers", "Leave requests approved with a clear trail"],
-    related: [{ label: "Teachers and staff", href: "/features#teachers-and-staff" }, { label: "Open in the demo app", href: "/app/staff" }],
+    related: [{ label: "Teachers and staff", href: "/features#teachers-and-staff" }],
     visual: "staff",
   },
   {
@@ -38,7 +38,7 @@ export const resources: Resource[] = [
     headline: "Tools teachers actually use",
     intro: "Teachers mark attendance, see their timetable and follow up with parents from a phone, so the register is done by the first bell.",
     points: ["Attendance in a minute per class", "Timetable, rooms and substitutions", "Marks entry with deadlines", "Messages to parents attached to the student"],
-    related: [{ label: "Solutions for teachers", href: "/solutions/teachers" }, { label: "Open in the demo app", href: "/app/attendance" }],
+    related: [{ label: "Solutions for teachers", href: "/solutions/teachers" }],
     visual: "attendance",
   },
   {
@@ -48,7 +48,7 @@ export const resources: Resource[] = [
     headline: "See what is happening as it happens",
     intro: "A live feed shows payments received, registers submitted and applications arriving, so problems are visible the moment they start.",
     points: ["A live activity feed across the institution", "Reminders that lead to visible results", "Alerts for sections that have not submitted attendance", "Pause the feed whenever you need to read"],
-    related: [{ label: "Try the live demo", href: "/app/dashboard" }, { label: "Attendance", href: "/features#attendance" }],
+    related: [{ label: "Attendance", href: "/features#attendance" }],
     visual: "monitoring",
   },
   {
@@ -58,7 +58,7 @@ export const resources: Resource[] = [
     headline: "Trends that lead to a decision",
     intro: "Attendance and collection trends against target show where to act, instead of a wall of numbers.",
     points: ["Attendance over time against your target", "Fee collection by month and by class", "Sections and classes that need attention first", "Every chart links to the list behind it"],
-    related: [{ label: "Fees and payments", href: "/features#fees-and-payments" }, { label: "Open in the demo app", href: "/app/dashboard" }],
+    related: [{ label: "Fees and payments", href: "/features#fees-and-payments" }],
     visual: "analytics",
   },
   {
@@ -78,7 +78,7 @@ export const resources: Resource[] = [
     headline: "Nothing waits in someone's notebook",
     intro: "Every application, request and document has a visible status, an owner and a next step, so progress can be tracked and nothing is lost.",
     points: ["A pipeline for admissions from application to approval", "Document checklists with missing items flagged", "Requests chased automatically", "A clear trail of who decided what"],
-    related: [{ label: "Admissions", href: "/features#admissions" }, { label: "Open in the demo app", href: "/app/admissions" }],
+    related: [{ label: "Admissions", href: "/features#admissions" }],
     visual: "tracking",
   },
 ];

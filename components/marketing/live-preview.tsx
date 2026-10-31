@@ -12,14 +12,14 @@ export function LiveDashboardPreview() {
   const live = useLive();
   const o = overviewLive(live);
   const items: AttentionItem[] = [
-    o.pendingApprovals > 0 && { id: "1", severity: "high", title: `${o.pendingApprovals} applications awaiting approval`, detail: "A decision is needed so families can be told.", action: "Review applications", href: "/app/admissions?stage=Pending+approval" },
-    o.overdueCount > 0 && { id: "2", severity: "high", title: `${o.overdueCount} overdue fee payments`, detail: `${taka(o.overdueAmount)} outstanding.`, action: "Review payments", href: "/app/fees?status=Overdue" },
+    o.pendingApprovals > 0 && { id: "1", severity: "high", title: `${o.pendingApprovals} applications awaiting approval`, detail: "A decision is needed so families can be told.", action: "Review applications", static: true },
+    o.overdueCount > 0 && { id: "2", severity: "high", title: `${o.overdueCount} overdue fee payments`, detail: `${taka(o.overdueAmount)} outstanding.`, action: "Review payments", static: true },
     o.notSubmitted.length > 0 && { id: "3", severity: "high", title: `Attendance not submitted for ${o.notSubmitted.length} sections`, detail: o.notSubmitted.map((s) => s.section).join(", "), action: o.notSubmitted.every((s) => live.reminded.includes(s.section)) ? "Reminder sent" : "Send reminder", run: () => actions.remindSections(o.notSubmitted.map((s) => s.section)), done: "Reminder sent to class teachers" },
-    o.conflicts > 0 && { id: "4", severity: "medium", title: `${o.conflicts} timetable conflicts detected`, detail: "Room 204, Monday 10:00 AM, and one teacher booked twice.", action: "Resolve conflicts", href: "/app/timetable" },
+    o.conflicts > 0 && { id: "4", severity: "medium", title: `${o.conflicts} timetable conflicts detected`, detail: "Room 204, Monday 10:00 AM, and one teacher booked twice.", action: "Resolve conflicts", static: true },
   ].filter(Boolean) as AttentionItem[];
 
   return (
-    <ProductFrame title={`Dashboard · ${institution.name}`} href="/app/dashboard" live={<LivePill />}>
+    <ProductFrame title={`Dashboard · ${institution.name}`} live={<LivePill />}>
       <div className="space-y-3">
         <StatStrip items={[
           { label: "Students present", value: <CountUp value={o.present} />, note: `${o.submittedSections} of ${o.totalSections} sections recorded`, spark: attendanceTrend.slice(-8) },
@@ -44,7 +44,7 @@ export function LiveDashboardPreview() {
 
 export function LiveActivityPreview() {
   return (
-    <ProductFrame title="Live activity" href="/app/dashboard" live={<LivePill />}>
+    <ProductFrame title="Live activity" live={<LivePill />}>
       <div className="panel"><ActivityFeed limit={6} /></div>
     </ProductFrame>
   );

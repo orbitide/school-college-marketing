@@ -7,7 +7,7 @@ export function FinalCta() {
         <div>
           <h2 id="cta-title" className="text-3xl leading-[1.15] sm:text-4xl">See what needs attention at your institution</h2>
           <p className="mt-4 max-w-xl text-lg text-primary-foreground/75">
-            Book a short demo and we will set it up with your classes and fee structure. Or explore the demo app yourself first.
+            Book a short demo and we will set it up with your classes and fee structure.
           </p>
         </div>
         <div className="lg:justify-self-end"><CtaButtons inverse /></div>

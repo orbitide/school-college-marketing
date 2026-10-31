@@ -7,7 +7,6 @@ const product = [
   { href: "/solutions", label: "Solutions" },
   { href: "/resources", label: "Resources" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/app/dashboard", label: "Try the demo app" },
   { href: "/demo", label: "Book a demo" },
 ] as const;
 const company = [
