@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { NavMenu } from "@/components/layout/nav-menu";
 import { FeaturesPanel, ResourcesPanel, SolutionsPanel } from "@/components/layout/nav-panels";
 import { Wordmark } from "@/components/layout/wordmark";
-import { moduleGroups, slug } from "@/content/modules";
+import { features } from "@/content/marketing";
 import { resources } from "@/content/resources";
 import { nav } from "@/content/site";
 import { solutions } from "@/content/solutions";
@@ -13,7 +13,7 @@ const panels = { features: <FeaturesPanel />, solutions: <SolutionsPanel />, res
 
 /** Sub-links shown under each dropdown item in the phone menu. */
 const mobileSub: Record<string, { href: string; label: string }[]> = {
-  features: moduleGroups.map((g) => ({ href: `/features#${slug(g.title)}`, label: g.title })),
+  features: features.map((f) => ({ href: `/features#${f.slug}`, label: f.name })),
   solutions: solutions.map((x) => ({ href: `/solutions/${x.slug}`, label: x.name })),
   resources: resources.map((x) => ({ href: `/resources/${x.slug}`, label: x.name })),
 };
@@ -23,7 +23,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b bg-surface/95 backdrop-blur">
       <div className="container-page relative flex h-16 items-center justify-between gap-6">
         <Wordmark />
-        <nav aria-label="Main" className="hidden h-full md:block">
+        <nav aria-label="Main" className="hidden h-full lg:block">
           <ul className="flex h-full items-center gap-1">
             {nav.map((item) =>
               "menu" in item ? (
@@ -37,16 +37,15 @@ export function Header() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <Button asChild variant="outline" size="sm" className="hidden lg:inline-flex"><Link href="/app/dashboard">Try the demo app</Link></Button>
-          <Button asChild size="sm"><Link href="/demo">Book a demo</Link></Button>
+          <Button asChild size="sm"><Link href="/contact">Book a call</Link></Button>
           {/* Mobile menu: native <details>, no client JS. */}
-          <details className="group md:hidden">
+          <details className="group lg:hidden">
             <summary aria-label="Menu" className="flex cursor-pointer list-none rounded-md p-2 hover:bg-muted [&::-webkit-details-marker]:hidden">
               <Menu className="size-5" aria-hidden />
             </summary>
             <div className="absolute inset-x-0 top-full border-b bg-surface shadow-md">
               <ul className="container-page py-2">
-                {[...nav, { href: "/app/dashboard", label: "Try the demo app" }].map((item) => (
+                {[...nav, { href: "/contact", label: "Contact" }].map((item) => (
                   <li key={item.href} className="border-b last:border-b-0">
                     <Link href={item.href} className="block py-3.5 text-base font-medium">{item.label}</Link>
                     {"menu" in item && (

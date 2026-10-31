@@ -26,7 +26,7 @@ export default function AboutPage() {
       />
       <section className="py-14 sm:py-20">
         <div className="container-page grid items-start gap-12 lg:grid-cols-1">
-                    <ol className="divide-y rounded-xl border bg-surface">
+          <ol className="divide-y rounded-xl border bg-surface">
             {values.map((v, i) => (
               <li key={v.title} className="grid grid-cols-[3rem_1fr] px-5 py-5">
                 <span className="tnum text-lg font-semibold text-primary">{String(i + 1).padStart(2, "0")}</span>

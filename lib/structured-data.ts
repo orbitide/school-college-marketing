@@ -1,4 +1,4 @@
-import { faqs } from "@/content/faqs";
+import { faqs } from "@/content/marketing";
 import { site } from "@/content/site";
 
 const context = "https://schema.org";

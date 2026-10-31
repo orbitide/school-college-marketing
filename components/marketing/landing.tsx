@@ -1,41 +1,24 @@
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { FinalCta } from "@/components/marketing/final-cta";
-import { LiveActivityPreview, LiveDashboardPreview } from "@/components/marketing/live-preview";
 import { PageHero } from "@/components/marketing/page-hero";
-import { AdmissionsPreview, AnalyticsPreview, AttendancePreview, BranchesPreview, FeesPreview, NoticesPreview, ReportsPreview, StaffPreview } from "@/components/marketing/previews";
 import { Button } from "@/components/ui/button";
-
-const visuals = {
-  dashboard: <LiveDashboardPreview />,
-  attendance: <AttendancePreview />,
-  notices: <NoticesPreview />,
-  fees: <FeesPreview />,
-  branches: <BranchesPreview />,
-  staff: <StaffPreview />,
-  monitoring: <LiveActivityPreview />,
-  analytics: <AnalyticsPreview />,
-  reports: <ReportsPreview />,
-  tracking: <AdmissionsPreview />,
-} as const;
 
 export type LandingProps = {
   label: string;
   title: string;
   intro: string;
   points: string[];
-  visual: keyof typeof visuals;
-  cta: { href: string; label: string };
   related?: { label: string; href: string }[];
 };
 
 /** Shared layout for the Solutions and Resources pages. */
-export function Landing({ label, title, intro, points, visual, cta, related }: LandingProps) {
+export function Landing({ label, title, intro, points, related }: LandingProps) {
   return (
     <>
       <PageHero label={label} title={title} intro={intro} />
       <section className="py-12 sm:py-16">
-        <div className="container-page grid items-start gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-14">
+        <div className="container-page max-w-3xl">
           <div>
             <h2 className="text-xl">What you get</h2>
             <ul className="mt-4 space-y-3">
@@ -44,8 +27,7 @@ export function Landing({ label, title, intro, points, visual, cta, related }: L
               ))}
             </ul>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg"><Link href="/demo">Book a demo <ArrowRight /></Link></Button>
-              <Button asChild size="lg" variant="outline"><Link href={cta.href}>{cta.label}</Link></Button>
+              <Button asChild size="lg"><Link href="/contact">Book a call <ArrowRight /></Link></Button>
             </div>
             {related && related.length > 0 && (
               <p className="mt-6 flex flex-wrap gap-x-5 gap-y-1 text-sm">
@@ -53,7 +35,6 @@ export function Landing({ label, title, intro, points, visual, cta, related }: L
               </p>
             )}
           </div>
-          <div className="min-w-0">{visuals[visual]}</div>
         </div>
       </section>
       <FinalCta />

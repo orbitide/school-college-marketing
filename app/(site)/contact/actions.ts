@@ -4,13 +4,13 @@ import { z } from "zod";
 import { leadSchema } from "@/lib/lead";
 import { notifyNewLead } from "@/lib/notify";
 
-export type DemoState = {
+export type ContactState = {
   status: "idle" | "success" | "error";
   message?: string;
   errors?: Record<string, string[] | undefined>;
 };
 
-export async function submitDemoRequest(_prev: DemoState, formData: FormData): Promise<DemoState> {
+export async function submitContactRequest(_prev: ContactState, formData: FormData): Promise<ContactState> {
   const parsed = leadSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
     return { status: "error", errors: z.flattenError(parsed.error).fieldErrors };
@@ -31,7 +31,7 @@ export async function submitDemoRequest(_prev: DemoState, formData: FormData): P
     const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...payload, source: "marketing-site-demo" }),
+      body: JSON.stringify({ ...payload, source: "marketing-site-contact" }),
       cache: "no-store",
     });
     if (!res.ok) throw new Error(`Lead API responded ${res.status}`);

@@ -1,10 +1,10 @@
 import { Plus } from "lucide-react";
-import { faqs } from "@/content/faqs";
+import { faqs } from "@/content/marketing";
 
-export function FaqList() {
+export function FaqList({ limit }: { limit?: number }) {
   return (
     <div className="divide-y rounded-xl border bg-surface">
-      {faqs.map((faq) => (
+      {faqs.slice(0, limit).map((faq) => (
         <details key={faq.q} className="group px-5">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-4 font-medium [&::-webkit-details-marker]:hidden">
             {faq.q}

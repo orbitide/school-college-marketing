@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { moduleGroups, slug } from "@/content/modules";
+import { features } from "@/content/marketing";
 import { resources } from "@/content/resources";
 import { solutions } from "@/content/solutions";
 
@@ -15,24 +15,19 @@ function Footer({ children }: { children: React.ReactNode }) {
 export function FeaturesPanel() {
   return (
     <>
-      <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
-        {moduleGroups.map((g) => (
-          <div key={g.title}>
-            <Link href={`/features#${slug(g.title)}`} className="text-sm font-semibold hover:text-primary hover:underline">{g.title}</Link>
-            <p className="mt-0.5 text-xs text-muted-foreground">{g.intro}</p>
-            <ul className="mt-2 space-y-0.5">
-              {g.modules.map((m) => (
-                <li key={m.name}>
-                  <Link href={`/features#${slug(m.name)}`} className="-mx-2 block rounded-md px-2 py-1 text-sm text-muted-foreground hover:bg-primary-soft hover:text-primary">{m.name}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <ul className="grid gap-x-8 gap-y-1 sm:grid-cols-2 lg:grid-cols-3">
+        {features.map((f) => (
+          <li key={f.slug}>
+            <Link href={`/features#${f.slug}`} className={itemLink}>
+              <span className="block text-sm font-semibold">{f.name}</span>
+              <span className="mt-0.5 block text-xs text-muted-foreground">{f.summary}</span>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
       <Footer>
         <Link href="/features" className={footerLink}>See all features <ArrowRight className="size-4" aria-hidden /></Link>
-        <Link href="/app/dashboard" className={footerMuted}>Try the demo app</Link>
+        <Link href="/security" className={footerMuted}>Security and privacy</Link>
       </Footer>
     </>
   );
@@ -54,7 +49,7 @@ export function SolutionsPanel() {
       </ul>
       <Footer>
         <Link href="/solutions" className={footerLink}>See all solutions <ArrowRight className="size-4" aria-hidden /></Link>
-        <Link href="/app/dashboard" className={footerMuted}>Try each view in the demo app</Link>
+        <Link href="/benefits" className={footerMuted}>How you will benefit</Link>
       </Footer>
     </>
   );
@@ -72,12 +67,6 @@ export function ResourcesPanel() {
             </Link>
           </li>
         ))}
-        <li>
-          <Link href="/app/dashboard" className={itemLink}>
-            <span className="block text-sm font-semibold text-primary">Demo app</span>
-            <span className="mt-0.5 block text-xs text-muted-foreground">Try the working prototype with sample data.</span>
-          </Link>
-        </li>
       </ul>
       <Footer>
         <Link href="/resources" className={footerLink}>All resources <ArrowRight className="size-4" aria-hidden /></Link>

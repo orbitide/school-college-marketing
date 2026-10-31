@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { PageHero } from "@/components/marketing/page-hero";
+import { Check } from "lucide-react";
+import { ContactForm } from "@/components/contact/contact-form";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description: `Talk to the ${site.name} team by telephone, email or WhatsApp.`,
+  title: "Book a call",
+  description: `Talk to the ${site.name} team about your school or college. No obligation.`,
   alternates: { canonical: "/contact" },
 };
+
+const points = ["A conversation about how your institution works today", "Honest answers on setup, data import and pricing", "No obligation, around 30 minutes"];
 
 const items = [
   { label: "Telephone", value: site.phone, href: `tel:${site.phone.replace(/\s/g, "")}` },
@@ -18,26 +19,26 @@ const items = [
 
 export default function ContactPage() {
   return (
-    <>
-      <PageHero label="Contact" title="Contact us" intro="Questions about the system, pricing or multi-branch plans? We are happy to help." />
-      <div className="container-page grid gap-12 py-14 sm:py-20 lg:grid-cols-12">
-        <dl className="panel divide-y lg:col-span-7">
+    <div className="container-page grid gap-12 py-14 sm:py-20 lg:grid-cols-12 lg:gap-16">
+      <div className="lg:col-span-5">
+        <p className="label">Contact</p>
+        <h1 className="mt-3 text-4xl leading-[1.1] sm:text-5xl">Book a call</h1>
+        <p className="mt-5 text-lg text-muted-foreground">Tell us a little about your institution and we will get back to you to arrange a time.</p>
+        <ul className="mt-8 space-y-3">
+          {points.map((p) => (
+            <li key={p} className="flex gap-2"><Check className="mt-1 size-4 shrink-0 text-primary" aria-hidden />{p}</li>
+          ))}
+        </ul>
+        <dl className="mt-10 divide-y border-y">
           {items.map((item) => (
-            <div key={item.label} className="grid gap-1 px-5 py-4 sm:grid-cols-[10rem_1fr]">
+            <div key={item.label} className="grid gap-1 py-3 sm:grid-cols-[7rem_1fr]">
               <dt className="label self-center">{item.label}</dt>
-              <dd className="text-lg font-medium">
-                {"href" in item ? <a href={item.href} className="link-underline">{item.value}</a> : item.value}
-              </dd>
+              <dd className="font-medium">{"href" in item ? <a href={item.href} className="link-underline">{item.value}</a> : item.value}</dd>
             </div>
           ))}
         </dl>
-        <div className="lg:col-span-4 lg:col-start-9">
-          <p className="text-lg text-muted-foreground">The quickest way to see the system is a short demonstration with your own classes and fee structure.</p>
-          <Button asChild size="lg" className="mt-6">
-            <Link href="/demo">Book a demo</Link>
-          </Button>
-        </div>
       </div>
-    </>
+      <div className="relative lg:col-span-7"><ContactForm /></div>
+    </div>
   );
 }
