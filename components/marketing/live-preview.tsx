@@ -49,3 +49,20 @@ export function LiveActivityPreview() {
     </ProductFrame>
   );
 }
+
+/** Compact live "Needs attention" list for the home showcase. */
+export function LiveAttentionPreview() {
+  const live = useLive();
+  const o = overviewLive(live);
+  const items: AttentionItem[] = [
+    o.pendingApprovals > 0 && { id: "1", severity: "high", title: `${o.pendingApprovals} applications awaiting approval`, detail: "A decision is needed so families can be told.", action: "Review applications", static: true },
+    o.overdueCount > 0 && { id: "2", severity: "high", title: `${o.overdueCount} overdue fee payments`, detail: `${taka(o.overdueAmount)} outstanding.`, action: "Review payments", static: true },
+    o.notSubmitted.length > 0 && { id: "3", severity: "high", title: `Attendance not submitted for ${o.notSubmitted.length} sections`, detail: o.notSubmitted.map((s) => s.section).join(", "), action: o.notSubmitted.every((s) => live.reminded.includes(s.section)) ? "Reminder sent" : "Send reminder", run: () => actions.remindSections(o.notSubmitted.map((s) => s.section)), done: "Reminder sent to class teachers" },
+    o.conflicts > 0 && { id: "4", severity: "medium", title: `${o.conflicts} timetable conflicts detected`, detail: "Room 204, Monday 10:00 AM, and one teacher booked twice.", action: "Resolve conflicts", static: true },
+  ].filter(Boolean) as AttentionItem[];
+  return (
+    <ProductFrame title={`Needs attention · ${institution.name}`} live={<LivePill />}>
+      <div className="panel">{items.length ? <AttentionList items={items} /> : <p className="px-4 py-10 text-center text-sm text-muted-foreground">All clear.</p>}</div>
+    </ProductFrame>
+  );
+}
