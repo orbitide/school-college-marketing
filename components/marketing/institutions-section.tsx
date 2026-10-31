@@ -31,7 +31,7 @@ export function InstitutionsSection() {
   };
 
   return (
-    <section aria-labelledby="institutions-title" className="bg-[radial-gradient(50rem_22rem_at_50%_0%,#dff3ee,transparent_70%),radial-gradient(50rem_20rem_at_50%_100%,#dff3ee,transparent_70%),#fff] py-16 sm:py-24">
+    <section id="institution-types" aria-labelledby="institutions-title" className="bg-[radial-gradient(50rem_22rem_at_50%_0%,#dff3ee,transparent_70%),radial-gradient(50rem_20rem_at_50%_100%,#dff3ee,transparent_70%),#fff] py-16 sm:py-24">
       <div className="container-page">
         <header className="mx-auto max-w-3xl text-center">
           <p className="text-base font-semibold text-primary">Institution types</p>

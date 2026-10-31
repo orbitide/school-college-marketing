@@ -11,6 +11,9 @@ export const site = {
   address: "Dhaka, Bangladesh", // TODO
 } as const;
 
+// Social profiles. TODO: add real URLs; the footer shows an icon only for the ones that are set.
+export const social = { facebook: "", x: "", youtube: "", instagram: "", linkedin: "" } as const;
+
 // Public site navigation. Items with a menu open a dropdown (see components/layout/nav-panels.tsx).
 export const nav = [
   { href: "/features", label: "Features", menu: "features" },
