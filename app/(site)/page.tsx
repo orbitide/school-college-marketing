@@ -6,6 +6,8 @@ import { Hero } from "@/components/marketing/hero";
 import { AdditionalFeatures } from "@/components/marketing/additional-features";
 import { AdmissionsSection } from "@/components/marketing/admissions-section";
 import { AudiencesSection } from "@/components/marketing/audiences-section";
+import { IntegrationsSection } from "@/components/marketing/integrations-section";
+import { StoriesSection } from "@/components/marketing/stories-section";
 import { FeatureShowcase } from "@/components/marketing/feature-showcase";
 import { PlatformSection } from "@/components/marketing/platform-section";
 import { SolveSection } from "@/components/marketing/solve-section";
@@ -48,6 +50,8 @@ export default function Home() {
       <AdditionalFeatures />
       <TrustBanner />
       <AudiencesSection />
+      <IntegrationsSection />
+      <StoriesSection />
 
       <Section label="The problem" title="Sound familiar?" intro="Most institutions run on a patchwork. The cost is time, and the things that slip through.">
         <ul className="grid divide-y rounded-xl border bg-surface sm:grid-cols-2 sm:divide-x-0 lg:grid-cols-3">

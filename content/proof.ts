@@ -12,3 +12,13 @@ export const proof = {
     role: "[Role], [Institution]",
   },
 } as const;
+
+// Placeholder customer stories for the home page carousel. TODO: replace with real, approved stories
+// (and add `rating` and `href` when they exist). Nothing here is a real customer statement.
+export type Story = { tag: string; quote: string; name: string; role: string; photo: string; rating?: number; href?: string };
+
+export const stories: Story[] = [
+  { tag: "[School]", quote: "[A real customer quote about how the office runs now.]", name: "[Name]", role: "[Role], [Institution]", photo: "customer-1" },
+  { tag: "[College]", quote: "[A real customer quote about admissions or results.]", name: "[Name]", role: "[Role], [Institution]", photo: "customer-2" },
+  { tag: "[Group]", quote: "[A real customer quote about running several campuses.]", name: "[Name]", role: "[Role], [Institution]", photo: "customer-3" },
+];
