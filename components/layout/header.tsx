@@ -1,21 +1,39 @@
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { NavMenu } from "@/components/layout/nav-menu";
+import { FeaturesPanel, ResourcesPanel, SolutionsPanel } from "@/components/layout/nav-panels";
 import { Wordmark } from "@/components/layout/wordmark";
+import { features } from "@/content/marketing";
+import { resources } from "@/content/resources";
 import { nav } from "@/content/site";
+import { solutions } from "@/content/solutions";
+
+const panels = { features: <FeaturesPanel />, solutions: <SolutionsPanel />, resources: <ResourcesPanel /> } as const;
+
+/** Sub-links shown under each dropdown item in the phone menu. */
+const mobileSub: Record<string, { href: string; label: string }[]> = {
+  features: features.map((f) => ({ href: `/features#${f.slug}`, label: f.name })),
+  solutions: solutions.map((x) => ({ href: `/solutions/${x.slug}`, label: x.name })),
+  resources: resources.map((x) => ({ href: `/resources/${x.slug}`, label: x.name })),
+};
 
 export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b bg-surface/95 backdrop-blur">
       <div className="container-page relative flex h-16 items-center justify-between gap-6">
         <Wordmark />
-        <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-1">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground">{item.label}</Link>
-              </li>
-            ))}
+        <nav aria-label="Main" className="hidden h-full lg:block">
+          <ul className="flex h-full items-center gap-1">
+            {nav.map((item) =>
+              "menu" in item ? (
+                <NavMenu key={item.href} label={item.label}>{panels[item.menu]}</NavMenu>
+              ) : (
+                <li key={item.href}>
+                  <Link href={item.href} className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground">{item.label}</Link>
+                </li>
+              ),
+            )}
           </ul>
         </nav>
         <div className="flex items-center gap-2">
@@ -30,6 +48,15 @@ export function Header() {
                 {[...nav, { href: "/contact", label: "Contact" }].map((item) => (
                   <li key={item.href} className="border-b last:border-b-0">
                     <Link href={item.href} className="block py-3.5 text-base font-medium">{item.label}</Link>
+                    {"menu" in item && (
+                      <ul className="mb-3 grid grid-cols-2 gap-x-4 gap-y-1 pl-3">
+                        {mobileSub[item.menu].map((sub) => (
+                          <li key={sub.href}>
+                            <Link href={sub.href} className="block py-1.5 text-sm text-muted-foreground">{sub.label}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </li>
                 ))}
               </ul>

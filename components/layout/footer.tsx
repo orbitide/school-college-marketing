@@ -5,6 +5,7 @@ import { site } from "@/content/site";
 const product = [
   { href: "/features", label: "Features" },
   { href: "/solutions", label: "Solutions" },
+  { href: "/resources", label: "Resources" },
   { href: "/benefits", label: "Benefits" },
   { href: "/security", label: "Security" },
   { href: "/pricing", label: "Pricing" },
