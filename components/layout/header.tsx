@@ -6,7 +6,7 @@ import { FeaturesPanel, ResourcesPanel, SolutionsPanel } from "@/components/layo
 import { Wordmark } from "@/components/layout/wordmark";
 import { moduleGroups, slug } from "@/content/modules";
 import { resources } from "@/content/resources";
-import { nav } from "@/content/site";
+import { nav, site } from "@/content/site";
 import { solutions } from "@/content/solutions";
 
 const panels = { features: <FeaturesPanel />, solutions: <SolutionsPanel />, resources: <ResourcesPanel /> } as const;
@@ -18,14 +18,16 @@ const mobileSub: Record<string, { href: string; label: string }[]> = {
   resources: resources.map((x) => ({ href: `/resources/${x.slug}`, label: x.name })),
 };
 
+const links = nav.filter((item) => item.href !== "/contact");
+
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b bg-surface/95 backdrop-blur">
-      <div className="container-page relative flex h-16 items-center justify-between gap-6">
+    <header className="sticky top-0 z-40 px-3 pt-3 sm:px-4">
+      <div className="relative mx-auto flex h-16 max-w-[84rem] items-center justify-between gap-4 rounded-2xl border bg-surface/95 px-4 shadow-sm backdrop-blur lg:px-6">
         <Wordmark />
-        <nav aria-label="Main" className="hidden h-full md:block">
+        <nav aria-label="Main" className="hidden h-full lg:block">
           <ul className="flex h-full items-center gap-1">
-            {nav.map((item) =>
+            {links.map((item) =>
               "menu" in item ? (
                 <NavMenu key={item.href} label={item.label}>{panels[item.menu]}</NavMenu>
               ) : (
@@ -37,14 +39,23 @@ export function Header() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <Button asChild size="sm"><Link href="/demo">Book a demo</Link></Button>
+          <a href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} className="mr-2 hidden items-center gap-2 text-sm font-medium text-foreground xl:flex">
+            <svg viewBox="0 0 24 16" className="h-4 w-6 rounded-[3px]" aria-hidden>
+              <rect width="24" height="16" fill="#006a4e" />
+              <circle cx="11" cy="8" r="4.5" fill="#f42a41" />
+            </svg>
+            {site.phone}
+          </a>
+          <Button asChild size="sm" variant="outline" className="hidden sm:inline-flex"><a href={`${site.appUrl}/login`}>Login</a></Button>
+          <Button asChild size="sm" variant="outline" className="hidden md:inline-flex"><Link href="/demo">Demo</Link></Button>
+          <Button asChild size="sm"><a href={`${site.appUrl}/signup`}>Start free trial</a></Button>
           {/* Mobile menu: native <details>, no client JS. */}
-          <details className="group md:hidden">
+          <details className="group lg:hidden">
             <summary aria-label="Menu" className="flex cursor-pointer list-none rounded-md p-2 hover:bg-muted [&::-webkit-details-marker]:hidden">
               <Menu className="size-5" aria-hidden />
             </summary>
-            <div className="absolute inset-x-0 top-full border-b bg-surface shadow-md">
-              <ul className="container-page py-2">
+            <div className="absolute inset-x-0 top-full mt-2 max-h-[75vh] overflow-y-auto rounded-2xl border bg-surface p-2 shadow-xl">
+              <ul className="px-3">
                 {nav.map((item) => (
                   <li key={item.href} className="border-b last:border-b-0">
                     <Link href={item.href} className="block py-3.5 text-base font-medium">{item.label}</Link>
@@ -59,6 +70,10 @@ export function Header() {
                     )}
                   </li>
                 ))}
+                <li className="flex gap-2 py-3 sm:hidden">
+                  <Button asChild size="sm" variant="outline" className="flex-1"><a href={`${site.appUrl}/login`}>Login</a></Button>
+                  <Button asChild size="sm" variant="outline" className="flex-1"><Link href="/demo">Demo</Link></Button>
+                </li>
               </ul>
             </div>
           </details>
