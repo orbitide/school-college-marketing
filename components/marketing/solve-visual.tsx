@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 const card = "rounded-xl bg-surface p-3.5 shadow-sm ring-1 ring-black/5";
 
-function Ring({ percent, color, label }: { percent: number; color: string; label: string }) {
+export function Ring({ percent, color, label }: { percent: number; color: string; label: string }) {
   const r = 15.9;
   return (
     <div className="text-center">

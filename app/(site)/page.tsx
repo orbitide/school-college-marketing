@@ -5,6 +5,7 @@ import { FinalCta } from "@/components/marketing/final-cta";
 import { Hero } from "@/components/marketing/hero";
 import { FeatureShowcase } from "@/components/marketing/feature-showcase";
 import { SolveSection } from "@/components/marketing/solve-section";
+import { StaffSection } from "@/components/marketing/staff-section";
 import { WhyChoose } from "@/components/marketing/why-choose";
 import { Section } from "@/components/marketing/section";
 import { JsonLd } from "@/components/shared/json-ld";
@@ -36,6 +37,7 @@ export default function Home() {
       <FeatureShowcase />
       <WhyChoose />
       <SolveSection />
+      <StaffSection />
 
       <Section label="The problem" title="Sound familiar?" intro="Most institutions run on a patchwork. The cost is time, and the things that slip through.">
         <ul className="grid divide-y rounded-xl border bg-surface sm:grid-cols-2 sm:divide-x-0 lg:grid-cols-3">
