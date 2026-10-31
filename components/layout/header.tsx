@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { NavMenu } from "@/components/layout/nav-menu";
 import { FeaturesPanel, ResourcesPanel, SolutionsPanel } from "@/components/layout/nav-panels";
 import { Wordmark } from "@/components/layout/wordmark";
-import { moduleGroups, slug } from "@/content/modules";
+import { groupHref, moduleGroups } from "@/content/modules";
 import { resources } from "@/content/resources";
 import { nav, site } from "@/content/site";
 import { solutions } from "@/content/solutions";
@@ -13,7 +13,7 @@ const panels = { features: <FeaturesPanel />, solutions: <SolutionsPanel />, res
 
 /** Sub-links shown under each dropdown item in the phone menu. */
 const mobileSub: Record<string, { href: string; label: string }[]> = {
-  features: moduleGroups.map((g) => ({ href: `/features#${slug(g.title)}`, label: g.title })),
+  features: moduleGroups.map((g) => ({ href: groupHref(g.title), label: g.title })),
   solutions: solutions.map((x) => ({ href: `/solutions/${x.slug}`, label: x.name })),
   resources: resources.map((x) => ({ href: `/resources/${x.slug}`, label: x.name })),
 };

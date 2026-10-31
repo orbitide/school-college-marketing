@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { BarChart3, CalendarDays, ChevronRight, ClipboardCheck, Megaphone, UserCog, Users, type LucideIcon } from "lucide-react";
 import { CardCarousel } from "@/components/marketing/card-carousel";
-import { slug } from "@/content/modules";
+import { moduleHref } from "@/content/modules";
 import { cn } from "@/lib/utils";
 
 type Card = { icon: LucideIcon; tile: string; title: string; text: string; link: string; module: string };
@@ -36,7 +36,7 @@ export function AdditionalFeatures() {
                 <span aria-hidden className={cn("flex size-11 items-center justify-center rounded-xl", c.tile)}><c.icon className="size-5" /></span>
                 <h3 className="mt-10 text-2xl font-bold tracking-tight">{c.title}</h3>
                 <p className="mt-4 text-foreground/75">{c.text}</p>
-                <Link href={`/features#${slug(c.module)}`} className="mt-auto inline-flex items-center gap-1.5 pt-8 font-bold text-primary hover:underline">
+                <Link href={moduleHref(c.module)} className="mt-auto inline-flex items-center gap-1.5 pt-8 font-bold text-primary hover:underline">
                   {c.link} <ChevronRight className="size-4" aria-hidden />
                 </Link>
               </article>

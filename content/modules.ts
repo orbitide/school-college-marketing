@@ -55,3 +55,7 @@ export const moduleGroups: ModuleGroup[] = [
     modules: [{ name: "Student, attendance, financial and academic reports", summary: "Standard reports in one click, and custom reports from any field." }],
   },
 ];
+
+/** Page paths: one page per module and one per group, both under /features. */
+export const moduleHref = (name: string) => `/features/${slug(name)}`;
+export const groupHref = (title: string) => `/features/${slug(title)}`;

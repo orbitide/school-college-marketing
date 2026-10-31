@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/layout/wordmark";
-import { moduleGroups, slug } from "@/content/modules";
+import { groupHref, moduleGroups } from "@/content/modules";
 import { resources } from "@/content/resources";
 import { site, social } from "@/content/site";
 
@@ -15,7 +15,7 @@ const product: L[] = [
   { href: `${site.appUrl}/login`, label: "Sign in", external: true },
   { href: "/contact", label: "Contact us" },
 ];
-const features: L[] = moduleGroups.map((g) => ({ href: `/features#${slug(g.title)}`, label: g.title }));
+const features: L[] = moduleGroups.map((g) => ({ href: groupHref(g.title), label: g.title }));
 const institutions: L[] = ["Kindergartens", "Schools", "Colleges", "Madrasas", "Coaching centres", "Multi-branch groups"].map((label) => ({ href: "/#institution-types", label }));
 const resourceLinks: L[] = [...resources.map((r) => ({ href: `/resources/${r.slug}`, label: r.name })), { href: "/resources", label: "All resources" }];
 const legal: L[] = [
