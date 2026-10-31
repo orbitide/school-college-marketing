@@ -2,13 +2,12 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { FaqList } from "@/components/marketing/faq-list";
 import { FinalCta } from "@/components/marketing/final-cta";
-import { LiveActivityPreview, LiveDashboardPreview } from "@/components/marketing/live-preview";
+import { Hero } from "@/components/marketing/hero";
+import { LiveActivityPreview } from "@/components/marketing/live-preview";
 import { AdmissionsPreview, AttendancePreview, FeesPreview, NoticesPreview } from "@/components/marketing/previews";
 import { Section } from "@/components/marketing/section";
 import { JsonLd } from "@/components/shared/json-ld";
-import { Button } from "@/components/ui/button";
 import { moduleGroups } from "@/content/modules";
-import { site } from "@/content/site";
 import { overview as o, taka } from "@/content/product/data";
 import { faqPageLd } from "@/lib/structured-data";
 import { cn } from "@/lib/utils";
@@ -71,22 +70,7 @@ export default function Home() {
   return (
     <>
       <JsonLd data={faqPageLd} />
-      <section className="border-b bg-surface">
-        <div className="container-page pb-12 pt-12 sm:pt-20 lg:pb-16">
-          <div className="max-w-3xl">
-            <p className="label">School and college management</p>
-            <h1 className="mt-3 text-4xl leading-[1.08] sm:text-6xl">Run your school or college from one place.</h1>
-            <p className="mt-5 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-              Admissions, attendance, fees, exams and parent communication in one system that also shows what needs attention and helps you resolve it.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg"><Link href="/demo">Book a demo <ArrowRight /></Link></Button>
-              <Button asChild size="lg" variant="outline"><a href={`${site.appUrl}/signup`}>Start free trial</a></Button>
-            </div>
-          </div>
-          <div className="mt-12 sm:mt-14"><LiveDashboardPreview /></div>
-        </div>
-      </section>
+      <Hero />
 
       <Section label="The problem" title="Sound familiar?" intro="Most institutions run on a patchwork. The cost is time, and the things that slip through.">
         <ul className="grid divide-y rounded-xl border bg-surface sm:grid-cols-2 sm:divide-x-0 lg:grid-cols-3">
