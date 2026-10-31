@@ -37,7 +37,6 @@ export function Header() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <Button asChild variant="outline" size="sm" className="hidden lg:inline-flex"><Link href="/app/dashboard">Try the demo app</Link></Button>
           <Button asChild size="sm"><Link href="/demo">Book a demo</Link></Button>
           {/* Mobile menu: native <details>, no client JS. */}
           <details className="group md:hidden">
@@ -46,7 +45,7 @@ export function Header() {
             </summary>
             <div className="absolute inset-x-0 top-full border-b bg-surface shadow-md">
               <ul className="container-page py-2">
-                {[...nav, { href: "/app/dashboard", label: "Try the demo app" }].map((item) => (
+                {nav.map((item) => (
                   <li key={item.href} className="border-b last:border-b-0">
                     <Link href={item.href} className="block py-3.5 text-base font-medium">{item.label}</Link>
                     {"menu" in item && (

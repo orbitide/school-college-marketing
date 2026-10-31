@@ -13,6 +13,8 @@ export type AttentionItem = {
   detail: string;
   action: string;
   href?: string;
+  /** Display only (used in website previews): shows the action without making it clickable. */
+  static?: boolean;
   /** For actions that happen in place rather than navigating. */
   run?: () => void;
   done?: string;
@@ -35,7 +37,9 @@ export function AttentionList({ items, className }: { items: AttentionItem[]; cl
               <p className="font-semibold leading-snug">{i.title}</p>
               <p className="mt-0.5 text-sm text-muted-foreground">{i.detail}</p>
             </div>
-            {i.href ? (
+            {i.static ? (
+              <span className="inline-flex h-9 items-center gap-2 rounded-md border border-border-strong bg-surface px-3 text-sm font-semibold">{i.action} <ArrowRight className="size-4" aria-hidden /></span>
+            ) : i.href ? (
               <Button asChild variant="outline" size="sm"><Link href={i.href}>{i.action} <ArrowRight /></Link></Button>
             ) : (
               <Button variant="outline" size="sm" onClick={() => { i.run?.(); toast(i.done ?? "Done"); }}>{i.action}</Button>

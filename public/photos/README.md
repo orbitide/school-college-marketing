@@ -1,12 +1,14 @@
 # Photography slots
 
-Drop real photographs here (`.jpg`, `.jpeg`, `.webp` or `.png`). A slot switches from its placeholder to the photo automatically; crops are fixed in the layout.
+Drop a real photograph here (`.jpg`, `.jpeg`, `.webp` or `.png`). A slot switches from its placeholder to the photo automatically; the crop stays the same.
 
 | File name | Used for | Suggested subject |
 | --- | --- | --- |
-| `hero-classroom` | Home hero (portrait crop) | Students and a teacher at work in a classroom |
-| `parents-and-school` | Home wide band (21:9 desktop) | A parent checking attendance or results on a phone |
-| `teacher-attendance` | Home, teachers section | A teacher marking attendance at the start of class |
-| `about-team` | About page | The team at work with a school administrator |
+| `administrator` | Home page "One platform" section (portrait crop) | A school or college administrator at their desk, natural light |
 
-Use natural, candid photographs of real customers (with permission). Aim for 2400px on the long edge.
+Use a candid photograph of a real person, with their permission. Aim for 1600px on the long edge.
+| `audience-school` | Home page audiences cards (16:9) | A school building or campus |
+| `audience-college` | Home page audiences cards (16:9) | A college building or campus |
+| `audience-group` | Home page audiences cards (16:9) | Several campuses or branches |
+
+The audience cards show a drawn illustration until a photo with the same name exists.

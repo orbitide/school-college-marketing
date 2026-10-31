@@ -32,7 +32,6 @@ export function FeaturesPanel() {
       </div>
       <Footer>
         <Link href="/features" className={footerLink}>See all features <ArrowRight className="size-4" aria-hidden /></Link>
-        <Link href="/app/dashboard" className={footerMuted}>Try the demo app</Link>
       </Footer>
     </>
   );
@@ -54,7 +53,6 @@ export function SolutionsPanel() {
       </ul>
       <Footer>
         <Link href="/solutions" className={footerLink}>See all solutions <ArrowRight className="size-4" aria-hidden /></Link>
-        <Link href="/app/dashboard" className={footerMuted}>Try each view in the demo app</Link>
       </Footer>
     </>
   );
@@ -72,12 +70,6 @@ export function ResourcesPanel() {
             </Link>
           </li>
         ))}
-        <li>
-          <Link href="/app/dashboard" className={itemLink}>
-            <span className="block text-sm font-semibold text-primary">Demo app</span>
-            <span className="mt-0.5 block text-xs text-muted-foreground">Try the working prototype with sample data.</span>
-          </Link>
-        </li>
       </ul>
       <Footer>
         <Link href="/resources" className={footerLink}>All resources <ArrowRight className="size-4" aria-hidden /></Link>

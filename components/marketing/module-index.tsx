@@ -19,8 +19,8 @@ export function ModuleIndex() {
                   <p className="font-semibold">{m.name}</p>
                   <p className="text-sm text-muted-foreground">{m.summary}</p>
                 </div>
-                <Link href={m.demo ?? "/demo"} className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
-                  {m.demo ? "Open in the demo app" : "See it in a demo"} <ArrowRight className="size-3.5" aria-hidden />
+                <Link href="/demo" className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
+                  See it in a demo <ArrowRight className="size-3.5" aria-hidden />
                 </Link>
               </li>
             ))}

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Check, X } from "lucide-react";
 import { AttentionList, type AttentionItem } from "@/components/product/attention";
 import { StackedBars, TrendChart } from "@/components/product/charts";
@@ -6,14 +5,14 @@ import { Avatar, Badge, StatStrip } from "@/components/product/ui";
 import { applications, attendanceBySection, attendanceTrend, docsComplete, feeMonthsBase, feeRecords, institution, notices, overview as o, requiredDocs, staff, taka, trendLabels } from "@/content/product/data";
 
 /** Window frame for real product UI. Content is the same sample data the demo app uses. */
-export function ProductFrame({ title, href, live, children, className }: { title: string; href?: string; live?: React.ReactNode; children: React.ReactNode; className?: string }) {
+export function ProductFrame({ title, live, children, className }: { title: string; live?: React.ReactNode; children: React.ReactNode; className?: string }) {
   return (
     <figure className={className}>
       <div className="overflow-hidden rounded-xl border border-border-strong bg-background shadow-md">
         <div className="flex items-center gap-2 border-b bg-surface px-4 py-2.5">
           <span aria-hidden className="flex gap-1.5"><i className="size-2.5 rounded-full bg-border-strong" /><i className="size-2.5 rounded-full bg-border-strong" /><i className="size-2.5 rounded-full bg-border-strong" /></span>
           <span className="ml-2 truncate text-xs font-medium text-muted-foreground">{title}</span>
-          <span className="ml-auto flex shrink-0 items-center gap-3">{live}{href && <Link href={href} className="hidden text-xs font-semibold text-primary hover:underline sm:inline">Open in the demo app</Link>}</span>
+          <span className="ml-auto flex shrink-0 items-center gap-3">{live}</span>
         </div>
         <div className="p-3 sm:p-4">{children}</div>
       </div>
@@ -23,15 +22,15 @@ export function ProductFrame({ title, href, live, children, className }: { title
 }
 
 const heroItems: AttentionItem[] = [
-  { id: "1", severity: "high", title: `${o.pendingApprovals} applications awaiting approval`, detail: "A decision is needed so families can be told.", action: "Review applications", href: "/app/admissions?stage=Pending+approval" },
-  { id: "2", severity: "high", title: `${o.overdueCount} overdue fee payments`, detail: `${taka(o.overdueAmount)} outstanding.`, action: "Review payments", href: "/app/fees?status=Overdue" },
-  { id: "3", severity: "high", title: `Attendance not submitted for ${o.notSubmitted.length} sections`, detail: o.notSubmitted.map((s) => s.section).join(", "), action: "Send reminder", href: "/app/attendance?register=Not+submitted" },
-  { id: "4", severity: "medium", title: "2 timetable conflicts detected", detail: "Room 204, Monday 10:00 AM, and one teacher booked twice.", action: "Resolve conflicts", href: "/app/timetable" },
+  { id: "1", severity: "high", title: `${o.pendingApprovals} applications awaiting approval`, detail: "A decision is needed so families can be told.", action: "Review applications", static: true },
+  { id: "2", severity: "high", title: `${o.overdueCount} overdue fee payments`, detail: `${taka(o.overdueAmount)} outstanding.`, action: "Review payments", static: true },
+  { id: "3", severity: "high", title: `Attendance not submitted for ${o.notSubmitted.length} sections`, detail: o.notSubmitted.map((s) => s.section).join(", "), action: "Send reminder", static: true },
+  { id: "4", severity: "medium", title: "2 timetable conflicts detected", detail: "Room 204, Monday 10:00 AM, and one teacher booked twice.", action: "Resolve conflicts", static: true },
 ];
 
 export function DashboardPreview() {
   return (
-    <ProductFrame title={`Dashboard · ${institution.name}`} href="/app/dashboard">
+    <ProductFrame title={`Dashboard · ${institution.name}`}>
       <div className="space-y-3">
         <StatStrip items={[
           { label: "Students present", value: String(o.present), note: `${o.submittedSections} of ${o.totalSections} sections recorded` },
@@ -51,7 +50,7 @@ export function DashboardPreview() {
 export function FeesPreview() {
   const rows = feeRecords.filter((f) => f.status === "Overdue").slice(0, 5);
   return (
-    <ProductFrame title="Fees and payments" href="/app/fees?status=Overdue">
+    <ProductFrame title="Fees and payments">
       <div className="panel overflow-hidden">
         <div className="flex items-center justify-between border-b bg-primary-soft px-3 py-2 text-sm"><span className="font-semibold text-primary">3 selected</span><span className="rounded-md bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">Send reminder</span></div>
         <table className="w-full text-sm">
@@ -75,7 +74,7 @@ export function FeesPreview() {
 
 export function AttendancePreview() {
   return (
-    <ProductFrame title="Attendance · Today" href="/app/attendance">
+    <ProductFrame title="Attendance · Today">
       <ul className="panel divide-y text-sm">
         {attendanceBySection.slice(0, 7).map((s) => (
           <li key={s.section} className="flex items-center gap-3 px-3 py-2.5">
@@ -92,7 +91,7 @@ export function AttendancePreview() {
 export function AdmissionsPreview() {
   const a = applications.find((x) => x.stage === "Documents pending")!;
   return (
-    <ProductFrame title={`Admissions · ${a.applicant}`} href="/app/admissions?docs=Incomplete">
+    <ProductFrame title={`Admissions · ${a.applicant}`}>
       <div className="panel p-4 text-sm">
         <div className="flex items-center justify-between"><p className="font-semibold">{a.applicant} <span className="font-mono text-xs font-normal text-muted-foreground">{a.id}</span></p><Badge tone="warning">Documents pending</Badge></div>
         <ul className="mt-3 divide-y rounded-lg border">
@@ -108,7 +107,7 @@ export function AdmissionsPreview() {
 
 export function NoticesPreview() {
   return (
-    <ProductFrame title="Notices" href="/app/notices">
+    <ProductFrame title="Notices">
       <ul className="panel divide-y text-sm">
         {notices.slice(0, 4).map((n) => (
           <li key={n.id} className="flex items-center justify-between gap-3 px-3 py-2.5">
@@ -152,7 +151,7 @@ export function StaffPreview() {
   const rows = staff.slice(0, 7);
   const tone = { Present: "success", Late: "warning", "On leave": "info", Absent: "danger" } as const;
   return (
-    <ProductFrame title="Teachers and staff" href="/app/staff">
+    <ProductFrame title="Teachers and staff">
       <ul className="panel divide-y text-sm">
         {rows.map((m) => (
           <li key={m.id} className="flex items-center gap-3 px-3 py-2.5">
@@ -168,7 +167,7 @@ export function StaffPreview() {
 
 export function AnalyticsPreview() {
   return (
-    <ProductFrame title="Analytics" href="/app/dashboard">
+    <ProductFrame title="Analytics">
       <div className="grid gap-3 sm:grid-cols-2">
         <div className="panel p-4"><p className="mb-3 text-sm font-semibold">Attendance, last 14 school days</p><TrendChart data={[...attendanceTrend, 92.5]} labels={[...trendLabels, "Today"]} target={92} label="Attendance rate" /></div>
         <div className="panel p-4"><p className="mb-3 text-sm font-semibold">Fee collection by month</p><StackedBars data={[...feeMonthsBase, { label: "Oct", collected: 324000, outstanding: 196000 }]} format={taka} /></div>

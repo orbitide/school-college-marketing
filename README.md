@@ -1,6 +1,6 @@
 # School Management System: Site
 
-The public website for an education operations SaaS (admissions, attendance, fees, exams, notices, parent communication) plus a **front-end prototype of the product** at `/app`. The prototype uses sample data only: nothing is sent to a backend, and role switching is a browser-side demo. The real application lives at `app.[DOMAIN]`.
+The public website for an education operations SaaS (admissions, attendance, fees, exams, notices, parent communication) plus a **front-end prototype of the product** at `/app` (not linked from the public site). The prototype uses sample data only: nothing is sent to a backend, and role switching is a browser-side demo. The real application lives at `app.[DOMAIN]`.
 
 **Stack:** Next.js (App Router), TypeScript (strict), Tailwind CSS v4, shadcn/ui-style components, lucide-react, zod. English only. Pages are static; client JS powers the interactive prototype (tables, drawers, role switcher) and the demo form.
 
