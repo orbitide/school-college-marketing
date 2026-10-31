@@ -30,9 +30,9 @@ Other scripts: `npm run lint`, `npm run build`, `npm start`.
 ## Structure
 
 ```
-app/(site)/     /, /features, /solutions, /benefits, /security, /pricing, /faq, /about, /contact, /privacy, /terms
+app/(site)/     /, /features, /solutions(/[role]), /resources(/[topic]), /benefits, /security, /pricing, /faq, /about, /contact, /privacy, /terms
 components/     marketing/, layout/, contact/, shared/, ui/
-content/        site, marketing (features, problems, security, FAQs), pricing
+content/        site, marketing (features, problems, security, FAQs), solutions, resources, pricing
 lib/            lead schema (zod), notify stub, JSON-LD builders
 ```
 
