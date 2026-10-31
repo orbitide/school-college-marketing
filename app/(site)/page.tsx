@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { FaqList } from "@/components/marketing/faq-list";
+import { DeviceSection } from "@/components/marketing/device-section";
 import { GradientCta } from "@/components/marketing/gradient-cta";
 import { Hero } from "@/components/marketing/hero";
 import { AdditionalFeatures } from "@/components/marketing/additional-features";
@@ -56,6 +57,7 @@ export default function Home() {
       <StoriesSection />
       <InstitutionsSection />
       <ReviewsSection />
+      <DeviceSection />
 
       <Section label="The problem" title="Sound familiar?" intro="Most institutions run on a patchwork. The cost is time, and the things that slip through.">
         <ul className="grid divide-y rounded-xl border bg-surface sm:grid-cols-2 sm:divide-x-0 lg:grid-cols-3">
