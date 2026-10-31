@@ -46,7 +46,7 @@ export function SolveVisual() {
                 <li key={s.section} className="flex items-center gap-2 py-2">
                   <span className="min-w-0 flex-1"><span className="block font-semibold">{s.section}</span><span className="block truncate text-muted-foreground">{s.teacher}</span></span>
                   <span className="tabular-nums text-muted-foreground">{s.submitted ? "08:41" : "--:--"}</span>
-                  <span className={cn("rounded-full px-2.5 py-1 text-[0.6875rem] font-semibold", s.submitted ? "bg-success-soft text-success" : live.reminded.includes(s.section) ? "bg-warning-soft text-warning" : "bg-[#ffe9d6] text-[#b4530a]")}>{s.submitted ? "Submitted" : live.reminded.includes(s.section) ? "Reminded" : "Not submitted"}</span>
+                  <span className={cn("rounded-full px-2.5 py-1 text-[0.6875rem] font-semibold", s.submitted ? "bg-success-soft text-success" : live.reminded.includes(s.section) ? "bg-warning-soft text-warning" : "bg-[#ffe9d6] text-[#97430a]")}>{s.submitted ? "Submitted" : live.reminded.includes(s.section) ? "Reminded" : "Not submitted"}</span>
                 </li>
               ))}
             </ul>
@@ -56,7 +56,7 @@ export function SolveVisual() {
 
           <div className={card}>
             <div className="flex items-center justify-between text-xs"><p className="font-semibold">Fees outstanding</p><p className="rounded-md border px-2 py-0.5 text-muted-foreground">Term</p></div>
-            <p className="mt-2 text-lg font-bold text-[#b4530a]"><CountUp value={o.unpaidAmount} format={taka} /></p>
+            <p className="mt-2 text-lg font-bold text-[#97430a]"><CountUp value={o.unpaidAmount} format={taka} /></p>
             <ul className="mt-1 space-y-1 text-[0.6875rem] text-muted-foreground">
               {o.byClass.slice(-4).map((c) => (
                 <li key={c.cls} className="flex justify-between"><span>Class {c.cls}</span><span className="tabular-nums"><CountUp value={c.outstanding} format={taka} /></span></li>

@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 const pill: Record<Stage, [string, string]> = {
   Applied: ["New", "bg-info-soft text-info"],
   "Under review": ["In review", "bg-success-soft text-success"],
-  "Documents pending": ["Docs missing", "bg-[#ffe9d6] text-[#b4530a]"],
+  "Documents pending": ["Docs missing", "bg-[#ffe9d6] text-[#97430a]"],
   Interview: ["Interview", "bg-info-soft text-info"],
   "Pending approval": ["Pending", "bg-[#fbf0b5] text-[#7a6200]"],
   Approved: ["Approved", "bg-success-soft text-success"],

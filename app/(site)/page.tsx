@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { FaqList } from "@/components/marketing/faq-list";
-import { FinalCta } from "@/components/marketing/final-cta";
+import { GradientCta } from "@/components/marketing/gradient-cta";
 import { Hero } from "@/components/marketing/hero";
 import { AdditionalFeatures } from "@/components/marketing/additional-features";
 import { AdmissionsSection } from "@/components/marketing/admissions-section";
@@ -92,7 +92,7 @@ export default function Home() {
       <Section id="faq" label="Questions" title="Frequently asked questions">
         <div className="max-w-3xl"><FaqList /></div>
       </Section>
-      <FinalCta />
+      <GradientCta />
     </>
   );
 }

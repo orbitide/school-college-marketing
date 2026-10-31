@@ -79,9 +79,9 @@ export function AdditionalFeatures() {
             <button type="button" aria-label="Previous features" onClick={() => go(page - 1)} disabled={page <= 0} className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors hover:bg-primary/20 focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40">
               <ChevronLeft className="size-5" aria-hidden />
             </button>
-            <div className="flex items-center gap-1.5" role="group" aria-label="Choose a page">
+            <div className="flex items-center" role="group" aria-label="Choose a page">
               {Array.from({ length: pages }).map((_, i) => (
-                <button key={i} type="button" aria-label={`Page ${i + 1} of ${pages}`} aria-current={i === page} onClick={() => go(i)} className={cn("h-2 rounded-full transition-all", i === page ? "w-6 bg-primary" : "w-2 bg-primary/30 hover:bg-primary/50")} />
+                <button key={i} type="button" aria-label={`Page ${i + 1} of ${pages}`} aria-current={i === page} onClick={() => go(i)} className="group flex h-6 min-w-6 items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-ring"><span className={cn("block h-2 rounded-full transition-all", i === page ? "w-6 bg-primary" : "w-2 bg-primary/30 group-hover:bg-primary/50")} /></button>
               ))}
             </div>
             <button type="button" aria-label="Next features" onClick={() => go(page + 1)} disabled={page >= pages - 1} className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors hover:bg-primary/20 focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40">

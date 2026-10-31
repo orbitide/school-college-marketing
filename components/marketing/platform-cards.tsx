@@ -22,7 +22,7 @@ export function PlatformCards() {
             <div className="mt-2 grid grid-cols-[1.4fr_1fr_1fr] items-center gap-2">
               <span className="flex items-center gap-2"><span className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted"><span className="block h-full rounded-full bg-primary transition-[width] duration-700" style={{ width: `${pct}%` }} /></span><span className="font-semibold tabular-nums">{pct}%</span></span>
               <span><span className="block font-bold tabular-nums">{s.present} of {s.total}</span><span className="text-muted-foreground">Present</span></span>
-              <span><span className="block font-bold tabular-nums text-[#b4530a]">{s.absent}</span><span className="text-muted-foreground">Absent</span></span>
+              <span><span className="block font-bold tabular-nums text-[#97430a]">{s.absent}</span><span className="text-muted-foreground">Absent</span></span>
             </div>
           </div>
         );

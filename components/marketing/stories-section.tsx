@@ -44,8 +44,8 @@ export function StoriesSection() {
 
           <div className="mt-8 flex items-center justify-center gap-6">
             <button type="button" aria-label="Previous story" onClick={() => go(i - 1)} className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors hover:bg-primary/20 focus-visible:ring-2 focus-visible:ring-ring"><ChevronLeft className="size-5" aria-hidden /></button>
-            <div className="flex items-center gap-1.5" role="group" aria-label="Choose a story">
-              {stories.map((_, n) => <button key={n} type="button" aria-label={`Story ${n + 1} of ${stories.length}`} aria-current={n === i} onClick={() => setI(n)} className={cn("h-2 rounded-full transition-all", n === i ? "w-6 bg-primary" : "w-2 bg-primary/30 hover:bg-primary/50")} />)}
+            <div className="flex items-center" role="group" aria-label="Choose a story">
+              {stories.map((_, n) => <button key={n} type="button" aria-label={`Story ${n + 1} of ${stories.length}`} aria-current={n === i} onClick={() => setI(n)} className="group flex h-6 min-w-6 items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-ring"><span className={cn("block h-2 rounded-full transition-all", n === i ? "w-6 bg-primary" : "w-2 bg-primary/30 group-hover:bg-primary/50")} /></button>)}
             </div>
             <button type="button" aria-label="Next story" onClick={() => go(i + 1)} className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors hover:bg-primary/20 focus-visible:ring-2 focus-visible:ring-ring"><ChevronRight className="size-5" aria-hidden /></button>
           </div>
