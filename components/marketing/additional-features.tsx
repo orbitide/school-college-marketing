@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { CalendarDays, ChevronLeft, ChevronRight, ClipboardCheck, Megaphone, UserCog, Users, BarChart3, type LucideIcon } from "lucide-react";
+import { BarChart3, CalendarDays, ChevronRight, ClipboardCheck, Megaphone, UserCog, Users, type LucideIcon } from "lucide-react";
+import { CardCarousel } from "@/components/marketing/card-carousel";
 import { slug } from "@/content/modules";
 import { cn } from "@/lib/utils";
 
@@ -19,32 +19,6 @@ const cards: Card[] = [
 ];
 
 export function AdditionalFeatures() {
-  const track = useRef<HTMLUListElement>(null);
-  const [pages, setPages] = useState(1);
-  const [page, setPage] = useState(0);
-
-  const measure = useCallback(() => {
-    const el = track.current;
-    if (!el) return;
-    setPages(Math.max(1, Math.round(el.scrollWidth / el.clientWidth)));
-    setPage(Math.round(el.scrollLeft / el.clientWidth));
-  }, []);
-
-  useEffect(() => {
-    const el = track.current;
-    if (!el) return;
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [measure]);
-
-  const go = (p: number) => {
-    const el = track.current;
-    if (!el) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    el.scrollTo({ left: Math.max(0, Math.min(p, pages - 1)) * el.clientWidth, behavior: reduce ? "auto" : "smooth" });
-  };
-
   return (
     <section aria-labelledby="more-title" className="relative overflow-hidden bg-[radial-gradient(60rem_28rem_at_50%_58%,#dde6fa,transparent_70%),radial-gradient(30rem_20rem_at_8%_30%,#e3f3ee,transparent),#fff] py-16 sm:py-24">
       <div className="container-page">
@@ -54,40 +28,20 @@ export function AdditionalFeatures() {
           <p className="mt-4 text-lg text-muted-foreground">See what else covers your day-to-day operations.</p>
         </header>
 
-        <div role="group" aria-roledescription="carousel" aria-label="Additional features" className="mt-12">
-          <ul
-            ref={track}
-            onScroll={measure}
-            className="scroll-none flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth"
-            tabIndex={-1}
-          >
-            {cards.map((c) => (
-              <li key={c.title} className="min-w-0 shrink-0 basis-full snap-start sm:basis-[calc((100%-1.25rem)/2)] lg:basis-[calc((100%-2.5rem)/3)]">
-                <article className="flex h-full min-h-[22rem] flex-col rounded-3xl bg-white/85 p-7 shadow-sm ring-1 ring-black/5">
-                  <span aria-hidden className={cn("flex size-11 items-center justify-center rounded-xl", c.tile)}><c.icon className="size-5" /></span>
-                  <h3 className="mt-10 text-2xl font-bold tracking-tight">{c.title}</h3>
-                  <p className="mt-4 text-foreground/75">{c.text}</p>
-                  <Link href={`/features#${slug(c.module)}`} className="mt-auto inline-flex items-center gap-1.5 pt-8 font-bold text-primary hover:underline">
-                    {c.link} <ChevronRight className="size-4" aria-hidden />
-                  </Link>
-                </article>
-              </li>
+        <div className="mt-12">
+          <CardCarousel
+            label="Additional features"
+            items={cards.map((c) => (
+              <article key={c.title} className="flex h-full min-h-[22rem] flex-col rounded-3xl bg-white/85 p-7 shadow-sm ring-1 ring-black/5">
+                <span aria-hidden className={cn("flex size-11 items-center justify-center rounded-xl", c.tile)}><c.icon className="size-5" /></span>
+                <h3 className="mt-10 text-2xl font-bold tracking-tight">{c.title}</h3>
+                <p className="mt-4 text-foreground/75">{c.text}</p>
+                <Link href={`/features#${slug(c.module)}`} className="mt-auto inline-flex items-center gap-1.5 pt-8 font-bold text-primary hover:underline">
+                  {c.link} <ChevronRight className="size-4" aria-hidden />
+                </Link>
+              </article>
             ))}
-          </ul>
-
-          <div className="mt-8 flex items-center justify-center gap-6">
-            <button type="button" aria-label="Previous features" onClick={() => go(page - 1)} disabled={page <= 0} className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors hover:bg-primary/20 focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40">
-              <ChevronLeft className="size-5" aria-hidden />
-            </button>
-            <div className="flex items-center" role="group" aria-label="Choose a page">
-              {Array.from({ length: pages }).map((_, i) => (
-                <button key={i} type="button" aria-label={`Page ${i + 1} of ${pages}`} aria-current={i === page} onClick={() => go(i)} className="group flex h-6 min-w-6 items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-ring"><span className={cn("block h-2 rounded-full transition-all", i === page ? "w-6 bg-primary" : "w-2 bg-primary/30 group-hover:bg-primary/50")} /></button>
-              ))}
-            </div>
-            <button type="button" aria-label="Next features" onClick={() => go(page + 1)} disabled={page >= pages - 1} className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors hover:bg-primary/20 focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40">
-              <ChevronRight className="size-5" aria-hidden />
-            </button>
-          </div>
+          />
         </div>
       </div>
     </section>

@@ -22,3 +22,14 @@ export const stories: Story[] = [
   { tag: "[College]", quote: "[A real customer quote about admissions or results.]", name: "[Name]", role: "[Role], [Institution]", photo: "customer-2" },
   { tag: "[Group]", quote: "[A real customer quote about running several campuses.]", name: "[Name]", role: "[Role], [Institution]", photo: "customer-3" },
 ];
+
+// Placeholder reviews for the home page. TODO: replace with real, approved reviews (and add `rating` once
+// they come from a verifiable source). Nothing here is a real customer statement.
+export type Review = { title: string; body: string; name: string; role: string; rating?: number };
+
+export const reviews: Review[] = Array.from({ length: 6 }, (_, i) => ({
+  title: `[Review headline ${i + 1}]`,
+  body: "[A real, approved customer review goes here. Replace this placeholder before launch.]",
+  name: "[Name]",
+  role: "[Role], [Institution]",
+}));
