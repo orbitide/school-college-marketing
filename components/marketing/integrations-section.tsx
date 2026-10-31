@@ -35,7 +35,7 @@ function Diagram() {
 
 export function IntegrationsSection() {
   return (
-    <section aria-labelledby="integrations-title" className="bg-[linear-gradient(135deg,#e3f3ee_0%,#e4eefa_55%,#ebe9fb_100%)] py-16 sm:py-24">
+    <section id="integrations" aria-labelledby="integrations-title" className="bg-[linear-gradient(135deg,#e3f3ee_0%,#e4eefa_55%,#ebe9fb_100%)] py-16 sm:py-24">
       <div className="container-page grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
         <div>
           <p className="text-base font-semibold text-primary">Integrations</p>

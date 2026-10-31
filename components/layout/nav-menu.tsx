@@ -64,8 +64,8 @@ export function NavMenu({ label, children }: { label: string; children: React.Re
       </button>
 
       {open && (
-        <div id={id} className="menu-in absolute inset-x-0 top-full z-50" onClick={(e) => (e.target as HTMLElement).closest("a") && setOpen(false)}>
-          <div className="rounded-b-xl border border-t-0 bg-surface p-6 shadow-md">{children}</div>
+        <div id={id} className="menu-in absolute inset-x-0 top-full z-50 pt-3" onClick={(e) => (e.target as HTMLElement).closest("a") && setOpen(false)}>
+          <div className="rounded-2xl border border-[#2b8a96]/50 bg-surface p-6 shadow-xl">{children}</div>
         </div>
       )}
     </li>
