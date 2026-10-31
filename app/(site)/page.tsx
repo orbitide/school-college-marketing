@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { FaqList } from "@/components/marketing/faq-list";
 import { FinalCta } from "@/components/marketing/final-cta";
 import { Hero } from "@/components/marketing/hero";
+import { AdmissionsSection } from "@/components/marketing/admissions-section";
 import { FeatureShowcase } from "@/components/marketing/feature-showcase";
 import { SolveSection } from "@/components/marketing/solve-section";
 import { StaffSection } from "@/components/marketing/staff-section";
@@ -38,6 +39,7 @@ export default function Home() {
       <WhyChoose />
       <SolveSection />
       <StaffSection />
+      <AdmissionsSection />
 
       <Section label="The problem" title="Sound familiar?" intro="Most institutions run on a patchwork. The cost is time, and the things that slip through.">
         <ul className="grid divide-y rounded-xl border bg-surface sm:grid-cols-2 sm:divide-x-0 lg:grid-cols-3">
