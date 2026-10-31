@@ -241,3 +241,10 @@ dialog.modal {
     animation: menu-in 0.14s ease-out;
   }
 }
+
+/* Open accordion panel with a gradient outline. */
+details.grad-open[open] {
+  border: 2px solid transparent;
+  background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, var(--primary), #2b7a8c) border-box;
+  box-shadow: var(--shadow-sm);
+}
