@@ -27,6 +27,8 @@
   --danger-soft: #fce8e5;
   --info: #1d5aa5;
   --info-soft: #e4eefb;
+  --accent: #f5b82e;
+  --accent-hover: #ffc94d;
   --radius: 0.5rem;
   --shadow-sm: 0 1px 2px rgb(18 28 43 / 0.05);
   --shadow-md: 0 1px 2px rgb(18 28 43 / 0.06), 0 8px 24px -8px rgb(18 28 43 / 0.16);
@@ -53,6 +55,8 @@
   --color-danger-soft: var(--danger-soft);
   --color-info: var(--info);
   --color-info-soft: var(--info-soft);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --shadow-sm: var(--shadow-sm);
   --shadow-md: var(--shadow-md);
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
@@ -112,6 +116,45 @@
   }
   .on-dark .label {
     color: #9fc0ee;
+  }
+  /* Section heading scale, shared by every band on the page. */
+  .h-section {
+    font-size: 1.875rem;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+  @media (min-width: 640px) {
+    .h-section {
+      font-size: 2.25rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .h-section {
+      font-size: 2.75rem;
+    }
+  }
+  /* Section eyebrow above a heading. */
+  .eyebrow {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--primary);
+  }
+  .on-dark .eyebrow {
+    color: var(--accent);
+  }
+  /* Soft blue frame behind product visuals. */
+  .visual-frame {
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--primary-soft) 65%, white);
+  }
+  /* Content card used across the page. */
+  .card {
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
   }
   .tnum {
     font-variant-numeric: tabular-nums;

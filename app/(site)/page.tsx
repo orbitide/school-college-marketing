@@ -28,9 +28,9 @@ export default function Home() {
       <AdditionalFeatures />
       <TrustBanner />
       <AudiencesSection />
+      <InstitutionsSection />
       <IntegrationsSection />
       <StoriesSection />
-      <InstitutionsSection />
       <ReviewsSection />
       <DeviceSection />
       <GradientCta />

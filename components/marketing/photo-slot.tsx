@@ -12,7 +12,7 @@ const extensions = ["jpg", "jpeg", "webp", "png"];
 export function PhotoSlot({ name, alt, ratio = "aspect-[4/5]", sizes = "(min-width: 1024px) 45vw, 100vw", className, fallback }: { name: string; alt: string; ratio?: string; sizes?: string; className?: string; fallback?: React.ReactNode }) {
   const file = extensions.map((e) => `${name}.${e}`).find((f) => existsSync(path.join(process.cwd(), "public", "photos", f)));
   return (
-    <div className={cn("relative overflow-hidden rounded-2xl bg-[linear-gradient(160deg,#dbe6f5,#e4efe9)]", ratio, className)}>
+    <div className={cn("relative overflow-hidden rounded-2xl bg-primary-soft", ratio, className)}>
       {file ? (
         <Image src={`/photos/${file}`} alt={alt} fill sizes={sizes} className="object-cover" />
       ) : fallback ? (

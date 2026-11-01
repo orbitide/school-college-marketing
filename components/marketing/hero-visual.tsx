@@ -71,7 +71,7 @@ export function HeroVisual() {
   ];
 
   return (
-    <div className="relative rounded-[1.75rem] border border-white/70 bg-white/45 p-4 sm:p-6">
+    <div className="relative visual-frame bg-white/60 p-4 sm:p-6">
       <div className="flex items-center justify-between gap-4">
         <div className="w-full max-w-[16.5rem] rounded-xl bg-surface p-3 shadow-sm ring-1 ring-black/5">
           <p className="mb-1 text-xs font-semibold text-muted-foreground">Attendance today</p>

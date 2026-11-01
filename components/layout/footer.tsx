@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/layout/wordmark";
-import { moduleGroups, slug } from "@/content/modules";
+import { groupHref, moduleGroups } from "@/content/modules";
 import { resources } from "@/content/resources";
 import { site, social } from "@/content/site";
 
@@ -15,7 +15,7 @@ const product: L[] = [
   { href: `${site.appUrl}/login`, label: "Sign in", external: true },
   { href: "/contact", label: "Contact us" },
 ];
-const features: L[] = moduleGroups.map((g) => ({ href: `/features#${slug(g.title)}`, label: g.title }));
+const features: L[] = moduleGroups.map((g) => ({ href: groupHref(g.title), label: g.title }));
 const institutions: L[] = ["Kindergartens", "Schools", "Colleges", "Madrasas", "Coaching centres", "Multi-branch groups"].map((label) => ({ href: "/#institution-types", label }));
 const resourceLinks: L[] = [...resources.map((r) => ({ href: `/resources/${r.slug}`, label: r.name })), { href: "/resources", label: "All resources" }];
 const legal: L[] = [
@@ -39,11 +39,11 @@ const socials: { key: keyof typeof social; label: string; icon: Icon }[] = [
 function Column({ title, items }: { title: string; items: L[] }) {
   return (
     <nav aria-label={title}>
-      <h2 className="text-lg font-bold text-[#0b1d3a]">{title}</h2>
-      <ul className="mt-4 space-y-3 text-[0.9375rem] text-foreground/70">
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-white/60">{title}</h2>
+      <ul className="mt-4 space-y-3 text-[0.9375rem] text-white/85">
         {items.map((i) => (
           <li key={i.label}>
-            {i.external ? <a href={i.href} className="hover:text-foreground hover:underline">{i.label}</a> : <Link href={i.href} className="hover:text-foreground hover:underline">{i.label}</Link>}
+            {i.external ? <a href={i.href} className="hover:text-white hover:underline">{i.label}</a> : <Link href={i.href} className="hover:text-white hover:underline">{i.label}</Link>}
           </li>
         ))}
       </ul>
@@ -54,9 +54,23 @@ function Column({ title, items }: { title: string; items: L[] }) {
 export function Footer() {
   const active = socials.filter((s) => social[s.key]);
   return (
-    <footer>
-      <div className="bg-[#eef2f9]">
-        <div className="container-page grid grid-cols-2 gap-x-6 gap-y-10 py-14 lg:grid-cols-4">
+    <footer className="on-dark bg-primary-dark text-white">
+      <div className="container-page grid gap-12 py-14 lg:grid-cols-[1.1fr_2fr] lg:gap-16">
+        <div>
+          <Wordmark className="text-white" markClassName="bg-white/15 text-white" />
+          <p className="mt-3 max-w-xs text-white/75">{site.tagline}</p>
+          <p className="mt-6 text-sm font-semibold uppercase tracking-wide text-white/60">Sales</p>
+          <p className="mt-1 text-lg font-semibold">{site.phone}</p>
+          <p className="text-white/80">{site.email}</p>
+          {active.length > 0 && (
+            <ul className="mt-6 flex gap-4">
+              {active.map((s) => (
+                <li key={s.key}><a href={social[s.key]} aria-label={s.label} className="flex size-10 items-center justify-center rounded-md bg-white/10 text-white hover:bg-white/20"><s.icon className="size-5" /></a></li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
           <Column title="Product" items={product} />
           <Column title="Features" items={features} />
           <Column title="Institutions" items={institutions} />
@@ -64,31 +78,12 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="bg-[#d9e0ee]">
-        <div className="container-page grid gap-8 py-10 md:grid-cols-2">
-          <div>
-            <p className="text-lg font-bold text-[#0b1d3a]">Sales: <span className="font-medium text-foreground/80">{site.phone}</span></p>
-            <p className="mt-1 text-foreground/80">{site.email}</p>
-            <div className="mt-6"><Wordmark /><p className="mt-2 max-w-xs text-sm text-foreground/70">{site.tagline}</p></div>
-          </div>
-          <div className="md:justify-self-end">
-            {active.length > 0 && (
-              <>
-                <p className="text-lg font-bold text-[#0b1d3a]">Follow us on</p>
-                <ul className="mt-3 flex gap-5">
-                  {active.map((s) => (
-                    <li key={s.key}><a href={social[s.key]} aria-label={s.label} className="text-[#0b1d3a] hover:text-primary"><s.icon className="size-6" /></a></li>
-                  ))}
-                </ul>
-              </>
-            )}
-            <ul className={`flex flex-wrap gap-x-6 gap-y-2 text-sm text-foreground/75 ${active.length ? "mt-6" : ""}`}>
-              {legal.map((l) => <li key={l.href}><Link href={l.href} className="hover:text-foreground hover:underline">{l.label}</Link></li>)}
-            </ul>
-          </div>
-        </div>
-        <div className="border-t border-black/10">
-          <p className="container-page py-5 text-sm text-foreground/70">&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+      <div className="border-t border-white/10">
+        <div className="container-page flex flex-col gap-3 py-5 text-sm text-white/70 sm:flex-row sm:items-center sm:justify-between">
+          <p>&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            {legal.map((l) => <li key={l.href}><Link href={l.href} className="hover:text-white hover:underline">{l.label}</Link></li>)}
+          </ul>
         </div>
       </div>
     </footer>

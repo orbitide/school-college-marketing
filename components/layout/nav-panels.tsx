@@ -3,7 +3,7 @@ import {
   ArrowRight, BarChart3, Bell, CalendarClock, CalendarDays, ClipboardCheck, Clock, FileSpreadsheet, GraduationCap, Mail, MessageCircle, MessageSquareText,
   Megaphone, Receipt, UserPlus, Users, Wallet, Briefcase, BookOpenCheck, LineChart, Radio, ShieldCheck, ClipboardList, type LucideIcon,
 } from "lucide-react";
-import { slug } from "@/content/modules";
+import { groupHref, moduleHref } from "@/content/modules";
 import { resources } from "@/content/resources";
 import { site } from "@/content/site";
 import { solutions } from "@/content/solutions";
@@ -65,7 +65,7 @@ function BottomBar() {
     <div className="mt-5 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-muted/70 px-5 py-4">
       <div>
         <ul aria-hidden className="flex gap-2">{chan.map((C, i) => <li key={i} className="flex size-10 items-center justify-center rounded-md bg-white text-primary shadow-sm"><C className="size-5" /></li>)}</ul>
-        <Link href="/#integrations" className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-foreground/80 hover:text-primary">Integrations <ArrowRight className="size-4" aria-hidden /></Link>
+        <Link href="/integrations" className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-foreground/80 hover:text-primary">Integrations <ArrowRight className="size-4" aria-hidden /></Link>
       </div>
       <div className="flex flex-wrap gap-2.5">
         <Link href="/demo" className={cn(pill, "border-[#2b8a96] text-[#0b1d3a]")}><Clock className="size-4" aria-hidden />Book a demo</Link>
@@ -89,7 +89,7 @@ function Shell({ left, middle, leftTitle, middleTitle }: { left: React.ReactNode
   );
 }
 
-const f = (name: string) => `/features#${slug(name)}`;
+const f = moduleHref;
 
 export function FeaturesPanel() {
   return (
@@ -97,9 +97,9 @@ export function FeaturesPanel() {
       leftTitle="Product areas"
       left={
         <>
-          <TileItem href={f("Administration")} icon={ClipboardList} title="Administration" text="Admissions, attendance, leave" tone={0} />
-          <TileItem href={f("Finance")} icon={Wallet} title="Finance" text="Fees, invoices, collection" tone={1} />
-          <TileItem href={f("Communication")} icon={Megaphone} title="Communication" text="Notices, messages, parents" tone={2} />
+          <TileItem href={groupHref("Administration")} icon={ClipboardList} title="Administration" text="Admissions, attendance, leave" tone={0} />
+          <TileItem href={groupHref("Finance")} icon={Wallet} title="Finance" text="Fees, invoices, collection" tone={1} />
+          <TileItem href={groupHref("Communication")} icon={Megaphone} title="Communication" text="Notices, messages, parents" tone={2} />
         </>
       }
       middleTitle="Key features"
