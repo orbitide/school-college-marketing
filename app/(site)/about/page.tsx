@@ -5,7 +5,6 @@ import { FinalCta } from "@/components/marketing/final-cta";
 import { CampusGroupScene } from "@/components/marketing/illustrations";
 import { PageHero } from "@/components/marketing/page-hero";
 import { Block, CardGrid, HeroActions, Steps } from "@/components/marketing/page-kit";
-import { moduleGroups, groupHref } from "@/content/modules";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -51,11 +50,7 @@ export default function AboutPage() {
         <CardGrid cols={4} items={values} />
       </Block>
 
-      <Block tone="surface" id="build" eyebrow="What we build" title="One platform, six product areas">
-        <CardGrid items={moduleGroups.map((g) => ({ title: g.title, text: g.intro, href: groupHref(g.title), cta: "Explore" }))} />
-      </Block>
-
-      <Block tone="paper" id="approach" eyebrow="How we work with you" title="From first conversation to first register">
+      <Block tone="surface" id="approach" eyebrow="How we work with you" title="From first conversation to first register">
         <Steps steps={[{ title: "Listen", text: "We start with how your institution runs today." }, { title: "Show", text: "A demo set up with your own classes and fee structure." }, { title: "Set up", text: "We help import your data and configure the system." }, { title: "Support", text: "Training for staff and a team you can reach afterwards." }]} />
       </Block>
       <FinalCta />

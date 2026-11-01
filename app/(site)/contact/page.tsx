@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
-import { FaqList } from "@/components/marketing/faq-list";
 import { FinalCta } from "@/components/marketing/final-cta";
 import { Band } from "@/components/marketing/band";
 import { PageHero } from "@/components/marketing/page-hero";
@@ -61,9 +60,6 @@ export default function ContactPage() {
         </div>
       </Block>
 
-      <Block tone="paper" id="faq" eyebrow="Questions" title="Before you get in touch" align="left">
-        <div className="max-w-3xl"><FaqList /></div>
-      </Block>
       <FinalCta />
     </>
   );
