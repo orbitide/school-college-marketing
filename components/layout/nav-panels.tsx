@@ -128,13 +128,15 @@ export function SolutionsPanel() {
     <Shell
       leftTitle="By role"
       left={solutions.slice(0, 3).map((s, i) => <TileItem key={s.slug} href={`/solutions/${s.slug}`} icon={roleIcon[s.slug]} title={s.name} text={s.summary.split(",")[0].replace(/\.$/, "")} tone={i} />)}
-      middleTitle="Also for"
+      middleTitle="By institution"
       middle={
         <>
           <PlainItem href={`/solutions/${solutions[3].slug}`} icon={roleIcon.parents} title="Parents" text="Attendance, fees, results, messages" />
-          <PlainItem href="/solutions" icon={Briefcase} title="All solutions" text="One view for every role" />
-          <PlainItem href="/resources/enterprise" icon={LineChart} title="Multi-branch groups" text="Compare every campus" />
-          <PlainItem href="/features" icon={ClipboardList} title="Every feature" text="The full product map" />
+          <PlainItem href="/institutions/schools" icon={GraduationCap} title="Schools" text="Classes, exams and fees" />
+          <PlainItem href="/institutions/colleges" icon={BookOpenCheck} title="Colleges" text="Admissions and results" />
+          <PlainItem href="/institutions/multi-branch-groups" icon={LineChart} title="Multi-branch groups" text="Compare every campus" />
+          <PlainItem href="/institutions" icon={Briefcase} title="All institution types" text="Kindergartens to coaching centres" />
+          <PlainItem href="/solutions" icon={ClipboardList} title="All solutions" text="One view for every role" />
         </>
       }
     />

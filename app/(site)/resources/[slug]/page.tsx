@@ -17,14 +17,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ResourcePage({ params }: Props) {
   const r = resourceBySlug((await params).slug);
   if (!r) notFound();
+  const others = resources.filter((x) => x.slug !== r.slug).slice(0, 3).map((x) => ({ title: x.name, text: x.summary, href: `/resources/${x.slug}`, cta: "Learn more" }));
+  const linked = r.related.map((l) => ({ title: l.label, text: "Related in the product", href: l.href, cta: "Open" }));
   return (
     <Landing
       label={`Resources · ${r.name}`}
       title={r.headline}
       intro={r.intro}
+      crumbs={[{ label: "Resources", href: "/resources" }, { label: r.name }]}
       points={r.points}
       visual={r.visual}
-      related={[...r.related, { label: "All resources", href: "/resources" }]}
+      benefits={r.benefits}
+      steps={r.steps}
+      related={[...linked, ...others].slice(0, 3)}
+      secondary="pricing"
     />
   );
 }

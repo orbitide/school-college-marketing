@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
+import { BellRing, Clock, ShieldCheck, Sparkles, Zap, Users, ArrowRight, type LucideIcon } from "lucide-react";
 import { FinalCta } from "@/components/marketing/final-cta";
 import { LiveActivityPreview, LiveDashboardPreview } from "@/components/marketing/live-preview";
-import { PageHero } from "@/components/marketing/page-hero";
+import { PageHero, type Crumb } from "@/components/marketing/page-hero";
+import { Block, CardGrid, CheckList, HeroActions, Steps, type Card } from "@/components/marketing/page-kit";
 import { AdmissionsPreview, AnalyticsPreview, AttendancePreview, BranchesPreview, FeesPreview, NoticesPreview, ReportsPreview, StaffPreview } from "@/components/marketing/previews";
-import { Button } from "@/components/ui/button";
-import { site } from "@/content/site";
 
 const visuals = {
   dashboard: <LiveDashboardPreview />,
@@ -20,63 +19,70 @@ const visuals = {
   tracking: <AdmissionsPreview />,
 } as const;
 
+export type VisualKey = keyof typeof visuals;
+const benefitIcons: LucideIcon[] = [Clock, Zap, ShieldCheck, Users, BellRing, Sparkles];
+
 export type LandingProps = {
   label: string;
   title: string;
   intro: string;
+  crumbs: Crumb[];
   points: string[];
-  visual: keyof typeof visuals;
-  cta?: { href: string; label: string };
-  related?: { label: string; href: string }[];
+  visual: VisualKey;
+  benefits?: readonly { title: string; text: string }[];
+  steps?: readonly { title: string; text: string }[];
+  benefitsEyebrow?: string;
+  benefitsTitle?: string;
+  stepsEyebrow?: string;
+  stepsTitle?: string;
+  /** Extra band between "How it works" and the related links. */
+  extra?: React.ReactNode;
+  related?: Card[];
+  relatedTitle?: string;
+  secondary?: "trial" | "pricing" | "contact";
 };
 
-/** Shared layout for the Solutions and Resources pages. */
-export function Landing({ label, title, intro, points, visual, cta = { href: `${site.appUrl}/signup`, label: "Start free trial" }, related }: LandingProps) {
+/** Template for every detail page: hero with product visual, what you get, benefits, how it works, related links. */
+export function Landing({ label, title, intro, crumbs, points, visual, benefits, benefitsEyebrow = "Why it matters", benefitsTitle = "What changes for your team", steps, stepsEyebrow = "How it works", stepsTitle = "From setup to daily use", extra, related, relatedTitle = "Keep exploring", secondary }: LandingProps) {
   return (
     <>
-      <PageHero label={label} title={title} intro={intro} />
-      <section className="py-12 sm:py-16">
-        <div className="container-page grid items-start gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-14">
-          <div>
-            <h2 className="text-xl">What you get</h2>
-            <ul className="mt-4 space-y-3">
-              {points.map((p) => (
-                <li key={p} className="flex gap-3"><Check className="mt-1 size-4 shrink-0 text-primary" aria-hidden />{p}</li>
-              ))}
-            </ul>
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg"><Link href="/demo">Book a demo <ArrowRight /></Link></Button>
-              <Button asChild size="lg" variant="outline"><Link href={cta.href}>{cta.label}</Link></Button>
-            </div>
-            {related && related.length > 0 && (
-              <p className="mt-6 flex flex-wrap gap-x-5 gap-y-1 text-sm">
-                {related.map((r) => <Link key={r.href} href={r.href} className="font-semibold text-primary hover:underline">{r.label}</Link>)}
-              </p>
-            )}
-          </div>
-          <div className="min-w-0">{visuals[visual]}</div>
-        </div>
-      </section>
+      <PageHero label={label} title={title} intro={intro} crumbs={crumbs} actions={<HeroActions secondary={secondary} />} visual={visuals[visual]} />
+      <Block tone="surface" id="what-you-get" eyebrow="What you get" title="Built to handle the real work">
+        <CheckList items={points} />
+      </Block>
+      {benefits && (
+        <Block tone="paper" id="benefits" eyebrow={benefitsEyebrow} title={benefitsTitle}>
+          <CardGrid items={benefits.map((b, i) => ({ ...b, icon: benefitIcons[i % benefitIcons.length] }))} />
+        </Block>
+      )}
+      {steps && (
+        <Block tone={benefits ? "surface" : "paper"} id="how-it-works" eyebrow={stepsEyebrow} title={stepsTitle}>
+          <Steps steps={steps} />
+        </Block>
+      )}
+      {extra}
+      {related && related.length > 0 && (
+        <Block tone="paper" id="related" eyebrow="Related" title={relatedTitle}>
+          <CardGrid items={related.map((r) => ({ ...r, cta: r.cta ?? "Learn more" }))} />
+        </Block>
+      )}
       <FinalCta />
     </>
   );
 }
 
+/** Simple list of links to child pages. */
 export function IndexGrid({ items, basePath }: { items: { slug: string; name: string; summary: string }[]; basePath: string }) {
   return (
-    <section className="py-12 sm:py-16">
-      <div className="container-page">
-        <ul className="grid gap-4 sm:grid-cols-2">
-          {items.map((i) => (
-            <li key={i.slug}>
-              <Link href={`${basePath}/${i.slug}`} className="panel group flex h-full items-start justify-between gap-4 p-5 transition-colors hover:border-primary">
-                <span><span className="block text-lg font-semibold">{i.name}</span><span className="mt-1 block text-muted-foreground">{i.summary}</span></span>
-                <ArrowRight className="mt-1.5 size-4 shrink-0 text-primary transition-transform group-hover:translate-x-0.5" aria-hidden />
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
+    <ul className="grid gap-4 sm:grid-cols-2">
+      {items.map((i) => (
+        <li key={i.slug}>
+          <Link href={`${basePath}/${i.slug}`} className="card group flex h-full items-start justify-between gap-4 p-5 transition-colors hover:border-primary">
+            <span><span className="block text-lg font-semibold">{i.name}</span><span className="mt-1 block text-muted-foreground">{i.summary}</span></span>
+            <ArrowRight className="mt-1.5 size-4 shrink-0 text-primary transition-transform group-hover:translate-x-0.5" aria-hidden />
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 }

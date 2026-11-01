@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/layout/wordmark";
+import { institutions } from "@/content/institutions";
 import { groupHref, moduleGroups } from "@/content/modules";
 import { resources } from "@/content/resources";
 import { site, social } from "@/content/site";
@@ -9,17 +10,22 @@ type L = { href: string; label: string; external?: boolean };
 const product: L[] = [
   { href: "/features", label: "Features" },
   { href: "/solutions", label: "Solutions" },
+  { href: "/integrations", label: "Integrations" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/demo", label: "Book a demo" },
   { href: `${site.appUrl}/signup`, label: "Start free trial", external: true },
   { href: `${site.appUrl}/login`, label: "Sign in", external: true },
-  { href: "/contact", label: "Contact us" },
 ];
 const features: L[] = moduleGroups.map((g) => ({ href: groupHref(g.title), label: g.title }));
-const institutions: L[] = ["Kindergartens", "Schools", "Colleges", "Madrasas", "Coaching centres", "Multi-branch groups"].map((label) => ({ href: "/#institution-types", label }));
+const institutionLinks: L[] = [...institutions.map((i) => ({ href: `/institutions/${i.slug}`, label: i.name })), { href: "/institutions", label: "All institutions" }];
 const resourceLinks: L[] = [...resources.map((r) => ({ href: `/resources/${r.slug}`, label: r.name })), { href: "/resources", label: "All resources" }];
+const company: L[] = [
+  { href: "/about", label: "About us" },
+  { href: "/contact", label: "Contact" },
+  { href: "/demo", label: "Book a demo" },
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/terms", label: "Terms of Service" },
+];
 const legal: L[] = [
-  { href: "/about", label: "About" },
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms of Service" },
 ];
@@ -55,7 +61,7 @@ export function Footer() {
   const active = socials.filter((s) => social[s.key]);
   return (
     <footer className="on-dark bg-primary-dark text-white">
-      <div className="container-page grid gap-12 py-14 lg:grid-cols-[1.1fr_2fr] lg:gap-16">
+      <div className="container-page grid gap-12 py-14 lg:grid-cols-[1fr_3fr] lg:gap-12">
         <div>
           <Wordmark className="text-white" markClassName="bg-white/15 text-white" />
           <p className="mt-3 max-w-xs text-white/75">{site.tagline}</p>
@@ -70,10 +76,11 @@ export function Footer() {
             </ul>
           )}
         </div>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3 xl:grid-cols-5">
           <Column title="Product" items={product} />
           <Column title="Features" items={features} />
-          <Column title="Institutions" items={institutions} />
+          <Column title="Institutions" items={institutionLinks} />
+          <Column title="Company" items={company} />
           <Column title="Resources" items={resourceLinks} />
         </div>
       </div>
