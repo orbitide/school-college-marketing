@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -9,7 +11,27 @@ import { cn } from "@/lib/utils";
  * Opens on hover (mouse only) or click; click, Enter/Space and tap toggle; Escape closes and restores focus;
  * focus leaving, an outside click or choosing a link closes it.
  */
-export function NavMenu({ label, children }: { label: string; children: React.ReactNode }) {
+/** True when `pathname` is `href` or a page below it. */
+export const isActive = (pathname: string, href: string) => pathname === href || pathname.startsWith(`${href}/`);
+
+/** Plain header link that marks the current page. */
+export function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  const active = isActive(usePathname(), href);
+  return (
+    <li className="flex h-full items-center">
+      <Link
+        href={href}
+        aria-current={active ? "page" : undefined}
+        className={cn("rounded-md px-3 py-2 text-sm font-medium outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring", active ? "bg-primary-soft text-primary" : "text-muted-foreground")}
+      >
+        {children}
+      </Link>
+    </li>
+  );
+}
+
+export function NavMenu({ label, href, children }: { label: string; href: string; children: React.ReactNode }) {
+  const current = isActive(usePathname(), href);
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLLIElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -56,7 +78,7 @@ export function NavMenu({ label, children }: { label: string; children: React.Re
         onClick={() => { if (pointer.current === "mouse") setOpen(true); else setOpen((v) => !v); pointer.current = ""; }}
         className={cn(
           "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring",
-          open ? "bg-muted text-foreground" : "text-muted-foreground",
+          open ? "bg-muted text-foreground" : current ? "bg-primary-soft text-primary" : "text-muted-foreground",
         )}
       >
         {label}
