@@ -31,7 +31,7 @@ export function AdmissionsVisual() {
 
   return (
     <figure>
-      <div className="relative rounded-[1.75rem] bg-[linear-gradient(135deg,#eef0fb,#e6f1f3)] p-4 pb-32 ring-1 ring-white/70 sm:p-7 sm:pb-28">
+      <div className="relative visual-frame p-4 pb-32 sm:p-6 sm:pb-28">
         <div className="rounded-xl bg-surface p-4 shadow-sm ring-1 ring-black/5">
           <div className="flex items-center justify-between">
             <p className="text-base font-bold">Admissions</p>
@@ -68,7 +68,7 @@ export function AdmissionsVisual() {
                 <button
                   type="button"
                   onClick={() => { actions.setStage(next.id, "Approved"); toast(`${next.applicant} approved. The family has been notified (demo)`); }}
-                  className="rounded-full bg-gradient-to-r from-primary to-[#2b7a8c] px-4 py-1.5 text-xs font-semibold text-white shadow-sm outline-none transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground shadow-sm outline-none transition-colors hover:bg-primary-dark focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
                   Approve
                 </button>

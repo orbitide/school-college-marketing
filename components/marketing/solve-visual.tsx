@@ -37,7 +37,7 @@ export function SolveVisual() {
 
   return (
     <figure>
-      <div className="rounded-[1.75rem] bg-white/50 p-4 ring-1 ring-white/70 sm:p-6">
+      <div className="visual-frame p-4 sm:p-6">
         <div className="grid gap-3 sm:grid-cols-[1fr_auto_11.5rem] sm:items-center">
           <div className={card}>
             <div className="flex items-center justify-between text-xs"><p className="font-semibold">Attendance report</p><p className="rounded-md border px-2 py-0.5 text-muted-foreground">Today, {institution.today.split(",")[1].trim().slice(0, 6)}</p></div>

@@ -1,4 +1,5 @@
-import { GraduationCap } from "lucide-react";
+import { Check, GraduationCap } from "lucide-react";
+import { Band, SectionHeader } from "@/components/marketing/band";
 import { attendanceTrend } from "@/content/product/data";
 import { proof } from "@/content/proof";
 import { site } from "@/content/site";
@@ -30,7 +31,7 @@ function Bars() {
   const data = attendanceTrend.slice(-12);
   const min = Math.min(...data) - 2, max = Math.max(...data);
   return (
-    <figure className="rounded-2xl bg-white/70 p-5 sm:p-6">
+    <figure className="visual-frame p-5 sm:p-6">
       <div className="flex h-44 items-end gap-2 sm:h-52 sm:gap-3" role="img" aria-label="Attendance rate over the last 12 school days, sample institution">
         {data.map((v, i) => (
           <span key={i} className="flex-1 rounded-t-md" style={{ height: `${20 + ((v - min) / (max - min)) * 80}%`, background: `color-mix(in srgb, var(--primary) ${25 + (i / (data.length - 1)) * 75}%, #cfe0f7)` }} />
@@ -44,41 +45,39 @@ function Bars() {
 export function WhyChoose() {
   const q = proof.quote;
   return (
-    <section aria-labelledby="why-title" className="py-16 sm:py-24">
-      <div className="container-page">
-        <h2 id="why-title" className="text-center text-2xl font-bold text-primary sm:text-3xl">Why choose {site.name}?</h2>
+    <Band tone="paper" labelledBy="why-title">
+      <SectionHeader id="why-title" eyebrow="Why choose us" title={`Why choose ${site.name}?`} />
 
-        <div className="mt-8 grid items-center gap-8 rounded-[2rem] border border-white bg-gradient-to-br from-[#e3f3ee] via-[#eef4f6] to-[#fbf3df] p-6 shadow-sm sm:p-10 md:grid-cols-[auto_1fr] md:gap-14">
-          <div className="flex justify-center"><Badge /></div>
-          <div>
-            <p className="text-3xl font-bold leading-tight tracking-tight sm:text-5xl">Built around how institutions here actually run</p>
-            <p className="mt-5 text-lg text-foreground/80">Especially built for:</p>
-            <ul className="mt-2 space-y-1 text-lg font-medium sm:text-xl">
-              {focus.map((f) => <li key={f}>{f}</li>)}
-            </ul>
-          </div>
+      <div className="card mt-12 grid items-center gap-8 p-6 sm:p-10 md:grid-cols-[auto_1fr] md:gap-14">
+        <div className="flex justify-center"><Badge /></div>
+        <div>
+          <p className="text-2xl font-bold leading-tight tracking-tight sm:text-4xl">Built around how institutions here actually run</p>
+          <p className="mt-5 text-lg text-foreground/80">Especially built for:</p>
+          <ul className="mt-3 space-y-2 text-lg font-medium">
+            {focus.map((f) => <li key={f} className="flex items-center gap-3"><Check className="size-5 shrink-0 text-primary" strokeWidth={3} aria-hidden />{f}</li>)}
+          </ul>
         </div>
+      </div>
 
-        <div className="relative mt-8 overflow-hidden rounded-[2rem] border border-white bg-gradient-to-br from-[#fdf4e1] via-[#f2f2f7] to-[#e6ecfa] p-6 shadow-sm sm:p-10">
-          <span aria-hidden className="pointer-events-none absolute -right-2 -top-8 select-none font-serif text-[11rem] font-bold leading-none text-primary/15 sm:text-[14rem]">&rdquo;</span>
-          <div className="relative grid items-center gap-10 lg:grid-cols-[1fr_1fr]">
-            <div>
-              <p className="text-6xl font-bold tracking-tight sm:text-7xl">{proof.stat.value}</p>
-              <p className="mt-2 text-muted-foreground">{proof.stat.label}</p>
-              <figure className="mt-8">
+      <div className="card relative mt-6 overflow-hidden p-6 sm:p-10">
+        <span aria-hidden className="pointer-events-none absolute -right-2 -top-8 select-none font-serif text-[11rem] font-bold leading-none text-primary/10 sm:text-[14rem]">&rdquo;</span>
+        <div className="relative grid items-center gap-10 lg:grid-cols-2">
+          <div>
+            <p className="text-6xl font-bold tracking-tight sm:text-7xl">{proof.stat.value}</p>
+            <p className="mt-2 text-muted-foreground">{proof.stat.label}</p>
+            <figure className="mt-8">
               <blockquote className="text-2xl font-medium leading-snug sm:text-3xl">
                 &ldquo;{q.before}<span className="text-primary">{q.highlight}</span>{q.after}&rdquo;
               </blockquote>
               <figcaption className="mt-6 flex items-center gap-3">
-                <span aria-hidden className="flex size-12 items-center justify-center rounded-full bg-primary-soft text-sm font-semibold text-primary ring-2 ring-white">NN</span>
+                <span aria-hidden className="flex size-12 items-center justify-center rounded-full bg-primary-soft text-sm font-semibold text-primary">NN</span>
                 <span><span className="block font-semibold">{q.author}</span><span className="text-sm text-muted-foreground">{q.role}</span></span>
               </figcaption>
-              </figure>
-            </div>
-            <Bars />
+            </figure>
           </div>
+          <Bars />
         </div>
       </div>
-    </section>
+    </Band>
   );
 }

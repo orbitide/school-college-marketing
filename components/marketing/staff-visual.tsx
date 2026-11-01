@@ -32,7 +32,7 @@ export function StaffVisual() {
 
   return (
     <figure>
-      <div className="relative rounded-[1.75rem] bg-white/50 p-4 pb-4 ring-1 ring-white/70 sm:p-6">
+      <div className="relative visual-frame p-4 sm:p-6">
         <div className={cn(card, "grid gap-4 p-4 sm:grid-cols-[1.25fr_1fr]")}>
           <div>
             <p className="text-sm font-semibold">My classes</p>
