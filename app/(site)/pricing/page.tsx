@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check, Minus, Headphones, GraduationCap, Smartphone, ShieldCheck } from "lucide-react";
 import { Band } from "@/components/marketing/band";
-import { FaqList } from "@/components/marketing/faq-list";
+import { Plus } from "lucide-react";
 import { FinalCta } from "@/components/marketing/final-cta";
 import { PageHero } from "@/components/marketing/page-hero";
 import { Block, CardGrid } from "@/components/marketing/page-kit";
 import { Button } from "@/components/ui/button";
-import { plans } from "@/content/pricing";
+import { plans, pricingFaqs } from "@/content/pricing";
 import { site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
@@ -116,8 +116,15 @@ export default function PricingPage() {
         </div>
       </Band>
 
-      <Block tone="surface" id="faq" eyebrow="Questions" title="Common questions" align="left">
-        <div className="max-w-3xl"><FaqList /></div>
+      <Block tone="surface" id="faq" eyebrow="Pricing questions" title="About plans and billing" align="left">
+        <div className="max-w-3xl divide-y rounded-xl border bg-surface">
+          {pricingFaqs.map((f) => (
+            <details key={f.q} className="group px-5">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-4 font-medium [&::-webkit-details-marker]:hidden">{f.q}<Plus className="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-45" aria-hidden /></summary>
+              <p className="max-w-prose pb-5 text-muted-foreground">{f.a}</p>
+            </details>
+          ))}
+        </div>
       </Block>
       <FinalCta />
     </>
