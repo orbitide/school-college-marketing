@@ -63,7 +63,7 @@ export function Footer() {
     <footer className="on-dark bg-primary-dark text-white">
       <div className="container-page grid gap-12 py-14 lg:grid-cols-[1fr_3fr] lg:gap-12">
         <div>
-          <Wordmark className="text-white" markClassName="bg-white/15 text-white" />
+          <Wordmark onDark />
           <p className="mt-3 max-w-xs text-white/75">{site.tagline}</p>
           <p className="mt-6 text-sm font-semibold uppercase tracking-wide text-white/60">Sales</p>
           <p className="mt-1 text-lg font-semibold">{site.phone}</p>
